@@ -1,1 +1,222 @@
-<p>contribuyentes works!</p>
+<div class="container">
+  <div
+    class="form-inline my-2 my-lg-0 align-items-center justify-content-between"
+  >
+    <div
+      class="btn-group"
+      role="group"
+      aria-label="Basic radio toggle button group"
+    >
+      <input
+        type="radio"
+        (click)="tipoContribuyente(true)"
+        class="btn-check"
+        name="btnradio"
+        id="btnradio1"
+        autocomplete="off"
+        checked
+      />
+      <label class="btn btn-outline-primary" for="btnradio1"
+        >Personas Fisicas</label
+      >
+
+      <input
+        type="radio"
+        (click)="tipoContribuyente(false)"
+        class="btn-check"
+        name="btnradio"
+        id="btnradio2"
+        autocomplete="off"
+      />
+      <label class="btn btn-outline-primary" for="btnradio2"
+        >Personas Morales</label
+      >
+    </div>
+    <div>
+      <input
+        class="form-control mr-sm-2 busqueda text-center"
+        type="search"
+        placeholder="buscar contribuyente"
+        aria-label="Search"
+        name="term"
+      />
+      <button class="btn btn-outline-success" type="submit">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+    <div>
+      <button type="button" (click)="agregarContribuyente()" class="btn boton-principal">Agregar Contribuyente</button>
+    </div>
+  </div>
+  <div class="">
+    <br>
+  </div>
+  <div class="d-flex flex-row-reverse">
+
+    <div>
+      <span></span>
+      <a
+        href="{{
+          urlEndPoint
+        }}/api/reportes/listaContribuyenteFisica/exportarPDF"
+        class="btn btn-danger btn-sm ml-auto"
+        ><i class="bi bi-printer"></i>Descargar lista</a
+      >
+    </div>
+  </div>
+  <ng-container *ngIf="banderaTipo; else blockMoral">
+    <div class="table-wrapper">
+      <table class="table table-bordered table-striped tabla-estilo">
+        <thead class="cabecera text-white">
+          <tr>
+            <th>RMC</th>
+            <th>CURP</th>
+            <th>Nombre</th>
+            <th>Direccion</th>
+            <th
+              class="text-center"
+              *ngIf="
+                authService.hasRole([
+                  'ROLE_ADMIN',
+                  'ROLE_PRESIDENTE',
+                  'ROLE_TESORERO'
+                ])
+              "
+            >
+              <i class="fas fa-pencil-alt"></i>
+            </th>
+            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+              <i class="fas fa-trash-alt"></i>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let contribuyente of contribuyentesFisicas">
+            <td class="">{{ contribuyente.rfc_contribuyente }}</td>
+            <td class="">{{ contribuyente.curp }}</td>
+            <td>
+              {{ contribuyente.nombre }} {{ contribuyente.apellido_p }}
+              {{ contribuyente.apellido_m }}
+            </td>
+            <td>
+              {{ contribuyente.calle }} {{ contribuyente.numero }}
+              {{ contribuyente.colonia }} {{ contribuyente.codigo_postal }}
+            </td>
+            <td
+              *ngIf="
+                authService.hasRole([
+                  'ROLE_ADMIN',
+                  'ROLE_PRESIDENTE',
+                  'ROLE_TESORERO'
+                ])
+              "
+            >
+              <button
+                type="button"
+                name="editar"
+                [routerLink]="[
+                  '/contribuyentes/contribuyenteF/form',
+                  contribuyente.rfc_contribuyente
+                ]"
+                class="btn btn-primary btn-sm"
+              >
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+            </td>
+            <td *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+              <button
+                type="button"
+                name="eliminar"
+                class="btn btn-danger btn-sm"
+                (click)="eliminarContribuyente(contribuyente)"
+              >
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="container">
+      <app-paginador-c-fisica
+        *ngIf="paginador"
+        [paginador]="paginador"
+      ></app-paginador-c-fisica>
+    </div>
+  </ng-container>
+  <ng-template #blockMoral>
+    <div class="table-wrapper">
+      <table class="table table-bordered table-striped tabla-estilo">
+        <thead class="cabecera text-white">
+          <tr>
+            <th>RMC</th>
+            <th>Razón social</th>
+            <th>Dirección</th>
+            <th
+              class="text-center"
+              *ngIf="
+                authService.hasRole([
+                  'ROLE_ADMIN',
+                  'ROLE_PRESIDENTE',
+                  'ROLE_TESORERO'
+                ])
+              "
+            >
+              <i class="fas fa-pencil-alt"></i>
+            </th>
+            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+              <i class="fas fa-trash-alt"></i>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let contribuyente of contribuyentesMorales">
+            <td>{{contribuyente.rfc_contribuyente}}</td>
+            <td>{{ contribuyente.razon_social }}</td>
+            <td>
+              {{ contribuyente.calle }} {{ contribuyente.numero }}
+              {{ contribuyente.colonia }} {{ contribuyente.codigo_postal }}
+            </td>
+            <td class="text-center"
+              *ngIf="
+                authService.hasRole([
+                  'ROLE_ADMIN',
+                  'ROLE_PRESIDENTE',
+                  'ROLE_TESORERO'
+                ])
+              "
+            >
+              <button
+                type="button"
+                name="editar"
+                [routerLink]="[
+                  '/contribuyentes/contribuyenteF/form',
+                  contribuyente.rfc_contribuyente
+                ]"
+                class="btn btn-primary btn-sm "
+              >
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+            </td>
+            <td class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+              <button
+                type="button"
+                name="eliminar"
+                class="btn btn-danger btn-sm"
+                (click)="eliminarContribuyenteM(contribuyente)"
+              >
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="container">
+      <app-paginador-c-moral
+        *ngIf="paginador"
+        [paginador]="paginador"
+      ></app-paginador-c-moral>
+    </div>
+  </ng-template>
+</div>

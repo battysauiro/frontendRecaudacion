@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../shared/modelo/usuarios/usuario';
+import { environment } from 'src/environments/environment'
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +33,6 @@ export class AuthService {
   }
 
   login(usuario:Usuario):Observable<any>{
-    const urlEndpoint='https://recaudacion-ingresos.herokuapp.com/oauth/token';
     const credenciales=btoa('AngularRecaudadionapp'+':'+'IDSadministracion');
     const httpHeaders= new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded',
     'Authorization':'Basic '+credenciales});
@@ -41,7 +41,7 @@ export class AuthService {
     params.set('username',usuario.username);
     params.set('password',usuario.password);
     console.log(params.toString());
-    return this.http.post<any>(urlEndpoint,params.toString(),{headers:httpHeaders});
+    return this.http.post<any>(environment.baseUrl+'/oauth/token',params.toString(),{headers:httpHeaders});
   }
 
   guardarUsuario(accessToken: string):void{

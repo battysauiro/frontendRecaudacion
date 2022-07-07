@@ -1,0 +1,26 @@
+<div class="main-container">
+  <div class="center">
+      <h1 class="tittle"> IDS ADMINISTRACION</h1>
+      <img class="logo" src="../../../assets/img/idslogo.PNG" alt="">
+      <form class="form-container">
+
+              <div class=" username">
+                  <input [(ngModel)]="usuario.username" type="text" class="user-input" name="username" id="username" placeholder="Correo" autofocus required>
+              </div>
+              <div class=" password">
+                  <input [(ngModel)]="usuario.password" type="password" class="user-input" name="password" id="password" placeholder="contraseña" required>
+              </div>
+          </form>
+
+          <button (click)='login()' type="submit">Ingresar</button>
+
+
+
+
+      <a routerLink="/sendEmail" class="link">olvido su contraseña?</a>
+  </div>
+</div>
+
+
+
+

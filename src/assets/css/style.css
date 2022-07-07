@@ -81,9 +81,10 @@ body {
   color: white;
 }
 .page .content .container{
-  margin: 30px;
+  /*margin: 30px;*/
+  margin-top: 1rem;
   background: #fff;
-  padding: 50px;
+  /*padding: 50px;*/
   line-height: 28px;
 }
 body.active .page .sidebar{
@@ -217,6 +218,51 @@ body.active .page .content{
 
 .navbar-icon-top .navbar-nav .nav-link > .fa > .badge {
   top: -10px;
+}
+
+/*estilo de las tablas*/
+.tabla-estilo{
+  border: 1px solid #0454a2;
+  border-bottom-left-radius: 10%;
+}
+
+.tabla-estilo .cabecera{
+  background-color: #0454a2;
+  border-color: red;
+}
+
+.tabla-estilo .cabecera tr{
+  border-radius: 50%;
+}
+
+.table-wrapper {
+  width: 100%;
+  height: 420px; /* Altura de ejemplo */
+  overflow: auto;
+}
+
+.table-wrapper table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table-wrapper table thead {
+  position: -webkit-sticky; /* Safari... */
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+.table-wrapper table thead th,
+.table-wrapper table tbody td {
+  border: 1px solid rgb(205, 210, 251);
+
+}
+
+/* botones*/
+.boton-principal{
+  background-color: #2b79c7;
+  color: white;
 }
 
 @media (min-width: 576px) {
