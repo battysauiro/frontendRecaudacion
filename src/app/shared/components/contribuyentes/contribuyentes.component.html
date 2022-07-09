@@ -45,7 +45,8 @@
       </button>
     </div>
     <div>
-      <button type="button" (click)="agregarContribuyente()" class="btn boton-principal">Agregar Contribuyente</button>
+      <button type="button" (click)="agregarContribuyente()" class="btn boton-principal"
+      data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Contribuyente</button>
     </div>
   </div>
   <div class="">
@@ -220,3 +221,109 @@
     </div>
   </ng-template>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Agregar Persona {{tipoPersona}}</h5>
+        <button type="button" class="btn-close" (click)="limpiarModal()" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="miContenedor">
+        <form class="row g-3 needs-validation" id="formContribuyente" novalidate >
+          <div class="col-md-4">
+            <label for="validationCustom01" class="form-label">CURP</label>
+            <input type="text" class="form-control" id="validationCustom01" name="curp" [(ngModel)]="curp" required>
+            <div class="valid-feedback">
+
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">RFC</label>
+            <input type="text" class="form-control" id="validationCustom02" name="rfc" [(ngModel)]="rfc" required>
+            <div class="valid-feedback">
+
+            </div>
+          </div>
+          <div class="col-md-4" *ngIf="banderaTipo">
+            <label for="validationCustomUsername" class="form-label">fecha de nacimiento</label>
+            <div class="input-group has-validation">
+              <input type="date" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" name="fechaNacimiento" [(ngModel)]="fechaNacimiento" required>
+              <div class="invalid-feedback">
+                Porfavor ingrese su fecha de nacimiento
+              </div>
+            </div>
+          </div>
+          <ng-container *ngIf="banderaTipo">
+            <div class="col-md-4">
+              <label for="validationNombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="validationNombre" name="nombre" [(ngModel)]="nombre" required>
+              <div class="invalid-feedback">
+                Este campo no debe de estar vacio
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="validationApellidoP" class="form-label">Apellido Paterno</label>
+              <input type="text" class="form-control" id="validationApellidoP" name="apellidoP" [(ngModel)]="apellidoP" required>
+              <div class="invalid-feedback">
+                Este campo no debe de estar vacio
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="validationApellidoM" class="form-label">Apellido Materno</label>
+              <input type="text" class="form-control" id="validationApellidoM" name="apellidoM" [(ngModel)]="apellidoM" required>
+              <div class="invalid-feedback">
+                Este campo no debe de estar vacio
+              </div>
+            </div>
+          </ng-container>
+          <div class="col-md-12" *ngIf="!banderaTipo">
+            <label for="validationRazon" class="form-label">Razon Social</label>
+            <input type="text" class="form-control" id="validationRazon" name="razonSocial" [(ngModel)]="razonSocial" required>
+            <div class="invalid-feedback">
+              Este campo no debe de estar vacio
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustom03" class="form-label">Calle</label>
+            <input type="text" class="form-control" id="validationCustom03" name="calle" [(ngModel)]="calle" required>
+            <div class="invalid-feedback">
+              Este campo no debe de estar vacio
+            </div>
+          </div>
+          <div class="col-md-2">
+            <label for="validationCustom04" class="form-label">Numero</label>
+            <input type="text" class="form-control" name="numero" [(ngModel)]="numero" id="validationCustom04" >
+
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label">Colonia</label>
+            <input type="text" class="form-control" id="validationCustom05" name="colonia" [(ngModel)]="colonia" required>
+            <div class="invalid-feedback">
+              Este campo no debe de estar vacio
+            </div>
+          </div>
+          <div class="col-md-2">
+            <label for="validationCustom06" class="form-label">C.P</label>
+            <input type="text" class="form-control" id="validationCustom06" name="cp" [(ngModel)]="cp" required>
+            <div class="invalid-feedback">
+              Este campo no debe de estar vacio
+            </div>
+          </div>
+
+          <div class="col-12">
+            <button class="btn btn-primary" (click)="mostrarDatos()" type="submit">Submit form</button>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+

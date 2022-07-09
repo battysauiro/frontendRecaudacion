@@ -19,6 +19,19 @@ export class ContribuyentesComponent implements OnInit {
   paginador: any;
   urlEndPoint: string = environment.baseUrl;
   banderaTipo: boolean = true;
+  tipoPersona: string = 'Fisica';
+  /*  Variables para agregar los contribuyentes  */
+  curp: string;
+  rfc: string;
+  nombre: string;
+  apellidoP: string;
+  apellidoM: string;
+  fechaNacimiento: string;
+  calle: string;
+  numero: string;
+  colonia: string;
+  cp: string;
+  razonSocial: string;
   constructor(
     public contribuyentesService: ContribuyentesService,
     public authService: AuthService,
@@ -35,8 +48,7 @@ export class ContribuyentesComponent implements OnInit {
         this.pagina = page;
         this.obtenerContribuyentesFisicas(page);
       });
-    }
-    else{
+    } else {
       this.activatedRoute.paramMap.subscribe((params) => {
         let page: number = +params.get('page');
         if (!page) {
@@ -48,21 +60,59 @@ export class ContribuyentesComponent implements OnInit {
     }
   }
 
+  mostrarDatos() {
+    console.log(this.curp);
+    console.log(this.rfc);
+    console.log(this.nombre);
+    console.log(this.apellidoP);
+    console.log(this.apellidoM);
+    console.log(this.fechaNacimiento);
+    console.log(this.calle);
+    console.log(this.numero);
+    console.log(this.colonia);
+    console.log(this.cp);
+    console.log(this.razonSocial);
+  }
   //cambiar el tipo de contribuyente
   tipoContribuyente(tipo: boolean) {
     if (tipo) {
-      this.banderaTipo=tipo;
+      this.banderaTipo = tipo;
+      this.tipoPersona = 'Fisica';
       this.obtenerContribuyentesFisicas(this.pagina);
     } else {
-      this.banderaTipo=tipo;
+      this.banderaTipo = tipo;
+      this.tipoPersona = 'Moral';
       this.obtenerContribuyentesM(this.pagina);
     }
   }
+  //limpiar el modal de agregar contribuyente
+  limpiarModal(){
+    var element = <HTMLFormElement> document.getElementById("formContribuyente");
+    element.reset();
+    var elementoDiv = <HTMLDivElement> document.getElementById("miContenedor");
+    var aux=element;
+    this.obtenerContribuyentesFisicas(this.pagina);
+    console.log(element);
+  }
   //agregar contribuyente dependiendo del tipo de contribuyente
-  agregarContribuyente(){
-    if(this.banderaTipo){
-
-    }
+  agregarContribuyente() {
+    var forms = document.querySelectorAll('.needs-validation');
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener(
+        'submit',
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }else{
+            console.log("todo bien ");
+          }
+          form.classList.add('was-validated');
+        },
+        false
+      );
+    });
   }
   //obteniendo contribuyenes fisicas
   public obtenerContribuyentesFisicas(pagina: number) {
@@ -100,33 +150,36 @@ export class ContribuyentesComponent implements OnInit {
   }
 
   /*------------------------contribuyentes morales-----------------*/
-  public obtenerContribuyentesM(pagina:number){
-    this.contribuyentesService.ObtenerListaContribuentesM(pagina).subscribe(
-      response=> {this.contribuyentesMorales=response.contenido as ContribuyenteMoral[];
-        this.paginador=response;
-      }
-    );
+  public obtenerContribuyentesM(pagina: number) {
+    this.contribuyentesService
+      .ObtenerListaContribuentesM(pagina)
+      .subscribe((response) => {
+        this.contribuyentesMorales = response.contenido as ContribuyenteMoral[];
+        this.paginador = response;
+      });
   }
 
-  eliminarContribuyenteM(contribuyenteM:ContribuyenteMoral){
+  eliminarContribuyenteM(contribuyenteM: ContribuyenteMoral) {
     swal({
       title: 'Estas seguro?',
       text: `¿Seguro que desea eliminar al contribuyente con razón social: ${contribuyenteM.rfc_contribuyente}?!`,
       type: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Si, eliminar!',
-      cancelButtonText: 'No, cancelar'
+      cancelButtonText: 'No, cancelar',
     }).then((result) => {
       if (result.value) {
-        this.contribuyentesService.deleteM(contribuyenteM.rfc_contribuyente).subscribe(response=>{
-        this.obtenerContribuyentesM(this.pagina);
-          swal(
-            'Contribuyente Eliminado!',
-            `Contribuyente ${contribuyenteM.razon_social}  eliminado con éxito`,
-            'success'
-          )
-        });
+        this.contribuyentesService
+          .deleteM(contribuyenteM.rfc_contribuyente)
+          .subscribe((response) => {
+            this.obtenerContribuyentesM(this.pagina);
+            swal(
+              'Contribuyente Eliminado!',
+              `Contribuyente ${contribuyenteM.razon_social}  eliminado con éxito`,
+              'success'
+            );
+          });
       }
-    })
+    });
   }
 }

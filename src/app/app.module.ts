@@ -11,6 +11,7 @@ import { PaginadorCFisicaComponent } from './shared/components/paginadores/pagin
 import { PaginadorCMoralComponent } from './shared/components/paginadores/paginadores-contribuyentes/paginador-c-moral/paginador-c-moral.component';
 import { SharedModule } from './shared/shared.module';
 import { LoginComponent } from './usuario-login/login/login.component';
+import { ModalContribuyenteComponent } from './modales/modal-contribuyente/modal-contribuyente.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { LoginComponent } from './usuario-login/login/login.component';
     ContribuyentesComponent,
     LoginComponent,
     PaginadorCFisicaComponent,
-    PaginadorCMoralComponent
+    PaginadorCMoralComponent,
+    ModalContribuyenteComponent
   ],
   imports: [
     AlertModule,
