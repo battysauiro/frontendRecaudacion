@@ -45,8 +45,8 @@
       </button>
     </div>
     <div>
-      <button type="button" (click)="agregarContribuyente()" class="btn boton-principal"
-      data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Contribuyente</button>
+      <button type="button"  class="btn boton-principal"
+      data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar persona {{tipoPersona}}</button>
     </div>
   </div>
   <div class="">
@@ -67,7 +67,10 @@
   </div>
   <ng-container *ngIf="banderaTipo; else blockMoral">
     <div class="table-wrapper">
-      <table class="table table-bordered table-striped tabla-estilo">
+      <div class="alert alert-info my-4 text-center" *ngIf="contribuyentesFisicas!= undefined && contribuyentesFisicas.length==0">
+        no hay ningun contribuyente agregado
+      </div>
+      <table class="table table-bordered table-striped tabla-estilo" *ngIf="contribuyentesFisicas!= undefined && contribuyentesFisicas.length>0">
         <thead class="cabecera text-white">
           <tr>
             <th>RMC</th>
@@ -115,11 +118,9 @@
               <button
                 type="button"
                 name="editar"
-                [routerLink]="[
-                  '/contribuyentes/contribuyenteF/form',
-                  contribuyente.rfc_contribuyente
-                ]"
+                data-bs-toggle="modal" data-bs-target="#exampleModal"
                 class="btn btn-primary btn-sm"
+                (click)="rellenarFormularioFisica(contribuyente)"
               >
                 <i class="fas fa-pencil-alt"></i>
               </button>
@@ -147,7 +148,10 @@
   </ng-container>
   <ng-template #blockMoral>
     <div class="table-wrapper">
-      <table class="table table-bordered table-striped tabla-estilo">
+      <div class="alert alert-info my-4 text-center" *ngIf="contribuyentesMorales!= undefined && contribuyentesMorales.length==0">
+        no hay ningun contribuyente agregado
+      </div>
+      <table class="table table-bordered table-striped tabla-estilo" *ngIf="contribuyentesMorales!= undefined && contribuyentesMorales.length>0">
         <thead class="cabecera text-white">
           <tr>
             <th>RMC</th>
@@ -189,12 +193,9 @@
             >
               <button
                 type="button"
-                name="editar"
-                [routerLink]="[
-                  '/contribuyentes/contribuyenteF/form',
-                  contribuyente.rfc_contribuyente
-                ]"
+                name="editar" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 class="btn btn-primary btn-sm "
+                (click)="rellenarFormularioMoral(contribuyente)"
               >
                 <i class="fas fa-pencil-alt"></i>
               </button>
@@ -224,6 +225,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- <app-alerts></app-alerts> -->
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -232,95 +234,120 @@
       </div>
       <div class="modal-body" id="miContenedor">
         <form class="row g-3 needs-validation" id="formContribuyente" novalidate >
-          <div class="col-md-4">
+          <div class="col-md-4 " *ngIf="banderaTipo" >
             <label for="validationCustom01" class="form-label">CURP</label>
-            <input type="text" class="form-control" id="validationCustom01" name="curp" [(ngModel)]="curp" required>
-            <div class="valid-feedback">
-
+            <input (keyup)="onKey($event)" type="text" [disabled]="banderaActualizar?true:false" [ngClass]="curpv.invalid && (curpv.dirty || curpv.touched)?'invalid-contorno':'form-controll'" id="validationCustom01" name="curp" [(ngModel)]="curp" #curpv="ngModel" required minlength="18" maxlength="18">
+            <div class="invalid-relleno" *ngIf="curpv.invalid && (curpv.dirty || curpv.touched)">
+              <div  *ngIf="curpv.errors.required">
+                La CURP es requerida
+              </div>
+              <div *ngIf="curpv.errors.minlength">
+                  la CURP debe tener 18 caracteres
+              </div>
             </div>
           </div>
           <div class="col-md-4">
             <label for="validationCustom02" class="form-label">RFC</label>
-            <input type="text" class="form-control" id="validationCustom02" name="rfc" [(ngModel)]="rfc" required>
-            <div class="valid-feedback">
-
-            </div>
+            <input (keyup)="onKey($event)" type="text" [disabled]="banderaActualizar?true:false" [ngClass]="rfcv.invalid && (rfcv.dirty || rfcv.touched)?'invalid-contorno':'form-controll'" id="validationCustom02" name="rfc" [(ngModel)]="rfc" required #rfcv="ngModel" minlength="13"  maxlength="13">
+            <div class="invalid-relleno" *ngIf="rfcv.invalid && (rfcv.dirty || rfcv.touched)">
+              <div *ngIf="rfcv.errors.required">
+                  El RFC es requerido
+              </div>
+              <div *ngIf="rfcv.errors.minlength">
+                  El RFC debe tener 13 caracteres
+              </div>
+          </div>
           </div>
           <div class="col-md-4" *ngIf="banderaTipo">
-            <label for="validationCustomUsername" class="form-label">fecha de nacimiento</label>
+            <label for="validationCustomUsernamee" class="form-label">fecha de nacimiento</label>
             <div class="input-group has-validation">
-              <input type="date" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" name="fechaNacimiento" [(ngModel)]="fechaNacimiento" required>
-              <div class="invalid-feedback">
-                Porfavor ingrese su fecha de nacimiento
+              <input type="date" [ngClass]="fechav.invalid && (fechav.dirty || fechav.touched)?'invalid-contorno':'form-controll'" id="validationCustomUsernamee"  name="fechaNacimientos" [(ngModel)]="fechaNacimiento"  required #fechav="ngModel">
+              <div class="invalid-relleno" *ngIf="fechav.invalid && (fechav.dirty || fechav.touched)">
+                <div *ngIf="fechav.errors.required">
+                  Porfavor ingrese la fecha de nacimiento
+                </div>
               </div>
             </div>
           </div>
           <ng-container *ngIf="banderaTipo">
             <div class="col-md-4">
               <label for="validationNombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="validationNombre" name="nombre" [(ngModel)]="nombre" required>
-              <div class="invalid-feedback">
-                Este campo no debe de estar vacio
+              <input (keyup)="onKey($event)" type="text" [ngClass]="nombrev.invalid && (nombrev.dirty || nombrev.touched)?'invalid-contorno':'form-controll'" id="validationNombre" name="nombre" [(ngModel)]="nombre" required #nombrev="ngModel">
+              <div class="invalid-relleno" *ngIf="nombrev.invalid && (nombrev.dirty || nombrev.touched)">
+                <div *ngIf="nombrev.errors.required">
+                    El Nombre es requerido
+                </div>
               </div>
             </div>
             <div class="col-md-4">
               <label for="validationApellidoP" class="form-label">Apellido Paterno</label>
-              <input type="text" class="form-control" id="validationApellidoP" name="apellidoP" [(ngModel)]="apellidoP" required>
-              <div class="invalid-feedback">
-                Este campo no debe de estar vacio
+              <input (keyup)="onKey($event)" type="text" [ngClass]="apellidopv.invalid && (apellidopv.dirty || apellidopv.touched)?'invalid-contorno':'form-controll'" id="validationApellidoP" name="apellidoP" [(ngModel)]="apellidoP" required #apellidopv="ngModel">
+              <div class="invalid-relleno" *ngIf="apellidopv.invalid && (apellidopv.dirty || apellidopv.touched)">
+                <div *ngIf="apellidopv.errors.required">
+                    El Apellido Paterno es requerido
+                </div>
               </div>
             </div>
             <div class="col-md-4">
               <label for="validationApellidoM" class="form-label">Apellido Materno</label>
-              <input type="text" class="form-control" id="validationApellidoM" name="apellidoM" [(ngModel)]="apellidoM" required>
-              <div class="invalid-feedback">
-                Este campo no debe de estar vacio
+              <input (keyup)="onKey($event)" type="text" [ngClass]="apellidomv.invalid && (apellidomv.dirty || apellidomv.touched)?'invalid-contorno':'form-controll'" id="validationApellidoM" name="apellidoM" [(ngModel)]="apellidoM" required #apellidomv="ngModel">
+              <div class="invalid-relleno" *ngIf="apellidomv.invalid && (apellidomv.dirty || apellidomv.touched)">
+                <div *ngIf="apellidomv.errors.required">
+                    El Apellido Materno es requerido
+                </div>
               </div>
             </div>
           </ng-container>
           <div class="col-md-12" *ngIf="!banderaTipo">
             <label for="validationRazon" class="form-label">Razon Social</label>
-            <input type="text" class="form-control" id="validationRazon" name="razonSocial" [(ngModel)]="razonSocial" required>
-            <div class="invalid-feedback">
-              Este campo no debe de estar vacio
+            <input (keyup)="onKey($event)" type="text" [ngClass]="razonsocialv.invalid && (razonsocialv.dirty || razonsocialv.touched)?'invalid-contorno':'form-controll'" id="validationRazon" name="razonSocial" [(ngModel)]="razonSocial" required #razonsocialv="ngModel">
+            <div class="invalid-relleno" *ngIf="razonsocialv.invalid && (razonsocialv.dirty || razonsocialv.touched)">
+              <div *ngIf="razonsocialv.errors.required">
+                  La Razon Social es requerida
+              </div>
             </div>
           </div>
           <div class="col-md-4">
             <label for="validationCustom03" class="form-label">Calle</label>
-            <input type="text" class="form-control" id="validationCustom03" name="calle" [(ngModel)]="calle" required>
-            <div class="invalid-feedback">
-              Este campo no debe de estar vacio
+            <input (keyup)="onKey($event)" type="text" [ngClass]="callev.invalid && (callev.dirty || callev.touched)?'invalid-contorno':'form-controll'" id="validationCustom03" name="calle" [(ngModel)]="calle" required #callev="ngModel">
+            <div class="invalid-relleno" *ngIf="callev.invalid && (callev.dirty || callev.touched)">
+              <div *ngIf="callev.errors.required">
+                  La Calle es requerida
+              </div>
             </div>
           </div>
           <div class="col-md-2">
             <label for="validationCustom04" class="form-label">Numero</label>
-            <input type="text" class="form-control" name="numero" [(ngModel)]="numero" id="validationCustom04" >
+            <input type="text" class="form-controll" name="numero" [(ngModel)]="numero" id="validationCustom04" >
 
           </div>
           <div class="col-md-4">
             <label for="validationCustom05" class="form-label">Colonia</label>
-            <input type="text" class="form-control" id="validationCustom05" name="colonia" [(ngModel)]="colonia" required>
-            <div class="invalid-feedback">
-              Este campo no debe de estar vacio
+            <input (keyup)="onKey($event)" type="text" [ngClass]="coloniav.invalid && (coloniav.dirty || coloniav.touched)?'invalid-contorno':'form-controll'" id="validationCustom05" name="colonia" [(ngModel)]="colonia" required #coloniav="ngModel">
+            <div class="invalid-relleno" *ngIf="coloniav.invalid && (coloniav.dirty || coloniav.touched)">
+              <div *ngIf="coloniav.errors.required">
+                  La Colonia es requerida
+              </div>
             </div>
           </div>
           <div class="col-md-2">
             <label for="validationCustom06" class="form-label">C.P</label>
-            <input type="text" class="form-control" id="validationCustom06" name="cp" [(ngModel)]="cp" required>
-            <div class="invalid-feedback">
-              Este campo no debe de estar vacio
+            <input type="text" [ngClass]="cpv.invalid && (cpv.dirty || cpv.touched)?'invalid-contorno':'form-controll'" id="validationCustom06" name="cp" [(ngModel)]="cp" required #cpv="ngModel">
+            <div class="invalid-relleno" *ngIf="cpv.invalid && (cpv.dirty || cpv.touched)">
+              <div *ngIf="cpv.errors.required">
+                  El c.p es requerido
+              </div>
             </div>
-          </div>
-
-          <div class="col-12">
-            <button class="btn btn-primary" (click)="mostrarDatos()" type="submit">Submit form</button>
           </div>
         </form>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="limpiarModal()">Cancelar</button>
+        <button type="button" [disabled]="vacio()" data-bs-dismiss="modal" class="btn btn-primary" (click)='insertarContribuyente()' *ngIf="!banderaActualizar else elseBlock">Añadir contribuyente</button>
+        <ng-template #elseBlock>
+          <button [disabled]="vacio()"  type="button" class="btn btn-primary" data-bs-dismiss="modal" type="submit"  (click)='actualizarContribuyente()' >Actualizar contribuyente</button>
+        </ng-template>
       </div>
     </div>
   </div>

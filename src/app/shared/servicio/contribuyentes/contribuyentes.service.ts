@@ -9,6 +9,7 @@ import { ContribuyenteFisica } from '../../modelo/contribuyentes/contribuyente-f
 import swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/usuario-login/auth.service';
+import { ContribuyenteMoral } from '../../modelo/contribuyentes/contribuyente-moral';
 
 @Injectable({
   providedIn: 'root',
@@ -48,7 +49,7 @@ export class ContribuyentesService {
           contribuyentesFisica.map((contribuyenteFisica) => {
             contribuyenteFisica.fecha = formatDate(
               contribuyenteFisica.fecha,
-              'dd-MM-yyyy',
+              'yyyy-MM-dd',
               'en-MX'
             );
             response.contenido = contribuyentesFisica;
@@ -61,6 +62,19 @@ export class ContribuyentesService {
           return throwError(e);
         })
       );
+  }
+
+  crearContribuyenteFisica(contribuyenteFisica:ContribuyenteFisica):Observable<ContribuyenteFisica>{
+    return this.httpClient.post<ContribuyenteFisica>(`${environment.baseUrl}/api/contribuyenteFisica`,contribuyenteFisica,{headers:this.agregarAuthorizationHeader()}).pipe(
+      catchError(e=>{
+        this.isNoAutorizado(e);
+        return throwError(e);
+      })
+    );
+  }
+
+  actualizarPersonaFisica(contribuyenteFisica:ContribuyenteFisica):Observable<ContribuyenteFisica>{
+    return this.httpClient.put<ContribuyenteFisica>(`${environment.baseUrl}/api/contribuyenteFisica/${contribuyenteFisica.rfc_contribuyente}`,contribuyenteFisica,{headers:this.agregarAuthorizationHeader()});
   }
 
   eliminarContribuyenteFisica(id: string): Observable<Object> {
@@ -77,6 +91,21 @@ export class ContribuyentesService {
           return response;
       })
     );
+  }
+
+  crearContribuyenteMoral(contribuyenteMoral:ContribuyenteMoral):Observable<ContribuyenteMoral>{
+    return this.httpClient.post<ContribuyenteMoral>(`${environment.baseUrl}/api/contribuyenteMoral`,contribuyenteMoral,{headers:this.agregarAuthorizationHeader()}).pipe(
+      catchError(e=>{
+        if(e.status==302){
+          this.alertService.error('LA PERSONA MORAL YA EXISTE', this.options);
+        }
+        return throwError(e);
+      })
+    );
+  }
+
+  actualizarPersonaMoral(contribuyenteMoral:ContribuyenteMoral):Observable<ContribuyenteMoral>{
+    return this.httpClient.put<ContribuyenteMoral>(`${environment.baseUrl}/api/contribuyenteMoral/${contribuyenteMoral.rfc_contribuyente}`,contribuyenteMoral,{headers:this.agregarAuthorizationHeader()});
   }
 
   deleteM(id:string):Observable<Object>{
