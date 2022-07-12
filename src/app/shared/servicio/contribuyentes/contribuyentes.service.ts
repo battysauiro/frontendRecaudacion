@@ -72,6 +72,29 @@ export class ContribuyentesService {
       })
     );
   }
+  //buscar por termino el contribuyente fisica
+  buscarTerminoFisica(pageNo: number,term:string):Observable<any>{
+    return this.httpClient.get(`${environment.baseUrl}/api/contribuyenteFisica/filtrar/${pageNo}/${term}`,{headers:this.agregarAuthorizationHeader()}).pipe(
+      map((response: any) => {
+        let contribuyentesFisica =
+          response.contenido as ContribuyenteFisica[];
+        contribuyentesFisica.map((contribuyenteFisica) => {
+          contribuyenteFisica.fecha = formatDate(
+            contribuyenteFisica.fecha,
+            'yyyy-MM-dd',
+            'en-MX'
+          );
+          response.contenido = contribuyentesFisica;
+        });
+        return response;
+      }),
+
+      catchError((e) => {
+        this.isNoAutorizado(e);
+        return throwError(e);
+      })
+    );
+  }
 
   actualizarPersonaFisica(contribuyenteFisica:ContribuyenteFisica):Observable<ContribuyenteFisica>{
     return this.httpClient.put<ContribuyenteFisica>(`${environment.baseUrl}/api/contribuyenteFisica/${contribuyenteFisica.rfc_contribuyente}`,contribuyenteFisica,{headers:this.agregarAuthorizationHeader()});
@@ -100,6 +123,14 @@ export class ContribuyentesService {
           this.alertService.error('LA PERSONA MORAL YA EXISTE', this.options);
         }
         return throwError(e);
+      })
+    );
+  }
+  //buscara contribuyentes morales por el termino
+  buscarTerminoMoral(pageNo: number,term:string):Observable<any>{
+    return this.httpClient.get(`${environment.baseUrl}/api/contribuyenteMoral/filtrar/${pageNo}/${term}`,{headers:this.agregarAuthorizationHeader()}).pipe(
+      map(response=>{
+          return response;
       })
     );
   }

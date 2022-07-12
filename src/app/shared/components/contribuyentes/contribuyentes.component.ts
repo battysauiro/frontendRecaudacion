@@ -25,6 +25,7 @@ export class ContribuyentesComponent implements OnInit {
   urlEndPoint: string = environment.baseUrl;
   banderaTipo: boolean = true;
   tipoPersona: string = 'Fisica';
+  termino='';
   /*  Variables para agregar los contribuyentes  */
   curp: string;
   rfc: string;
@@ -260,6 +261,35 @@ export class ContribuyentesComponent implements OnInit {
           'success'
         );
       });
+  }
+
+  public onSearh(){
+    if(this.termino==""){
+      if(this.banderaTipo){
+        this.obtenerContribuyentesFisicas(this.pagina);
+      }else{
+        this.obtenerContribuyentesM(this.pagina);
+      }
+
+    }else{
+      if(this.banderaTipo){
+      this.contribuyentesService
+      .buscarTerminoFisica(0,this.termino)
+      .subscribe(response => {
+        this.contribuyentesFisicas =response.contenido as ContribuyenteFisica[];
+        this.paginador = response;
+      });
+      }else{
+        this.contribuyentesService
+        .buscarTerminoMoral(0,this.termino)
+        .subscribe(response => {
+          this.contribuyentesMorales =response.contenido as ContribuyenteMoral[];
+          this.paginador = response;
+      });
+      }
+
+    }
+
   }
 
   public actualizarPersonaFisica():void{
