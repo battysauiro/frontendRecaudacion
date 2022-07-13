@@ -6,4 +6,5 @@ export class Contribucion {
     id_descripcion:number;
     descripcion:string;
     nivelContribucion:number;
+    nivelContribucionS:string;
 }

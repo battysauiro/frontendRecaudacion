@@ -12,6 +12,8 @@ import { PaginadorCMoralComponent } from './shared/components/paginadores/pagina
 import { SharedModule } from './shared/shared.module';
 import { LoginComponent } from './usuario-login/login/login.component';
 import { ModalContribuyenteComponent } from './modales/modal-contribuyente/modal-contribuyente.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -26,9 +28,9 @@ import { ModalContribuyenteComponent } from './modales/modal-contribuyente/modal
     AlertModule,
     SharedModule,
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
     FormsModule,
     ReactiveFormsModule,
   ],

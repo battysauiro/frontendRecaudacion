@@ -10,17 +10,23 @@ import { PaginadorCMoralComponent } from './components/paginadores/paginadores-c
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { ContribucionImpuestoComponent } from './components/contribuciones/contribucion-impuesto/contribucion-impuesto.component';
+import { ContribucionesComponent } from './components/contribuciones/contribuciones.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 @NgModule({
-  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent],
+  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSelectModule,
+    MatFormFieldModule,
+
   ],
   exports:[
     FormsModule,

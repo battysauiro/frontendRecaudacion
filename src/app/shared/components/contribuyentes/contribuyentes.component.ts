@@ -167,11 +167,11 @@ export class ContribuyentesComponent implements OnInit {
     if (tipo) {
       this.banderaTipo = tipo;
       this.tipoPersona = 'Fisica';
-      this.obtenerContribuyentesFisicas(this.pagina);
+      this.obtenerContribuyentesFisicas(0);
     } else {
       this.banderaTipo = tipo;
       this.tipoPersona = 'Moral';
-      this.obtenerContribuyentesM(this.pagina);
+      this.obtenerContribuyentesM(0);
     }
   }
 
