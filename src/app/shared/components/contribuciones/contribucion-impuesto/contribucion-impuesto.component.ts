@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ContribucionImpuestos } from 'src/app/shared/modelo/contribuciones/contribucion-impuestos';
 import { ContribucionImpuestoService } from 'src/app/shared/servicio/contribuciones/contribucion-impuesto.service';
 import { AuthService } from 'src/app/usuario-login/auth.service';
@@ -60,10 +60,10 @@ export class ContribucionImpuestoComponent implements OnInit {
     },
   ];
   constructor(
-
     public activatedRoute:ActivatedRoute,
     public authService:AuthService,
-    public contribucionImpuestoService:ContribucionImpuestoService) { }
+    public contribucionImpuestoService:ContribucionImpuestoService,
+    public router:Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params=>{
@@ -105,5 +105,32 @@ export class ContribucionImpuestoComponent implements OnInit {
         });
       }
     })
+  }
+
+  onChange(valor){
+    if(valor===1){
+      this.router.navigate(['/impuestos']);
+    }
+    if(valor===2){
+      this.router.navigate(['/derechosGeneral']);
+    }
+    if(valor===3){
+      this.router.navigate(['/derechosLicencia']);
+    }
+    if(valor===4){
+      this.router.navigate(['/multa']);
+    }
+    if(valor===5){
+      this.router.navigate(['/multaVehicular']);
+    }
+    if(valor===6){
+      this.router.navigate(['/multaEbriedad']);
+    }
+    if(valor===7){
+      this.router.navigate(['/otrosProductos']);
+    }
+    if(valor===undefined){
+      this.router.navigate(['/contribuciones']);
+    }
   }
 }

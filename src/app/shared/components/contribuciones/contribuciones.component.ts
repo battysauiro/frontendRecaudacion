@@ -91,6 +91,24 @@ export class ContribucionesComponent implements OnInit {
     if(valor===1){
       this.router.navigate(['/impuestos']);
     }
+    if(valor===2){
+      this.router.navigate(['/derechosGeneral']);
+    }
+    if(valor===3){
+      this.router.navigate(['/derechosLicencia']);
+    }
+    if(valor===4){
+      this.router.navigate(['/multa']);
+    }
+    if(valor===5){
+      this.router.navigate(['/multaVehicular']);
+    }
+    if(valor===6){
+      this.router.navigate(['/multaEbriedad']);
+    }
+    if(valor===7){
+      this.router.navigate(['/otrosProductos']);
+    }
   }
 
   eliminarContribucion(contribucion:Contribucion){
