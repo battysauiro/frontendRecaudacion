@@ -22,10 +22,16 @@ import { PaginadorContribucionMultasComponent } from './components/paginadores/p
 import { PaginadorContribucionMultasVehicularComponent } from './components/paginadores/paginadores-contribuciones/paginador-contribucion-multas-vehicular/paginador-contribucion-multas-vehicular.component';
 import { PaginadorContribucionMultasEbriedadComponent } from './components/paginadores/paginadores-contribuciones/paginador-contribucion-multas-ebriedad/paginador-contribucion-multas-ebriedad.component';
 import { PaginadorContribucionOtrosProductosComponent } from './components/paginadores/paginadores-contribuciones/paginador-contribucion-otros-productos/paginador-contribucion-otros-productos.component';
+import { ContribucionDerechoGComponent } from './components/contribuciones/contribucion-derecho-g/contribucion-derecho-g.component';
+import { ContribucionDerechosLicenciasComponent } from './components/contribuciones/contribucion-derechos-licencias/contribucion-derechos-licencias.component';
+import { ContribucionMultasComponent } from './components/contribuciones/contribucion-multas/contribucion-multas.component';
+import { ContribucionMultasVehicularComponent } from './components/contribuciones/contribucion-multas-vehicular/contribucion-multas-vehicular.component';
+import { ContribucionMultasEbriedadComponent } from './components/contribuciones/contribucion-multas-ebriedad/contribucion-multas-ebriedad.component';
+import { ContribucionOtrosProductosComponent } from './components/contribuciones/contribucion-otros-productos/contribucion-otros-productos.component';
 
 
 @NgModule({
-  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent, PaginadorContribucionesComponent, PaginadorImpuestosComponent, PaginadorContribucionDerechosGComponent, PaginadorContribucionDerechosLicenciasComponent, PaginadorContribucionMultasComponent, PaginadorContribucionMultasVehicularComponent, PaginadorContribucionMultasEbriedadComponent, PaginadorContribucionOtrosProductosComponent],
+  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent, PaginadorContribucionesComponent, PaginadorImpuestosComponent, PaginadorContribucionDerechosGComponent, PaginadorContribucionDerechosLicenciasComponent, PaginadorContribucionMultasComponent, PaginadorContribucionMultasVehicularComponent, PaginadorContribucionMultasEbriedadComponent, PaginadorContribucionOtrosProductosComponent, ContribucionDerechoGComponent, ContribucionDerechosLicenciasComponent, ContribucionMultasComponent, ContribucionMultasVehicularComponent, ContribucionMultasEbriedadComponent, ContribucionOtrosProductosComponent],
   imports: [
     CommonModule,
     HttpClientModule,
