@@ -1,4 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ContribucionImpuestos } from 'src/app/shared/modelo/contribuciones/contribucion-impuestos';
+import { ContribucionImpuestoService } from 'src/app/shared/servicio/contribuciones/contribucion-impuesto.service';
+import { AuthService } from 'src/app/usuario-login/auth.service';
+
+interface ContribucionInter {
+  value: number;
+  viewValue: string;
+}
+
+interface ContribucionGroup {
+  disabled?: boolean;
+  name: string;
+  contribucion: ContribucionInter[];
+}
 
 @Component({
   selector: 'app-contribucion-impuesto',
@@ -7,9 +23,64 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContribucionImpuestoComponent implements OnInit {
 
-  constructor() { }
+  paginador:any;
+  pagina: number = 0;
+  contribucionesImpuestos:ContribucionImpuestos[];
+  contribucionControl = new FormControl(false);
+  selected:number =1;
+  contribucionGroups: ContribucionGroup[]= [
+    {
+      name: 'Impuestos',
+      contribucion: [
+        {value: 1, viewValue: 'Impuestos'},
+      ],
+    },
+    {
+      name: 'Derechos',
+      contribucion: [
+        {value: 2, viewValue: 'Derechos Generales'},
+        {value: 3, viewValue: 'Licencias'},
+      ],
+    },
+    {
+      name: 'Aprovechamientos',
+      disabled: true,
+      contribucion: [
+        {value: 4, viewValue: 'Multas'},
+        {value: 5, viewValue: 'Vehicular'},
+        {value: 6, viewValue: 'Ebriedad'},
+      ],
+    },
+    {
+      name: 'Otros Productos',
+      contribucion: [
+        {value: 7, viewValue: 'Otros Productos'},
+      ],
+    },
+  ];
+  constructor(
+
+    public activatedRoute:ActivatedRoute,
+    public authService:AuthService,
+    public contribucionImpuestoService:ContribucionImpuestoService) { }
 
   ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe(params=>{
+      let page:number=+params.get('page');
+      if(!page){
+        page=0;
+      }
+      this.pagina=page;
+      this.obtenerContribucionesImpuestos(page);
+     }
+     );
   }
 
+  public obtenerContribucionesImpuestos(page:number){
+    this.contribucionImpuestoService.obtenerListaCImpuesto(page).subscribe(
+      response=> {this.contribucionesImpuestos= response.contenido as ContribucionImpuestos[];
+        this.paginador=response;
+      }
+    );
+  }
 }

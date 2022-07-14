@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContribucionesComponent } from './contribuciones.component';
+import { PaginadorImpuestosComponent } from './paginador-impuestos.component';
 
-describe('ContribucionesComponent', () => {
-  let component: ContribucionesComponent;
-  let fixture: ComponentFixture<ContribucionesComponent>;
+describe('PaginadorImpuestosComponent', () => {
+  let component: PaginadorImpuestosComponent;
+  let fixture: ComponentFixture<PaginadorImpuestosComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContribucionesComponent ]
+      declarations: [ PaginadorImpuestosComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ContribucionesComponent);
+    fixture = TestBed.createComponent(PaginadorImpuestosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

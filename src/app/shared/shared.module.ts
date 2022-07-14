@@ -14,10 +14,12 @@ import { ContribucionImpuestoComponent } from './components/contribuciones/contr
 import { ContribucionesComponent } from './components/contribuciones/contribuciones.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { PaginadorContribucionesComponent } from './components/paginadores/paginadores-contribuciones/paginador-contribuciones/paginador-contribuciones.component';
+import { PaginadorImpuestosComponent } from './components/paginadores/paginadores-contribuciones/paginador-impuestos/paginador-impuestos.component';
 
 
 @NgModule({
-  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent],
+  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent, PaginadorContribucionesComponent, PaginadorImpuestosComponent],
   imports: [
     CommonModule,
     HttpClientModule,
