@@ -16,10 +16,16 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { PaginadorContribucionesComponent } from './components/paginadores/paginadores-contribuciones/paginador-contribuciones/paginador-contribuciones.component';
 import { PaginadorImpuestosComponent } from './components/paginadores/paginadores-contribuciones/paginador-impuestos/paginador-impuestos.component';
+import { PaginadorContribucionDerechosGComponent } from './components/paginadores/paginadores-contribuciones/paginador-contribucion-derechos-g/paginador-contribucion-derechos-g.component';
+import { PaginadorContribucionDerechosLicenciasComponent } from './components/paginadores/paginadores-contribuciones/paginador-contribucion-derechos-licencias/paginador-contribucion-derechos-licencias.component';
+import { PaginadorContribucionMultasComponent } from './components/paginadores/paginadores-contribuciones/paginador-contribucion-multas/paginador-contribucion-multas.component';
+import { PaginadorContribucionMultasVehicularComponent } from './components/paginadores/paginadores-contribuciones/paginador-contribucion-multas-vehicular/paginador-contribucion-multas-vehicular.component';
+import { PaginadorContribucionMultasEbriedadComponent } from './components/paginadores/paginadores-contribuciones/paginador-contribucion-multas-ebriedad/paginador-contribucion-multas-ebriedad.component';
+import { PaginadorContribucionOtrosProductosComponent } from './components/paginadores/paginadores-contribuciones/paginador-contribucion-otros-productos/paginador-contribucion-otros-productos.component';
 
 
 @NgModule({
-  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent, PaginadorContribucionesComponent, PaginadorImpuestosComponent],
+  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent, PaginadorContribucionesComponent, PaginadorImpuestosComponent, PaginadorContribucionDerechosGComponent, PaginadorContribucionDerechosLicenciasComponent, PaginadorContribucionMultasComponent, PaginadorContribucionMultasVehicularComponent, PaginadorContribucionMultasEbriedadComponent, PaginadorContribucionOtrosProductosComponent],
   imports: [
     CommonModule,
     HttpClientModule,

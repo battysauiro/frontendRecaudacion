@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ContribucionImpuestos } from 'src/app/shared/modelo/contribuciones/contribucion-impuestos';
 import { ContribucionImpuestoService } from 'src/app/shared/servicio/contribuciones/contribucion-impuesto.service';
 import { AuthService } from 'src/app/usuario-login/auth.service';
+import swal from 'sweetalert2';
 
 interface ContribucionInter {
   value: number;
@@ -82,5 +83,27 @@ export class ContribucionImpuestoComponent implements OnInit {
         this.paginador=response;
       }
     );
+  }
+
+  eliminarContribucionImpuestos(contribucion:ContribucionImpuestos){
+    swal({
+      title: 'Estas seguro?',
+      text: `¿Seguro que desea eliminar la contribucion  ${contribucion.codigo_contribucion}?!`,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.contribucionImpuestoService.eliminarCImpuesto(contribucion.codigo_contribucion).subscribe(response=>{
+        this.obtenerContribucionesImpuestos(this.pagina);
+          swal(
+            'Contribucion Eliminada!',
+            `Contribucion ${contribucion.codigo_contribucion} eliminada con éxito`,
+            'success'
+          )
+        });
+      }
+    })
   }
 }
