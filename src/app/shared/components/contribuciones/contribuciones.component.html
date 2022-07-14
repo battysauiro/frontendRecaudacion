@@ -80,7 +80,7 @@
                 type="button"
                 name="eliminar"
                 class="btn btn-danger btn-sm"
-
+                (click)='eliminarContribucion(contribucion)'
               >
                 <i class="fas fa-trash-alt"></i>
               </button>
@@ -94,88 +94,6 @@
       *ngIf="paginador"
       [paginador]="paginador"
     ></app-paginador-contribuciones>
-  </div>
-</ng-container>
-<ng-container *ngIf=" selected===1">
-  <div class="table-wrapper">
-    <div class="alert alert-info my-4 text-center" *ngIf="contribucionesImpuestos!= undefined && contribucionesImpuestos.length==0">
-      no hay ninguna contribucion agregada
-    </div>
-      <table class="table table-bordered table-striped tabla-estilo" *ngIf="contribucionesImpuestos!= undefined && contribucionesImpuestos.length>0">
-        <thead class="cabecera text-white">
-          <tr>
-            <th>Codigo</th>
-            <th>Descripcion</th>
-            <th>Tipo</th>
-            <th>Detalles</th>
-            <th
-              class="text-center"
-              *ngIf="
-                authService.hasRole([
-                  'ROLE_ADMIN',
-                  'ROLE_PRESIDENTE',
-                  'ROLE_TESORERO'
-                ])
-              "
-            >
-              <i class="fas fa-pencil-alt"></i>
-            </th>
-            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN'])">
-              <i class="fas fa-trash-alt"></i>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let contribucion of contribucionesImpuestos">
-            <td>{{ contribucion.codigo_contribucion}}</td>
-            <td>{{contribucion.descripcion}} {{ contribucion.concepto_contribucion}}</td>
-            <td>{{ contribucion.nivelContribucionS}} </td>
-            <td>
-              <button
-                type="button"
-                name="detalles"
-                class="btn btn-primary btn-sm"
-              >detalles
-              </button>
-            </td>
-            <td
-              *ngIf="
-                authService.hasRole([
-                  'ROLE_ADMIN',
-                  'ROLE_PRESIDENTE',
-                  'ROLE_TESORERO'
-                ])
-              "
-            >
-              <button
-                type="button"
-                name="editar"
-
-                class="btn btn-primary btn-sm"
-
-              >
-                <i class="fas fa-pencil-alt"></i>
-              </button>
-            </td>
-            <td *ngIf="authService.hasRole(['ROLE_ADMIN'])">
-              <button
-                type="button"
-                name="eliminar"
-                class="btn btn-danger btn-sm"
-
-              >
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-  </div>
-  <div class="container">
-    <app-paginador-impuestos
-      *ngIf="paginador"
-      [paginador]="paginador"
-    ></app-paginador-impuestos>
   </div>
 </ng-container>
 </div>

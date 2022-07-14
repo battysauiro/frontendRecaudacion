@@ -28,5 +28,9 @@ export class ContribucionesService {
         map((response:any)=>{
           return response
         }))
-      }
+  }
+
+  eliminarContribucion(id:string):Observable<Object>{
+    return this.httpClient.delete(`${environment.baseUrl}/api/contribucion/${id}`,{headers:this.agregarAuthorizationHeader()});
+  }
 }

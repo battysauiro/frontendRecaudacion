@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/usuario-login/auth.service';
 import { Contribucion } from '../../modelo/contribuciones/contribucion';
 import { ContribucionImpuestos } from '../../modelo/contribuciones/contribucion-impuestos';
-import { ContribucionImpuestoService } from '../../servicio/contribuciones/contribucion-impuesto.service';
 import { ContribucionesService } from '../../servicio/contribuciones/contribuciones.service';
+import swal from 'sweetalert2';
 
 interface ContribucionInter {
   value: number;
@@ -27,11 +27,8 @@ export class ContribucionesComponent implements OnInit {
   paginador:any;
   pagina: number = 0;
   contribuciones:Contribucion[];
-  contribucionesImpuestos:ContribucionImpuestos[];
   contribucionControl = new FormControl(false);
   selected:number = 0;
-  seleccionado:number=0;
-  prueba;
 
   contribucionGroups: ContribucionGroup[]= [
     {
@@ -94,6 +91,28 @@ export class ContribucionesComponent implements OnInit {
     if(valor===1){
       this.router.navigate(['/impuestos']);
     }
+  }
+
+  eliminarContribucion(contribucion:Contribucion){
+    swal({
+      title: 'Estas seguro?',
+      text: `¿Seguro que desea eliminar la contribucion  ${contribucion.codigo_contribucion}?!`,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.contribucionService.eliminarContribucion(contribucion.codigo_contribucion).subscribe(response=>{
+        this.obtenerContribuciones(this.pagina);
+          swal(
+            'Contribucion Eliminada!',
+            `Contribucion ${contribucion.codigo_contribucion} eliminada con éxito`,
+            'success'
+          )
+        });
+      }
+    })
   }
 
 }
