@@ -34,12 +34,12 @@
                         <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Cantidad<span class="text-danger"> *</span></label> <input type="number"  name="cantidad" placeholder="cantidad" [(ngModel)]="contribucionImpuesto.cantidad"> </div>
                     </div>
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><span class="text-danger"> </span></label><button #buttonCrear [disabled]="vacio()" [ngClass]="buttonCrear.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='crearImpuesto()' *ngIf="!idFound else elseBlock">Agregar</button> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><span class="text-danger"> </span></label><button #buttonCrear [disabled]="vacioImpuesto()" [ngClass]="buttonCrear.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='crearImpuesto()' *ngIf="!idFound else elseBlock">Agregar</button> </div>
                         <div class="form-group col-sm-4 flex-column d-flex">
                             <button type="button" class="btn-block btn-danger" (click)='irImpuestos()'  >Cancelar</button>
                         </div>
                         <ng-template #elseBlock>
-                            <button #buttonUpdate [disabled]="vacio()" [ngClass]="buttonUpdate.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='actualizarImpuesto()' >Actualizar</button>
+                            <button #buttonUpdate [disabled]="vacioImpuesto()" [ngClass]="buttonUpdate.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='actualizarImpuesto()' >Actualizar</button>
                         </ng-template>
                     </div>
                 </form>
@@ -48,21 +48,126 @@
     </div>
   </div>
 </ng-container>
-<ng-container *ngIf="tipoContribucion===2">
+<ng-container *ngIf="tipoContribucion==2">
+  <div class="container-fluid  mx-auto">
+    <div class="row d-flex justify-content-center">
+        <div class=" col-lg-8 col-md-9 col-11 text-center">
+            <div class="card">
+                <h5 class="text-center mb-4">AÑADIR DERECHO GENERAL  CONTRIBUCION</h5>
+
+                <form class="form-card">
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Codigo<span class="text-danger"> *</span></label> <input [disabled]="idFound?true:false" type="text"  name="codigo" placeholder="codigo" [(ngModel)]="contribucionDerechosG.codigo_contribucion"> </div>
+                        <div class="form-group col-sm-8 flex-column d-flex"> <label class="form-control-label px-3">Descripcion<span class="text-danger"> *</span></label> <input type="text"  name="concepto" placeholder="descripcion" [(ngModel)]="contribucionDerechosG.concepto_contribucion" > </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tipo Pago<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararPago" name="tipago" [(ngModel)]="contribucionDerechosG.id_tipo_pago"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Tipo Pago --</option>
+                                <option *ngFor="let tPago of tipoPagos" [ngValue]="tPago.id_pago">{{tPago.nombre_pago}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Concepto<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararDescripcion" name="descripcion" [(ngModel)]="contribucionDerechosG.id_descripcion"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Concepto --</option>
+                                <option *ngFor="let descripcion of descripciones" [ngValue]="descripcion.id_catalogo">{{descripcion.descripcion}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tipo Derecho<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararTDerecho" name="tiderecho" [(ngModel)]="contribucionDerechosG.catalogo_derechos"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Tipo Derecho --</option>
+                                <option *ngFor="let tDerecho of tDerechos" [ngValue]="tDerecho.id_catalogo">{{tDerecho.descripcion}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Periodicidad<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararPeriodicidad" name="periodicidad" [(ngModel)]="contribucionDerechosG.id_periodicidad"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Periodicidad --</option>
+                                <option *ngFor="let periodicidad of periodicidades" [ngValue]="periodicidad.id_periodicidad">{{periodicidad.nombre_periodicidad}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Cantidad<span class="text-danger"> *</span></label> <input type="number"  name="cantidad" placeholder="cantidad" [(ngModel)]="contribucionDerechosG.cantidad"> </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><span class="text-danger"> </span></label><button #buttonCrear [disabled]="vacioDerechosG()" [ngClass]="buttonCrear.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='crearDerechoG()' *ngIf="!idFound else elseBlock">Agregar</button> </div>
+                        <div class="form-group col-sm-4 flex-column d-flex">
+                            <button type="button" class="btn-block btn-danger" (click)='irDerechosG()'  >Cancelar</button>
+                        </div>
+                        <ng-template #elseBlock>
+                            <button #buttonUpdate [disabled]="vacioDerechosG()" [ngClass]="buttonUpdate.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='actualizarDerechosG()' >Actualizar</button>
+                        </ng-template>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="tipoContribucion==3">
+  <div class="container-fluid  mx-auto">
+    <div class="row d-flex justify-content-center">
+        <div class=" col-lg-8 col-md-9 col-11 text-center">
+            <div class="card">
+                <h5 class="text-center mb-4">AÑADIR DERECHO LICENCIA  CONTRIBUCION</h5>
+
+                <form class="form-card">
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Codigo<span class="text-danger"> *</span></label> <input [disabled]="idFound?true:false" type="text"  name="codigo" placeholder="codigo" [(ngModel)]="contribucionDerechosL.codigo_contribucion"> </div>
+                        <div class="form-group col-sm-8 flex-column d-flex"> <label class="form-control-label px-3">Descripcion<span class="text-danger"> *</span></label> <input type="text"  name="concepto" placeholder="descripcion" [(ngModel)]="contribucionDerechosL.concepto_contribucion" > </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tipo Pago<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararPago" name="tipago" [(ngModel)]="contribucionDerechosL.id_tipo_pago"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Tipo Pago --</option>
+                                <option *ngFor="let tPago of tipoPagos" [ngValue]="tPago.id_pago">{{tPago.nombre_pago}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Concepto<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararDescripcion" name="descripcion" [(ngModel)]="contribucionDerechosL.id_descripcion"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Concepto --</option>
+                                <option *ngFor="let descripcion of descripciones" [ngValue]="descripcion.id_catalogo">{{descripcion.descripcion}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tipo Derecho<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararTDerecho" name="tiderecho" [(ngModel)]="contribucionDerechosL.catalogo_derechos"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Tipo Derecho --</option>
+                                <option *ngFor="let tDerecho of tDerechos" [ngValue]="tDerecho.id_catalogo">{{tDerecho.descripcion}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Precio Expedicion<span class="text-danger"> *</span></label> <input type="number"  name="expedicion" placeholder="expedicion" [(ngModel)]="contribucionDerechosL.expedicion"> </div>
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Precio Refrendo<span class="text-danger"> *</span></label> <input type="number"  name="refrendo" placeholder="refrendo" [(ngModel)]="contribucionDerechosL.refrendo"> </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><span class="text-danger"> </span></label><button #buttonCrear [disabled]="vacioDerechosL()" [ngClass]="buttonCrear.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='crearDerechosL()' *ngIf="!idFound else elseBlock">Agregar</button> </div>
+                        <div class="form-group col-sm-4 flex-column d-flex">
+                            <button type="button" class="btn-block btn-danger" (click)='irDerechosL()'  >Cancelar</button>
+                        </div>
+                        <ng-template #elseBlock>
+                            <button #buttonUpdate [disabled]="vacioDerechosL()" [ngClass]="buttonUpdate.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='actualizarDerechosL()' >Actualizar</button>
+                        </ng-template>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="tipoContribucion==4">
 
 </ng-container>
-<ng-container *ngIf="tipoContribucion===3">
+<ng-container *ngIf="tipoContribucion==5">
 
 </ng-container>
-<ng-container *ngIf="tipoContribucion===4">
+<ng-container *ngIf="tipoContribucion==6">
 
 </ng-container>
-<ng-container *ngIf="tipoContribucion===5">
-
-</ng-container>
-<ng-container *ngIf="tipoContribucion===6">
-
-</ng-container>
-<ng-container *ngIf="tipoContribucion===7">
+<ng-container *ngIf="tipoContribucion==7">
 
 </ng-container>
