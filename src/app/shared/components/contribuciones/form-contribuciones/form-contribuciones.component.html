@@ -328,5 +328,61 @@
   </div>
 </ng-container>
 <ng-container *ngIf="tipoContribucion==7">
+  <div class="container-fluid  mx-auto">
+    <div class="row d-flex justify-content-center">
+        <div class=" col-lg-8 col-md-9 col-11 text-center">
+            <div class="card">
+                <h5 class="text-center mb-4">AÑADIR OTROS PRODUCTOS CONTRIBUCION</h5>
 
+                <form class="form-card">
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Codigo<span class="text-danger"> *</span></label> <input [disabled]="idFound?true:false" type="text"  name="codigo" placeholder="codigo" [(ngModel)]="contribucionOtrosProductos.codigo_contribucion"> </div>
+                        <div class="form-group col-sm-8 flex-column d-flex"> <label class="form-control-label px-3">Descripcion<span class="text-danger"> *</span></label> <input type="text"  name="concepto" placeholder="descripcion" [(ngModel)]="contribucionOtrosProductos.concepto_contribucion" > </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tipo Pago<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararPago" name="tipago" [(ngModel)]="contribucionOtrosProductos.id_tipo_pago"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Tipo Pago --</option>
+                                <option *ngFor="let tPago of tipoPagos" [ngValue]="tPago.id_pago">{{tPago.nombre_pago}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Concepto<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararDescripcion" name="descripcion" [(ngModel)]="contribucionOtrosProductos.id_descripcion"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Concepto --</option>
+                                <option *ngFor="let descripcion of descripciones" [ngValue]="descripcion.id_catalogo">{{descripcion.descripcion}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tipo Otros Productos<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararTOtrosP" name="tiotrosP" [(ngModel)]="contribucionOtrosProductos.catalogo_otros_productos"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Tipo Otros Productos --</option>
+                                <option *ngFor="let tOtroProducto of tOtrosProductos" [ngValue]="tOtroProducto.id_catalogo">{{tOtroProducto.descripcion}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Periodicidad<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararPeriodicidad" name="periodicidad" [(ngModel)]="contribucionOtrosProductos.periodicidad"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Periodicidad --</option>
+                                <option *ngFor="let periodicidad of periodicidades" [ngValue]="periodicidad.id_periodicidad">{{periodicidad.nombre_periodicidad}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Cantidad<span class="text-danger"> *</span></label> <input type="number"  name="cantidad" placeholder="cantidad" [(ngModel)]="contribucionOtrosProductos.cantidad"> </div>
+                    </div>
+
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><span class="text-danger"> </span></label><button #buttonCrear [disabled]="vacioOtrosProductos()" [ngClass]="buttonCrear.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='crearOtrosProductos()' *ngIf="!idFound else elseBlock">Agregar</button> </div>
+                        <div class="form-group col-sm-4 flex-column d-flex">
+                            <button type="button" class="btn-block btn-danger" (click)='irOtrosProductos()'  >Cancelar</button>
+                        </div>
+                        <ng-template #elseBlock>
+                            <button #buttonUpdate [disabled]="vacioOtrosProductos()" [ngClass]="buttonUpdate.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='actualizarOtrosProductos()' >Actualizar</button>
+                        </ng-template>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
 </ng-container>

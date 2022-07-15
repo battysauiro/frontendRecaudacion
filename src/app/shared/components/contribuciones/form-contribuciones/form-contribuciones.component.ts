@@ -7,6 +7,7 @@ import { ContribucionImpuestos } from 'src/app/shared/modelo/contribuciones/cont
 import { ContribucionMEbriedad } from 'src/app/shared/modelo/contribuciones/contribucion-m-ebriedad';
 import { ContribucionMVehicular } from 'src/app/shared/modelo/contribuciones/contribucion-m-vehicular';
 import { ContribucionMulta } from 'src/app/shared/modelo/contribuciones/contribucion-multa';
+import { ContribucionOtrosProductos } from 'src/app/shared/modelo/contribuciones/contribucion-otros-productos';
 import { Periodicidad } from 'src/app/shared/modelo/contribuciones/periodicidad';
 import { TipoPago } from 'src/app/shared/modelo/contribuciones/tipo-pago';
 import { TipoVehiculo } from 'src/app/shared/modelo/contribuciones/tipo-vehiculo';
@@ -16,6 +17,7 @@ import { ContribucionImpuestoService } from 'src/app/shared/servicio/contribucio
 import { ContribucionMultasEbriedadService } from 'src/app/shared/servicio/contribuciones/contribucion-multas-ebriedad.service';
 import { ContribucionMultasVehicularService } from 'src/app/shared/servicio/contribuciones/contribucion-multas-vehicular.service';
 import { ContribucionMultasService } from 'src/app/shared/servicio/contribuciones/contribucion-multas.service';
+import { ContribucionOtrosProductosService } from 'src/app/shared/servicio/contribuciones/contribucion-otros-productos.service';
 import { ContribucionesService } from 'src/app/shared/servicio/contribuciones/contribuciones.service';
 import swal from 'sweetalert2';
 
@@ -32,11 +34,13 @@ export class FormContribucionesComponent implements OnInit {
   contribucionMultas= new ContribucionMulta();
   contribucionMEbriedad= new ContribucionMEbriedad();
   contribucionMVehicular= new ContribucionMVehicular();
+  contribucionOtrosProductos= new ContribucionOtrosProductos();
   tipoPagos:TipoPago[];
   descripciones:Catalogo[];
   tDerechos:Catalogo[];
   tImpuestos:Catalogo[];
   tAprovechamientos:Catalogo[];
+  tOtrosProductos:Catalogo[];
   periodicidades:Periodicidad[];
   tVehiculos:TipoVehiculo[];
   idFound=false;
@@ -50,7 +54,8 @@ export class FormContribucionesComponent implements OnInit {
     public contribucionDLicenciasService:ContribucionDerechosLicenciasService,
     public contribucionMultasService:ContribucionMultasService,
     public contribucionMVehicularService:ContribucionMultasVehicularService,
-    public contribucionMEbriedadService:ContribucionMultasEbriedadService
+    public contribucionMEbriedadService:ContribucionMultasEbriedadService,
+    public contribucionOtrosProductosService:ContribucionOtrosProductosService
   ) { }
 
   ngOnInit(): void {
@@ -97,6 +102,11 @@ export class FormContribucionesComponent implements OnInit {
         this.obtenerTipoVehiculo();
         this.idFound=true;
         this.contribucionMVehicularService.obtenerCMvehicular(id).subscribe(contribucion=>this.contribucionMVehicular=contribucion)
+      }
+      if(tipo==7){
+        this.obtenerTipoOtrosProductos();
+        this.idFound=true;
+        this.contribucionOtrosProductosService.obtenerCOtrosProductos(id).subscribe(contribucion=>this.contribucionOtrosProductos=contribucion)
       }
     });
   }
@@ -232,6 +242,30 @@ export class FormContribucionesComponent implements OnInit {
     });
   }
   /*--------------------------------------------------------------*/
+  //funciones de la contribucion Otros Productos
+  public crearOtrosProductos():void{
+    this.contribucionOtrosProductosService.crearCOtrosProductos(this.contribucionOtrosProductos).subscribe(
+      response=> {this.contribucionOtrosProductos=response;
+                  this.irOtrosProductos();
+                  swal('Contribucion Agregada',`Contribucion ${this.contribucionOtrosProductos.codigo_contribucion} añadida con éxito`,'success');
+                }
+    );
+  }
+
+  public actualizarOtrosProductos():void{
+    this.contribucionOtrosProductosService.actualizarCOtrosProductos(this.contribucionOtrosProductos).subscribe(contribucion=>{
+      this.irOtrosProductos();
+      swal('Otros Productos Actualizado',`Otros Productos ${contribucion.codigo_contribucion} actualizado con éxito`,'success');
+    });
+  }
+
+  obtenerTipoOtrosProductos(){
+    this.contribucionesService.obtenerCatalogoOtrosProductos().subscribe(
+      response=> {this.tOtrosProductos= response
+      }
+    );
+  }
+  /*--------------------------------------------------------------*/
   //funciones de metodos generales
   obtenerTipoPago(){
     this.contribucionesService.obtenerTipoPago().subscribe(
@@ -333,6 +367,13 @@ export class FormContribucionesComponent implements OnInit {
     return o1===null || o2===null || o1===undefined || o2===undefined? false:o1.id_tipo_vehiculo===o2.id_tipo_vehiculo;
   }
 
+  compararTOtrosP(o1:Catalogo,o2:Catalogo){
+    if(o1===undefined && o2===undefined){
+      return true;
+    }
+    return o1===null || o2===null || o1===undefined || o2===undefined? false:o1.id_catalogo===o2.id_catalogo;
+  }
+
   //validacion para los campos de cada contribucion
   public vacioImpuesto(){
     if(this.contribucionImpuesto.codigo_contribucion==null || this.contribucionImpuesto.codigo_contribucion=="" ||
@@ -408,6 +449,20 @@ export class FormContribucionesComponent implements OnInit {
       this.contribucionMEbriedad.id_tipo_pago==null ||
       this.contribucionMEbriedad.id_descripcion==null ||
       this.contribucionMEbriedad.id_catalogo==null){
+        return true;
+      }
+        else{
+          return false;
+        }
+  }
+
+  public vacioOtrosProductos(){
+    if(this.contribucionOtrosProductos.codigo_contribucion==null || this.contribucionOtrosProductos.codigo_contribucion=="" ||
+      this.contribucionOtrosProductos.concepto_contribucion==null || this.contribucionOtrosProductos.concepto_contribucion=="" ||
+      this.contribucionOtrosProductos.id_tipo_pago==null ||
+      this.contribucionOtrosProductos.id_descripcion==null ||
+      this.contribucionOtrosProductos.catalogo_otros_productos==null ||
+      this.contribucionOtrosProductos.periodicidad==null){
         return true;
       }
         else{
