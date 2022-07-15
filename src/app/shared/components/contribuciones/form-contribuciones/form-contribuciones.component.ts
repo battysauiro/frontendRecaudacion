@@ -4,6 +4,7 @@ import { Catalogo } from 'src/app/shared/modelo/contribuciones/catalogo';
 import { ContribucionDerechosGenerales } from 'src/app/shared/modelo/contribuciones/contribucion-derechos-generales';
 import { ContribucionDerechosLicencias } from 'src/app/shared/modelo/contribuciones/contribucion-derechos-licencias';
 import { ContribucionImpuestos } from 'src/app/shared/modelo/contribuciones/contribucion-impuestos';
+import { ContribucionMEbriedad } from 'src/app/shared/modelo/contribuciones/contribucion-m-ebriedad';
 import { ContribucionMVehicular } from 'src/app/shared/modelo/contribuciones/contribucion-m-vehicular';
 import { ContribucionMulta } from 'src/app/shared/modelo/contribuciones/contribucion-multa';
 import { Periodicidad } from 'src/app/shared/modelo/contribuciones/periodicidad';
@@ -12,6 +13,7 @@ import { TipoVehiculo } from 'src/app/shared/modelo/contribuciones/tipo-vehiculo
 import { ContribucionDerechosGService } from 'src/app/shared/servicio/contribuciones/contribucion-derechos-g.service';
 import { ContribucionDerechosLicenciasService } from 'src/app/shared/servicio/contribuciones/contribucion-derechos-licencias.service';
 import { ContribucionImpuestoService } from 'src/app/shared/servicio/contribuciones/contribucion-impuesto.service';
+import { ContribucionMultasEbriedadService } from 'src/app/shared/servicio/contribuciones/contribucion-multas-ebriedad.service';
 import { ContribucionMultasVehicularService } from 'src/app/shared/servicio/contribuciones/contribucion-multas-vehicular.service';
 import { ContribucionMultasService } from 'src/app/shared/servicio/contribuciones/contribucion-multas.service';
 import { ContribucionesService } from 'src/app/shared/servicio/contribuciones/contribuciones.service';
@@ -28,6 +30,7 @@ export class FormContribucionesComponent implements OnInit {
   contribucionDerechosG= new ContribucionDerechosGenerales();
   contribucionDerechosL= new ContribucionDerechosLicencias();
   contribucionMultas= new ContribucionMulta();
+  contribucionMEbriedad= new ContribucionMEbriedad();
   contribucionMVehicular= new ContribucionMVehicular();
   tipoPagos:TipoPago[];
   descripciones:Catalogo[];
@@ -46,7 +49,8 @@ export class FormContribucionesComponent implements OnInit {
     public contribucionDerechosGService:ContribucionDerechosGService,
     public contribucionDLicenciasService:ContribucionDerechosLicenciasService,
     public contribucionMultasService:ContribucionMultasService,
-    public contribucionMVehicularService:ContribucionMultasVehicularService
+    public contribucionMVehicularService:ContribucionMultasVehicularService,
+    public contribucionMEbriedadService:ContribucionMultasEbriedadService
   ) { }
 
   ngOnInit(): void {
@@ -84,6 +88,11 @@ export class FormContribucionesComponent implements OnInit {
         this.contribucionMultasService.ObtenerCMulta(id).subscribe(contribucion=>this.contribucionMultas=contribucion)
       }
       if(tipo==5){
+        this.obtenerTipoAprovechamiento();
+        this.idFound=true;
+          this.contribucionMEbriedadService.obtenerCMebriedad(id).subscribe(contribucion=>this.contribucionMEbriedad=contribucion)
+      }
+      if(tipo==6){
         this.obtenerTipoAprovechamiento();
         this.obtenerTipoVehiculo();
         this.idFound=true;
@@ -204,6 +213,23 @@ export class FormContribucionesComponent implements OnInit {
       response=> {this.tVehiculos= response
       }
     );
+  }
+  /*--------------------------------------------------------------*/
+  //funciones de la contribucion Multas Ebriedad
+  public crearMEbriedad():void{
+    this.contribucionMEbriedadService.crearCMebriedad(this.contribucionMEbriedad).subscribe(
+      response=> {this.contribucionMEbriedad=response;
+                  this.irMultasEbriedad();
+                  swal('Multa Ebriedad Agregada',`Multa ${this.contribucionMEbriedad.codigo_contribucion} añadida con éxito`,'success');
+                }
+    );
+  }
+
+  public actualizarMEbriedad():void{
+    this.contribucionMEbriedadService.actualizarCMebriedad(this.contribucionMEbriedad).subscribe(contribucion=>{
+      this.irMultasEbriedad();
+      swal('Multa Ebriedad Actualizada',`Multa Ebriedad ${contribucion.codigo_contribucion} actualizada con éxito`,'success');
+    });
   }
   /*--------------------------------------------------------------*/
   //funciones de metodos generales
@@ -369,6 +395,19 @@ export class FormContribucionesComponent implements OnInit {
       this.contribucionMVehicular.id_catalogo==null ||
       this.contribucionMVehicular.tipo_vehiculo==null ||
       this.contribucionMVehicular.descripcion_articulo==null || this.contribucionMVehicular.descripcion_articulo==""){
+        return true;
+      }
+        else{
+          return false;
+        }
+  }
+
+  public vacioMEbriedad(){
+    if(this.contribucionMEbriedad.codigo_contribucion==null || this.contribucionMEbriedad.codigo_contribucion=="" ||
+      this.contribucionMEbriedad.concepto_contribucion==null || this.contribucionMEbriedad.concepto_contribucion=="" ||
+      this.contribucionMEbriedad.id_tipo_pago==null ||
+      this.contribucionMEbriedad.id_descripcion==null ||
+      this.contribucionMEbriedad.id_catalogo==null){
         return true;
       }
         else{
