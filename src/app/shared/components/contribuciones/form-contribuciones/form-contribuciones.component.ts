@@ -4,11 +4,13 @@ import { Catalogo } from 'src/app/shared/modelo/contribuciones/catalogo';
 import { ContribucionDerechosGenerales } from 'src/app/shared/modelo/contribuciones/contribucion-derechos-generales';
 import { ContribucionDerechosLicencias } from 'src/app/shared/modelo/contribuciones/contribucion-derechos-licencias';
 import { ContribucionImpuestos } from 'src/app/shared/modelo/contribuciones/contribucion-impuestos';
+import { ContribucionMulta } from 'src/app/shared/modelo/contribuciones/contribucion-multa';
 import { Periodicidad } from 'src/app/shared/modelo/contribuciones/periodicidad';
 import { TipoPago } from 'src/app/shared/modelo/contribuciones/tipo-pago';
 import { ContribucionDerechosGService } from 'src/app/shared/servicio/contribuciones/contribucion-derechos-g.service';
 import { ContribucionDerechosLicenciasService } from 'src/app/shared/servicio/contribuciones/contribucion-derechos-licencias.service';
 import { ContribucionImpuestoService } from 'src/app/shared/servicio/contribuciones/contribucion-impuesto.service';
+import { ContribucionMultasService } from 'src/app/shared/servicio/contribuciones/contribucion-multas.service';
 import { ContribucionesService } from 'src/app/shared/servicio/contribuciones/contribuciones.service';
 import swal from 'sweetalert2';
 
@@ -22,10 +24,12 @@ export class FormContribucionesComponent implements OnInit {
   contribucionImpuesto= new ContribucionImpuestos();
   contribucionDerechosG= new ContribucionDerechosGenerales();
   contribucionDerechosL= new ContribucionDerechosLicencias();
+  contribucionMultas= new ContribucionMulta();
   tipoPagos:TipoPago[];
   descripciones:Catalogo[];
   tDerechos:Catalogo[];
   tImpuestos:Catalogo[];
+  tAprovechamientos:Catalogo[];
   periodicidades:Periodicidad[];
   idFound=false;
   tipoContribucion:number=0;//aqui decidira cual vista mostrar
@@ -35,7 +39,8 @@ export class FormContribucionesComponent implements OnInit {
     public activatedRouter:ActivatedRoute,
     public contribucionImpuestoService:ContribucionImpuestoService,
     public contribucionDerechosGService:ContribucionDerechosGService,
-    public contribucionDLicenciasService:ContribucionDerechosLicenciasService
+    public contribucionDLicenciasService:ContribucionDerechosLicenciasService,
+    public contribucionMultasService:ContribucionMultasService
   ) { }
 
   ngOnInit(): void {
@@ -66,6 +71,11 @@ export class FormContribucionesComponent implements OnInit {
         this.obtenerTipoDerecho();
         this.idFound=true;
         this.contribucionDLicenciasService.ObtenerCDerechosLicencias(id).subscribe(contribucion=>this.contribucionDerechosL=contribucion)
+      }
+      if(tipo==4){
+        this.obtenerTipoAprovechamiento();
+        this.idFound=true;
+          this.contribucionMultasService.ObtenerCMulta(id).subscribe(contribucion=>this.contribucionMultas=contribucion)
       }
     });
   }
@@ -136,6 +146,30 @@ export class FormContribucionesComponent implements OnInit {
     });
   }
   /*--------------------------------------------------------------*/
+  //funciones de la contribucion Multas
+  public crearMultas():void{
+    this.contribucionMultasService.crearCMulta(this.contribucionMultas).subscribe(
+      response=> {this.contribucionMultas=response;
+                  this.irMultas();
+                  swal('Multa Agregada',`Multa ${this.contribucionMultas.codigo_contribucion} añadida con éxito`,'success');
+                }
+    );
+  }
+
+  public actualizarMultas():void{
+    this.contribucionMultasService.actualizarCMulta(this.contribucionMultas).subscribe(contribucion=>{
+      this.irMultas();
+      swal('Multa Actualizada',`Multa ${contribucion.codigo_contribucion} actualizada con éxito`,'success');
+    });
+  }
+
+  obtenerTipoAprovechamiento(){
+    this.contribucionesService.obtenerCatalogoAprovechamiento().subscribe(
+      response=> {this.tAprovechamientos= response
+      }
+    );
+  }
+  /*--------------------------------------------------------------*/
   //funciones de metodos generales
   obtenerTipoPago(){
     this.contribucionesService.obtenerTipoPago().subscribe(
@@ -193,7 +227,7 @@ export class FormContribucionesComponent implements OnInit {
     this.router.navigate(['/derechosLicencia']);
   }
 
-  irDerechosMultas(){
+  irMultas(){
     this.router.navigate(['/multa']);
   }
 
@@ -217,6 +251,13 @@ export class FormContribucionesComponent implements OnInit {
   }
 
   compararTDerecho(o1:Catalogo,o2:Catalogo){
+    if(o1===undefined && o2===undefined){
+      return true;
+    }
+    return o1===null || o2===null || o1===undefined || o2===undefined? false:o1.id_catalogo===o2.id_catalogo;
+  }
+
+  compararTAprovechamiento(o1:Catalogo,o2:Catalogo){
     if(o1===undefined && o2===undefined){
       return true;
     }
@@ -257,6 +298,19 @@ export class FormContribucionesComponent implements OnInit {
       this.contribucionDerechosL.id_tipo_pago==null ||
       this.contribucionDerechosL.id_descripcion==null ||
       this.contribucionDerechosL.catalogo_derechos==null){
+        return true;
+      }
+        else{
+          return false;
+        }
+  }
+
+  public vacioMultas(){
+    if(this.contribucionMultas.codigo_contribucion==null || this.contribucionMultas.codigo_contribucion=="" ||
+      this.contribucionMultas.concepto_contribucion==null || this.contribucionMultas.concepto_contribucion=="" ||
+      this.contribucionMultas.id_tipo_pago==null ||
+      this.contribucionMultas.id_descripcion==null ||
+      this.contribucionMultas.id_catalogo==null){
         return true;
       }
         else{
