@@ -4,12 +4,15 @@ import { Catalogo } from 'src/app/shared/modelo/contribuciones/catalogo';
 import { ContribucionDerechosGenerales } from 'src/app/shared/modelo/contribuciones/contribucion-derechos-generales';
 import { ContribucionDerechosLicencias } from 'src/app/shared/modelo/contribuciones/contribucion-derechos-licencias';
 import { ContribucionImpuestos } from 'src/app/shared/modelo/contribuciones/contribucion-impuestos';
+import { ContribucionMVehicular } from 'src/app/shared/modelo/contribuciones/contribucion-m-vehicular';
 import { ContribucionMulta } from 'src/app/shared/modelo/contribuciones/contribucion-multa';
 import { Periodicidad } from 'src/app/shared/modelo/contribuciones/periodicidad';
 import { TipoPago } from 'src/app/shared/modelo/contribuciones/tipo-pago';
+import { TipoVehiculo } from 'src/app/shared/modelo/contribuciones/tipo-vehiculo';
 import { ContribucionDerechosGService } from 'src/app/shared/servicio/contribuciones/contribucion-derechos-g.service';
 import { ContribucionDerechosLicenciasService } from 'src/app/shared/servicio/contribuciones/contribucion-derechos-licencias.service';
 import { ContribucionImpuestoService } from 'src/app/shared/servicio/contribuciones/contribucion-impuesto.service';
+import { ContribucionMultasVehicularService } from 'src/app/shared/servicio/contribuciones/contribucion-multas-vehicular.service';
 import { ContribucionMultasService } from 'src/app/shared/servicio/contribuciones/contribucion-multas.service';
 import { ContribucionesService } from 'src/app/shared/servicio/contribuciones/contribuciones.service';
 import swal from 'sweetalert2';
@@ -25,12 +28,14 @@ export class FormContribucionesComponent implements OnInit {
   contribucionDerechosG= new ContribucionDerechosGenerales();
   contribucionDerechosL= new ContribucionDerechosLicencias();
   contribucionMultas= new ContribucionMulta();
+  contribucionMVehicular= new ContribucionMVehicular();
   tipoPagos:TipoPago[];
   descripciones:Catalogo[];
   tDerechos:Catalogo[];
   tImpuestos:Catalogo[];
   tAprovechamientos:Catalogo[];
   periodicidades:Periodicidad[];
+  tVehiculos:TipoVehiculo[];
   idFound=false;
   tipoContribucion:number=0;//aqui decidira cual vista mostrar
   constructor(
@@ -40,7 +45,8 @@ export class FormContribucionesComponent implements OnInit {
     public contribucionImpuestoService:ContribucionImpuestoService,
     public contribucionDerechosGService:ContribucionDerechosGService,
     public contribucionDLicenciasService:ContribucionDerechosLicenciasService,
-    public contribucionMultasService:ContribucionMultasService
+    public contribucionMultasService:ContribucionMultasService,
+    public contribucionMVehicularService:ContribucionMultasVehicularService
   ) { }
 
   ngOnInit(): void {
@@ -75,7 +81,13 @@ export class FormContribucionesComponent implements OnInit {
       if(tipo==4){
         this.obtenerTipoAprovechamiento();
         this.idFound=true;
-          this.contribucionMultasService.ObtenerCMulta(id).subscribe(contribucion=>this.contribucionMultas=contribucion)
+        this.contribucionMultasService.ObtenerCMulta(id).subscribe(contribucion=>this.contribucionMultas=contribucion)
+      }
+      if(tipo==5){
+        this.obtenerTipoAprovechamiento();
+        this.obtenerTipoVehiculo();
+        this.idFound=true;
+        this.contribucionMVehicularService.obtenerCMvehicular(id).subscribe(contribucion=>this.contribucionMVehicular=contribucion)
       }
     });
   }
@@ -166,6 +178,30 @@ export class FormContribucionesComponent implements OnInit {
   obtenerTipoAprovechamiento(){
     this.contribucionesService.obtenerCatalogoAprovechamiento().subscribe(
       response=> {this.tAprovechamientos= response
+      }
+    );
+  }
+  /*--------------------------------------------------------------*/
+  //funciones de la contribucion Multas vehiculares
+  public crearMVehicular():void{
+    this.contribucionMVehicularService.crearCMvehicular(this.contribucionMVehicular).subscribe(
+      response=> {this.contribucionMVehicular=response;
+                  this.irMultasVehicular();
+                  swal('Multa Vehicular Agregada',`Multa ${this.contribucionMVehicular.codigo_contribucion} añadida con éxito`,'success');
+                }
+    );
+  }
+
+  public actualizarMVehicular():void{
+    this.contribucionMVehicularService.actualizarCMvehicular(this.contribucionMVehicular).subscribe(contribucion=>{
+      this.irMultasVehicular();
+      swal('Multa Vehicular Actualizada',`Multa ${contribucion.codigo_contribucion} actualizada con éxito`,'success');
+    });
+  }
+
+  obtenerTipoVehiculo(){
+    this.contribucionesService.obtenerTipoVehiculo().subscribe(
+      response=> {this.tVehiculos= response
       }
     );
   }
@@ -264,6 +300,13 @@ export class FormContribucionesComponent implements OnInit {
     return o1===null || o2===null || o1===undefined || o2===undefined? false:o1.id_catalogo===o2.id_catalogo;
   }
 
+  compararTVehiculo(o1:TipoVehiculo,o2:TipoVehiculo){
+    if(o1===undefined && o2===undefined){
+      return true;
+    }
+    return o1===null || o2===null || o1===undefined || o2===undefined? false:o1.id_tipo_vehiculo===o2.id_tipo_vehiculo;
+  }
+
   //validacion para los campos de cada contribucion
   public vacioImpuesto(){
     if(this.contribucionImpuesto.codigo_contribucion==null || this.contribucionImpuesto.codigo_contribucion=="" ||
@@ -311,6 +354,21 @@ export class FormContribucionesComponent implements OnInit {
       this.contribucionMultas.id_tipo_pago==null ||
       this.contribucionMultas.id_descripcion==null ||
       this.contribucionMultas.id_catalogo==null){
+        return true;
+      }
+        else{
+          return false;
+        }
+  }
+
+  public vacioMVehicular(){
+    if(this.contribucionMVehicular.codigo_contribucion==null || this.contribucionMVehicular.codigo_contribucion=="" ||
+      this.contribucionMVehicular.concepto_contribucion==null || this.contribucionMVehicular.concepto_contribucion=="" ||
+      this.contribucionMVehicular.id_tipo_pago==null ||
+      this.contribucionMVehicular.id_descripcion==null ||
+      this.contribucionMVehicular.id_catalogo==null ||
+      this.contribucionMVehicular.tipo_vehiculo==null ||
+      this.contribucionMVehicular.descripcion_articulo==null || this.contribucionMVehicular.descripcion_articulo==""){
         return true;
       }
         else{

@@ -213,7 +213,67 @@
 
 </ng-container>
 <ng-container *ngIf="tipoContribucion==6">
+  <div class="container-fluid  mx-auto">
+    <div class="row d-flex justify-content-center">
+        <div class=" col-lg-8 col-md-9 col-11 text-center">
+            <div class="card">
+                <h5 class="text-center mb-4">AÑADIR MULTA VEHICULAR CONTRIBUCION</h5>
 
+                <form class="form-card">
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Codigo<span class="text-danger"> *</span></label> <input [disabled]="idFound?true:false" type="text"  name="codigo" placeholder="codigo" [(ngModel)]="contribucionMVehicular.codigo_contribucion"> </div>
+                        <div class="form-group col-sm-8 flex-column d-flex"> <label class="form-control-label px-3">Descripcion<span class="text-danger"> *</span></label> <input type="text"  name="concepto" placeholder="descripcion" [(ngModel)]="contribucionMVehicular.concepto_contribucion" > </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tipo Pago<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararPago" name="tipago" [(ngModel)]="contribucionMVehicular.id_tipo_pago"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Tipo Pago --</option>
+                                <option *ngFor="let tPago of tipoPagos" [ngValue]="tPago.id_pago">{{tPago.nombre_pago}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Concepto<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararDescripcion" name="descripcion" [(ngModel)]="contribucionMVehicular.id_descripcion"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Concepto --</option>
+                                <option *ngFor="let descripcion of descripciones" [ngValue]="descripcion.id_catalogo">{{descripcion.descripcion}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tipo Aprovechamiento<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararTAprovechamiento" name="tiaprovechamiento" [(ngModel)]="contribucionMVehicular.id_catalogo"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Tipo Aprovechamiento --</option>
+                                <option *ngFor="let tAprovechamiento of tAprovechamientos" [ngValue]="tAprovechamiento.id_catalogo">{{tAprovechamiento.descripcion}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tipo Vehiculo<span class="text-danger"> *</span></label>
+                            <select  [compareWith]="compararTVehiculo" name="tivehiculo" [(ngModel)]="contribucionMVehicular.tipo_vehiculo"  style="height: 30px;">
+                                <option [ngValue]="undefined">-- Seleccionar Tipo Vehiculo --</option>
+                                <option *ngFor="let tVehiculo of tVehiculos" [ngValue]="tVehiculo.id_tipo_vehiculo">{{tVehiculo.nombre_vehiculo}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-12 flex-column d-flex"> <label class="form-control-label px-3">Descripcion Articulo<span class="text-danger"> *</span></label> <input type="text"  name="articulo" placeholder="articulo" [(ngModel)]="contribucionMVehicular.descripcion_articulo" style="height: 50px;"> </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Uma min<span class="text-danger"> *</span></label> <input type="number"  name="umamin" placeholder="uma min" [(ngModel)]="contribucionMVehicular.uma_min" > </div>
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Uma max<span class="text-danger"> *</span></label> <input type="number"  name="umamax" placeholder="uma max" [(ngModel)]="contribucionMVehicular.uma_max" > </div>
+                    </div>
+
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><span class="text-danger"> </span></label><button #buttonCrear [disabled]="vacioMVehicular()" [ngClass]="buttonCrear.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='crearMVehicular()' *ngIf="!idFound else elseBlock">Agregar</button> </div>
+                        <div class="form-group col-sm-4 flex-column d-flex">
+                            <button type="button" class="btn-block btn-danger" (click)='irMultasVehicular()'  >Cancelar</button>
+                        </div>
+                        <ng-template #elseBlock>
+                            <button #buttonUpdate [disabled]="vacioMVehicular()" [ngClass]="buttonUpdate.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='actualizarMVehicular()' >Actualizar</button>
+                        </ng-template>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
 </ng-container>
 <ng-container *ngIf="tipoContribucion==7">
 

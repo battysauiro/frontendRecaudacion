@@ -48,8 +48,8 @@ export class ContribucionOtrosProductosComponent implements OnInit {
       disabled: true,
       contribucion: [
         {value: 4, viewValue: 'Multas'},
-        {value: 5, viewValue: 'Vehicular'},
-        {value: 6, viewValue: 'Ebriedad'},
+        {value: 5, viewValue: 'Ebriedad'},
+        {value: 6, viewValue: 'Vehicular'},
       ],
     },
     {
@@ -123,10 +123,10 @@ export class ContribucionOtrosProductosComponent implements OnInit {
       this.router.navigate(['/multa']);
     }
     if(valor===5){
-      this.router.navigate(['/multaVehicular']);
+      this.router.navigate(['/multaEbriedad']);
     }
     if(valor===6){
-      this.router.navigate(['/multaEbriedad']);
+      this.router.navigate(['/multaVehicular']);
     }
     if(valor===7){
       this.router.navigate(['/otrosProductos']);
