@@ -8,6 +8,7 @@ import { ContribucionMultasVehicularComponent } from './shared/components/contri
 import { ContribucionMultasComponent } from './shared/components/contribuciones/contribucion-multas/contribucion-multas.component';
 import { ContribucionOtrosProductosComponent } from './shared/components/contribuciones/contribucion-otros-productos/contribucion-otros-productos.component';
 import { ContribucionesComponent } from './shared/components/contribuciones/contribuciones.component';
+import { FormContribucionesComponent } from './shared/components/contribuciones/form-contribuciones/form-contribuciones.component';
 import { ContribuyentesComponent } from './shared/components/contribuyentes/contribuyentes.component';
 import { InicioComponent } from './shared/components/inicio/inicio.component';
 import { LoginComponent } from './usuario-login/login/login.component';
@@ -34,7 +35,8 @@ const routes: Routes = [
   {path:'multaEbriedad',component:ContribucionMultasEbriedadComponent},
   {path:'multaEbriedad/page/:page',component:ContribucionMultasEbriedadComponent},
   {path:'otrosProductos',component:ContribucionOtrosProductosComponent},
-  {path:'otrosProductos/page/:page',component:ContribucionOtrosProductosComponent}
+  {path:'otrosProductos/page/:page',component:ContribucionOtrosProductosComponent},
+  {path:'formulario-contribucion/:tipo/:id',component:FormContribucionesComponent}
 ];
 
 @NgModule({

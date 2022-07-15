@@ -38,7 +38,6 @@ export class ContribucionOtrosProductosService {
       })
       .pipe(
         map((response: any) => {
-          console.log(response.contenido);
           return response;
         })
       );
