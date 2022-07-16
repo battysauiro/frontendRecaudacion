@@ -4,7 +4,7 @@
     <div class="row d-flex justify-content-center">
         <div class=" col-lg-8 col-md-9 col-11 text-center">
             <div class="card">
-              <mat-form-field >
+              <mat-form-field *ngIf="!idFound">
                 <mat-label class="">TIPO CONTRIBUCIÓN</mat-label>
                 <mat-select (valueChange)="onChange($event)" name="tipo" [(ngModel)]="seleccionada">
                   <mat-option *ngFor="let tContribuciones of contribucionesTipos" [value]="tContribuciones.value">
@@ -62,14 +62,14 @@
     <div class="row d-flex justify-content-center">
         <div class=" col-lg-8 col-md-9 col-11 text-center">
             <div class="card">
-              <mat-form-field >
-                <mat-label class="">TIPO CONTRIBUCIÓN</mat-label>
-                <mat-select (valueChange)="onChange($event)" name="tipo" [(ngModel)]="seleccionada">
-                  <mat-option *ngFor="let tContribuciones of contribucionesTipos" [value]="tContribuciones.value">
-                    {{tContribuciones.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+                <mat-form-field *ngIf="!idFound">
+                  <mat-label class="">TIPO CONTRIBUCIÓN</mat-label>
+                  <mat-select (valueChange)="onChange($event)" name="tipo" [(ngModel)]="seleccionada">
+                    <mat-option *ngFor="let tContribuciones of contribucionesTipos" [value]="tContribuciones.value">
+                      {{tContribuciones.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
                 <h5 class="text-center mb-4">AÑADIR DERECHO GENERAL  CONTRIBUCION</h5>
 
                 <form class="form-card">
@@ -128,7 +128,7 @@
     <div class="row d-flex justify-content-center">
         <div class=" col-lg-8 col-md-9 col-11 text-center">
             <div class="card">
-              <mat-form-field >
+              <mat-form-field *ngIf="!idFound">
                 <mat-label class="">TIPO CONTRIBUCIÓN</mat-label>
                 <mat-select (valueChange)="onChange($event)" name="tipo" [(ngModel)]="seleccionada">
                   <mat-option *ngFor="let tContribuciones of contribucionesTipos" [value]="tContribuciones.value">
@@ -189,7 +189,7 @@
     <div class="row d-flex justify-content-center">
         <div class=" col-lg-8 col-md-9 col-11 text-center">
             <div class="card">
-              <mat-form-field >
+              <mat-form-field *ngIf="!idFound">
                 <mat-label class="">TIPO CONTRIBUCIÓN</mat-label>
                 <mat-select (valueChange)="onChange($event)" name="tipo" [(ngModel)]="seleccionada">
                   <mat-option *ngFor="let tContribuciones of contribucionesTipos" [value]="tContribuciones.value">
@@ -247,7 +247,7 @@
     <div class="row d-flex justify-content-center">
         <div class=" col-lg-8 col-md-9 col-11 text-center">
             <div class="card">
-              <mat-form-field >
+              <mat-form-field *ngIf="!idFound">
                 <mat-label class="">TIPO CONTRIBUCIÓN</mat-label>
                 <mat-select (valueChange)="onChange($event)" name="tipo" [(ngModel)]="seleccionada">
                   <mat-option *ngFor="let tContribuciones of contribucionesTipos" [value]="tContribuciones.value">
@@ -310,7 +310,7 @@
     <div class="row d-flex justify-content-center">
         <div class=" col-lg-8 col-md-9 col-11 text-center">
             <div class="card">
-              <mat-form-field >
+              <mat-form-field *ngIf="!idFound">
                 <mat-label class="">TIPO CONTRIBUCIÓN</mat-label>
                 <mat-select (valueChange)="onChange($event)" name="tipo" [(ngModel)]="seleccionada">
                   <mat-option *ngFor="let tContribuciones of contribucionesTipos" [value]="tContribuciones.value">
@@ -381,7 +381,7 @@
     <div class="row d-flex justify-content-center">
         <div class=" col-lg-8 col-md-9 col-11 text-center">
             <div class="card">
-              <mat-form-field >
+              <mat-form-field *ngIf="!idFound">
                 <mat-label class="">TIPO CONTRIBUCIÓN</mat-label>
                 <mat-select (valueChange)="onChange($event)" name="tipo" [(ngModel)]="seleccionada">
                   <mat-option *ngFor="let tContribuciones of contribucionesTipos" [value]="tContribuciones.value">
