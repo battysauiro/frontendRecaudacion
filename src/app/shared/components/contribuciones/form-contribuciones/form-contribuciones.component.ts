@@ -21,6 +21,11 @@ import { ContribucionOtrosProductosService } from 'src/app/shared/servicio/contr
 import { ContribucionesService } from 'src/app/shared/servicio/contribuciones/contribuciones.service';
 import swal from 'sweetalert2';
 
+interface tiposContribuciones {
+  value: number;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-form-contribuciones',
   templateUrl: './form-contribuciones.component.html',
@@ -43,6 +48,16 @@ export class FormContribucionesComponent implements OnInit {
   tOtrosProductos:Catalogo[];
   periodicidades:Periodicidad[];
   tVehiculos:TipoVehiculo[];
+  contribucionesTipos: tiposContribuciones[] = [
+    {value: 1, viewValue: 'impuestos'},
+    {value: 2, viewValue: 'Derechos Generales'},
+    {value: 3, viewValue: 'Derechos licencias'},
+    {value: 4, viewValue: 'Multas'},
+    {value: 5, viewValue: 'Multas ebriedad'},
+    {value: 6, viewValue: 'Multas vehicular'},
+    {value: 7, viewValue: 'Otros Productos'}
+  ];
+  seleccionada: number =0;
   idFound=false;
   tipoContribucion:number=0;//aqui decidira cual vista mostrar
   constructor(
@@ -63,6 +78,8 @@ export class FormContribucionesComponent implements OnInit {
     this.obtenerTipoPago();
     this.obtenerDescripciones();
     this.obtenerPeriodicidad();
+    this.obtenerTipoImpuesto();
+    this.obtenerTipoVehiculo();
 
   }
 
@@ -72,6 +89,9 @@ export class FormContribucionesComponent implements OnInit {
       let id:number=params['id'];
       let tipo:number=params['tipo'];
       this.tipoContribucion=tipo;
+      if(id==undefined){
+        this.seleccionada=this.contribucionesTipos[0].value;
+      }
       if(tipo==1){
         this.obtenerTipoImpuesto();
         this.idFound=true;
@@ -122,7 +142,6 @@ export class FormContribucionesComponent implements OnInit {
   }
 
   public actualizarImpuesto():void{
-    console.log(this.contribucionImpuesto);
     this.contribucionImpuestoService.actualizarCImpuesto(this.contribucionImpuesto).subscribe(contribucion=>{
       this.router.navigate(['/impuestos']);
       swal('Impuesto Actualizado',`Impuesto ${contribucion.codigo_contribucion} actualizado con éxito`,'success');
@@ -158,6 +177,31 @@ export class FormContribucionesComponent implements OnInit {
       response=> {this.tDerechos= response
       }
     );
+  }
+
+  onChange(valor){
+    this.seleccionada=valor;
+    if(this.seleccionada===1){
+      this.obtenerTipoImpuesto();
+    }
+    if(this.seleccionada===2){
+      this.obtenerTipoDerecho();
+    }
+    if(this.seleccionada===3){
+      this.obtenerTipoDerecho();
+    }
+    if(this.seleccionada===4){
+      this.obtenerTipoAprovechamiento();
+    }
+    if(this.seleccionada===5){
+      this.obtenerTipoAprovechamiento();
+    }
+    if(this.seleccionada===6){
+      this.obtenerTipoAprovechamiento();
+    }
+    if(this.seleccionada===7){
+      this.obtenerTipoOtrosProductos();
+    }
   }
   /*--------------------------------------------------------------*/
   //funciones de la contribucion derechos licencias
