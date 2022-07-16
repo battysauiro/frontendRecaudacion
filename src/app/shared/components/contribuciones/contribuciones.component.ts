@@ -29,6 +29,7 @@ export class ContribucionesComponent implements OnInit {
   contribuciones:Contribucion[];
   contribucionControl = new FormControl(false);
   selected:number = 0;
+  termino='';
 
   contribucionGroups: ContribucionGroup[]= [
     {
@@ -131,6 +132,20 @@ export class ContribucionesComponent implements OnInit {
         });
       }
     })
+  }
+
+  public onSearh(){
+    if(this.termino==""){
+        this.obtenerContribuciones(this.pagina);
+    }else{
+      this.contribucionService
+      .buscarTerminoContribucion(0,this.termino)
+      .subscribe(response => {
+        this.contribuciones =response.contenido as Contribucion[];
+        this.paginador = response;
+      });
+    }
+
   }
 
 }

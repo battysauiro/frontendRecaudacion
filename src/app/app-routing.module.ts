@@ -36,7 +36,8 @@ const routes: Routes = [
   {path:'multaEbriedad/page/:page',component:ContribucionMultasEbriedadComponent},
   {path:'otrosProductos',component:ContribucionOtrosProductosComponent},
   {path:'otrosProductos/page/:page',component:ContribucionOtrosProductosComponent},
-  {path:'formulario-contribucion/:tipo/:id',component:FormContribucionesComponent}
+  {path:'formulario-contribucion/:tipo/:id',component:FormContribucionesComponent},
+  {path:'formulario-contribucion',component:FormContribucionesComponent}
 ];
 
 @NgModule({

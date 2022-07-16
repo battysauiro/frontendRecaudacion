@@ -287,6 +287,13 @@ body.active .page .content{
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+/*estilo de los links */
+.links:hover{
+  text-decoration: none;
+  /**background-color: #0454a2;*/
+  color:#0454a2;
+}
+
 .form-controll {
   display: block;
   width: 100%;

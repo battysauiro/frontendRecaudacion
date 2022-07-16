@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { AuthService } from 'src/app/usuario-login/auth.service';
 import { environment } from 'src/environments/environment';
 import { Catalogo } from '../../modelo/contribuciones/catalogo';
@@ -26,6 +26,15 @@ export class ContribucionesService {
       }
       return this.httpHeaders;
     }
+
+    //buscar por termino la contribucion
+  buscarTerminoContribucion(pageNo: number,term:string):Observable<any>{
+    return this.httpClient.get(`${environment.baseUrl}/api/contribucion/filtrar/${pageNo}/${term}`,{headers:this.agregarAuthorizationHeader()}).pipe(
+      map((response: any) => {
+        return response;
+      }),
+    );
+  }
 
     ObtenerListaContribuciones(pageNo:number):Observable<any>{
       return this.httpClient.get(`${environment.baseUrl}/api/contribucion/page/${pageNo}`,{headers:this.agregarAuthorizationHeader()}).pipe(
