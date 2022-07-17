@@ -4,7 +4,7 @@
     <div class="row d-flex justify-content-center">
         <div class=" col-lg-8 col-md-9 col-11 text-center">
             <div class="card">
-              <mat-form-field *ngIf="!idFound">
+              <mat-form-field *ngIf="!idFound && !banderaTipo">
                 <mat-label class="">TIPO CONTRIBUCIÓN</mat-label>
                 <mat-select (valueChange)="onChange($event)" name="tipo" [(ngModel)]="seleccionada">
                   <mat-option *ngFor="let tContribuciones of contribucionesTipos" [value]="tContribuciones.value">

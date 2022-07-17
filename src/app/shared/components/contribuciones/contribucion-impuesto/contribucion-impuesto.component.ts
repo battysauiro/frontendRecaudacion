@@ -29,6 +29,7 @@ export class ContribucionImpuestoComponent implements OnInit {
   contribucionesImpuestos:ContribucionImpuestos[];
   contribucionControl = new FormControl(false);
   selected:number =1;
+  termino='';
   contribucionGroups: ContribucionGroup[]= [
     {
       name: 'Impuestos',
@@ -132,5 +133,19 @@ export class ContribucionImpuestoComponent implements OnInit {
     if(valor===undefined){
       this.router.navigate(['/contribuciones']);
     }
+  }
+
+  public onSearh(){
+    /**if(this.termino==""){
+        this.obtenerContribuciones(this.pagina);
+    }else{
+      this.contribucionService
+      .buscarTerminoContribucion(0,this.termino)
+      .subscribe(response => {
+        this.contribuciones =response.contenido as Contribucion[];
+        this.paginador = response;
+      });
+    }*/
+
   }
 }

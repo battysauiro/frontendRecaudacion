@@ -59,6 +59,7 @@ export class FormContribucionesComponent implements OnInit {
   ];
   seleccionada: number =0;
   idFound=false;
+  banderaTipo:boolean=false;//bandera para saber si se selecciono por el tipo de contribucion
   tipoContribucion:number=0;//aqui decidira cual vista mostrar
   constructor(
     public contribucionesService:ContribucionesService,
@@ -88,9 +89,15 @@ export class FormContribucionesComponent implements OnInit {
     this.activatedRouter.params.subscribe(params=>{
       let id:number=params['id'];
       let tipo:number=params['tipo'];
+      let tipoSeleccion:number=params['tipoSeleccion'];
       this.tipoContribucion=tipo;
       if(id==undefined){
         this.seleccionada=this.contribucionesTipos[0].value;
+      }
+      if(tipoSeleccion!=undefined){
+        console.log("entro aqui en tipo seleccioon");
+        this.banderaTipo=true;
+        this.tipoContribucion=tipoSeleccion;
       }
       if(tipo==1){
         this.obtenerTipoImpuesto();
