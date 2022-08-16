@@ -29,6 +29,7 @@ export class ContribucionMultasVehicularComponent implements OnInit {
   contribucionesMVehicular:ContribucionMVehicular[];
   contribucionControl = new FormControl(false);
   selected:number =6;
+  termino='';
   contribucionGroups: ContribucionGroup[]= [
     {
       name: 'Impuestos',
@@ -134,6 +135,20 @@ export class ContribucionMultasVehicularComponent implements OnInit {
     if(valor===undefined){
       this.router.navigate(['/contribuciones']);
     }
+  }
+
+  public onSearh(){
+    if(this.termino==""){
+        this.obtenerContribucionesMVehicular(this.pagina);
+    }else{
+      this.contribucionMVehicularService
+      .buscarTerminoContribucionMVehicular(0,this.termino)
+      .subscribe(response => {
+        this.contribucionesMVehicular =response.contenido as ContribucionMVehicular[];
+        this.paginador = response;
+      });
+    }
+
   }
 
 }

@@ -43,6 +43,14 @@ export class ContribucionMultasVehicularService {
       );
   }
 
+  buscarTerminoContribucionMVehicular(pageNo: number,term:string):Observable<any>{
+    return this.httpClient.get(`${environment.baseUrl}/api/multaVehicular/filtrar/${pageNo}/${term}`,{headers:this.agregarAuthorizationHeader()}).pipe(
+      map((response: any) => {
+        return response;
+      }),
+    );
+  }
+
   crearCMvehicular(
     mVehicular: ContribucionMVehicular
   ): Observable<ContribucionMVehicular> {

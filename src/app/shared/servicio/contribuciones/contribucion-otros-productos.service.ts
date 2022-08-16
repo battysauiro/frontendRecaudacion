@@ -43,6 +43,14 @@ export class ContribucionOtrosProductosService {
       );
   }
 
+  buscarTerminoContribucionOtrosProductos(pageNo: number,term:string):Observable<any>{
+    return this.httpClient.get(`${environment.baseUrl}/api/otrosProductos/filtrar/${pageNo}/${term}`,{headers:this.agregarAuthorizationHeader()}).pipe(
+      map((response: any) => {
+        return response;
+      }),
+    );
+  }
+
   crearCOtrosProductos(
     otroProductos: ContribucionOtrosProductos
   ): Observable<ContribucionOtrosProductos> {

@@ -29,6 +29,7 @@ export class ContribucionMultasEbriedadComponent implements OnInit {
   contribucionesMEbriedad:ContribucionMEbriedad[];
   contribucionControl = new FormControl(false);
   selected:number =5;
+  termino='';
   contribucionGroups: ContribucionGroup[]= [
     {
       name: 'Impuestos',
@@ -134,6 +135,20 @@ export class ContribucionMultasEbriedadComponent implements OnInit {
     if(valor===undefined){
       this.router.navigate(['/contribuciones']);
     }
+  }
+
+  public onSearh(){
+    if(this.termino==""){
+        this.obtenerContribucionesMEbriedad(this.pagina);
+    }else{
+      this.contribucionMEbriedadService
+      .buscarTerminoContribucionMEbriedad(0,this.termino)
+      .subscribe(response => {
+        this.contribucionesMEbriedad =response.contenido as ContribucionMEbriedad[];
+        this.paginador = response;
+      });
+    }
+
   }
 
 }

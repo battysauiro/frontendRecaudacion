@@ -29,6 +29,7 @@ export class ContribucionMultasComponent implements OnInit {
   contribucionesMultas:ContribucionMulta[];
   contribucionControl = new FormControl(false);
   selected:number =4;
+  termino='';
   contribucionGroups: ContribucionGroup[]= [
     {
       name: 'Impuestos',
@@ -133,6 +134,19 @@ export class ContribucionMultasComponent implements OnInit {
     }
     if(valor===undefined){
       this.router.navigate(['/contribuciones']);
+    }
+  }
+
+  public onSearh(){
+    if(this.termino==""){
+        this.obtenerContribucionesMultas(this.pagina);
+    }else{
+      this.contribucionMultasService
+      .buscarTerminoContribucionMultas(0,this.termino)
+      .subscribe(response => {
+        this.contribucionesMultas =response.contenido as ContribucionMulta[];
+        this.paginador = response;
+      });
     }
   }
 

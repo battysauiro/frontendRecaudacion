@@ -1,19 +1,35 @@
 <div class="container">
-  <div>
-    <span>seleccione una contribución</span>
+  <div class="row justify-content-between">
+    <div class="col-auto">
+      <mat-form-field appearance="fill">
+        <mat-label>Multas ebriedad</mat-label>
+        <mat-select [formControl]="contribucionControl" (valueChange)="onChange($event)" [(value)]="selected" >
+          <mat-option>Todas las contribuciones</mat-option>
+          <mat-optgroup *ngFor="let group of contribucionGroups" [label]="group.name"
+                        >
+            <mat-option *ngFor="let contribucion of group.contribucion" [value]="contribucion.value">
+              {{contribucion.viewValue}}
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-auto">
+      <input
+      class="form-control mr-sm-2 busqueda text-center"
+      type="search"
+      placeholder="Buscar Multa Ebriedad"
+      aria-label="Search"
+      name="term"
+      (keyup)="onSearh()"
+      [(ngModel)]="termino"
+      />
+    </div>
+    <div class="col-auto">
+      <a class="ms-auto links" [routerLink]="['/formulario-contribucion',5]">Agregar Multa ebriedad</a>
+    </div>
   </div>
-  <mat-form-field appearance="fill">
-    <mat-label>Multas ebriedad</mat-label>
-    <mat-select [formControl]="contribucionControl" (valueChange)="onChange($event)" [(value)]="selected" >
-      <mat-option>Todas las contribuciones</mat-option>
-      <mat-optgroup *ngFor="let group of contribucionGroups" [label]="group.name"
-                    >
-        <mat-option *ngFor="let contribucion of group.contribucion" [value]="contribucion.value">
-          {{contribucion.viewValue}}
-        </mat-option>
-      </mat-optgroup>
-    </mat-select>
-  </mat-form-field>
+
 <ng-container *ngIf=" selected===5">
   <div class="table-wrapper">
     <div class="alert alert-info my-4 text-center" *ngIf="contribucionesMEbriedad!= undefined && contribucionesMEbriedad.length==0">

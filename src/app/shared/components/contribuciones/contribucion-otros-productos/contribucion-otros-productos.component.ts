@@ -29,6 +29,7 @@ export class ContribucionOtrosProductosComponent implements OnInit {
   contribucionesOtrosP:ContribucionOtrosProductos[];
   contribucionControl = new FormControl(false);
   selected:number =7;
+  termino='';
   contribucionGroups: ContribucionGroup[]= [
     {
       name: 'Impuestos',
@@ -133,6 +134,19 @@ export class ContribucionOtrosProductosComponent implements OnInit {
     }
     if(valor===undefined){
       this.router.navigate(['/contribuciones']);
+    }
+  }
+
+  public onSearh(){
+    if(this.termino==""){
+        this.obtenerContribucionesOtrosProductos(this.pagina);
+    }else{
+      this.contribucionOtrosPService
+      .buscarTerminoContribucionOtrosProductos(0,this.termino)
+      .subscribe(response => {
+        this.contribucionesOtrosP =response.contenido as ContribucionOtrosProductos[];
+        this.paginador = response;
+      });
     }
   }
 

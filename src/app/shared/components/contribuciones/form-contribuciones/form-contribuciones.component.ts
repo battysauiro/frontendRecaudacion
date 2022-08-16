@@ -91,11 +91,10 @@ export class FormContribucionesComponent implements OnInit {
       let tipo:number=params['tipo'];
       let tipoSeleccion:number=params['tipoSeleccion'];
       this.tipoContribucion=tipo;
-      if(id==undefined){
+      if(id==undefined && tipoSeleccion==undefined){
         this.seleccionada=this.contribucionesTipos[0].value;
       }
       if(tipoSeleccion!=undefined){
-        console.log("entro aqui en tipo seleccioon");
         this.banderaTipo=true;
         this.tipoContribucion=tipoSeleccion;
       }

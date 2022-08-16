@@ -38,6 +38,14 @@ export class ContribucionImpuestoService {
         }))
     }
 
+    buscarTerminoContribucionImpuesto(pageNo: number,term:string):Observable<any>{
+      return this.httpClient.get(`${environment.baseUrl}/api/impuestos/filtrar/${pageNo}/${term}`,{headers:this.agregarAuthorizationHeader()}).pipe(
+        map((response: any) => {
+          return response;
+        }),
+      );
+    }
+
     crearCImpuesto(impuesto:ContribucionImpuestos):Observable<ContribucionImpuestos>{
       return this.httpClient.post<ContribucionImpuestos>(`${environment.baseUrl}/api/impuestos`,impuesto,{headers:this.agregarAuthorizationHeader()}).pipe(
         catchError(e=>{

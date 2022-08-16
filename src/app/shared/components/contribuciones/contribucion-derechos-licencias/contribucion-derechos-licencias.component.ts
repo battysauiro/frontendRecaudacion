@@ -29,6 +29,7 @@ export class ContribucionDerechosLicenciasComponent implements OnInit {
   contribucionesDLicencias:ContribucionDerechosLicencias[];
   contribucionControl = new FormControl(false);
   selected:number =3;
+  termino='';
   contribucionGroups: ContribucionGroup[]= [
     {
       name: 'Impuestos',
@@ -132,6 +133,19 @@ export class ContribucionDerechosLicenciasComponent implements OnInit {
     }
     if(valor===undefined){
       this.router.navigate(['/contribuciones']);
+    }
+  }
+
+  public onSearh(){
+    if(this.termino==""){
+        this.obtenerContribucionesDLicencias(this.pagina);
+    }else{
+      this.contribucionDerechosLService
+      .buscarTerminoContribucionDLicencias(0,this.termino)
+      .subscribe(response => {
+        this.contribucionesDLicencias =response.contenido as ContribucionDerechosLicencias[];
+        this.paginador = response;
+      });
     }
   }
 

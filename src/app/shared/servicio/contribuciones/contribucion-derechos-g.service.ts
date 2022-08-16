@@ -37,6 +37,14 @@ export class ContribucionDerechosGService {
         }));
       }
 
+      buscarTerminoContribucionDGeneral(pageNo: number,term:string):Observable<any>{
+        return this.httpClient.get(`${environment.baseUrl}/api/derechoGeneral/filtrar/${pageNo}/${term}`,{headers:this.agregarAuthorizationHeader()}).pipe(
+          map((response: any) => {
+            return response;
+          }),
+        );
+      }
+
       crearCDerechoG(derechoG:ContribucionDerechosGenerales):Observable<ContribucionDerechosGenerales>{
         return this.httpClient.post<ContribucionDerechosGenerales>(`${environment.baseUrl}/api/derechoGeneral`,derechoG,{headers:this.agregarAuthorizationHeader()}).pipe(
           catchError(e=>{

@@ -29,6 +29,7 @@ export class ContribucionDerechoGComponent implements OnInit {
   contribucionesDerechosG:ContribucionDerechosGenerales[];
   contribucionControl = new FormControl(false);
   selected:number =2;
+  termino='';
   contribucionGroups: ContribucionGroup[]= [
     {
       name: 'Impuestos',
@@ -133,6 +134,20 @@ export class ContribucionDerechoGComponent implements OnInit {
     if(valor===undefined){
       this.router.navigate(['/contribuciones']);
     }
+  }
+
+  public onSearh(){
+    if(this.termino==""){
+        this.obtenerContribucionesDGenerales(this.pagina);
+    }else{
+      this.contribucionDerechosGService
+      .buscarTerminoContribucionDGeneral(0,this.termino)
+      .subscribe(response => {
+        this.contribucionesDerechosG =response.contenido as ContribucionDerechosGenerales[];
+        this.paginador = response;
+      });
+    }
+
   }
 
 }

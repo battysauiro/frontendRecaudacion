@@ -44,6 +44,14 @@ export class ContribucionMultasService {
       );
   }
 
+  buscarTerminoContribucionMultas(pageNo: number,term:string):Observable<any>{
+    return this.httpClient.get(`${environment.baseUrl}/api/aprovechamientoMulta/filtrar/${pageNo}/${term}`,{headers:this.agregarAuthorizationHeader()}).pipe(
+      map((response: any) => {
+        return response;
+      }),
+    );
+  }
+
   crearCMulta(multa: ContribucionMulta): Observable<ContribucionMulta> {
     return this.httpClient
       .post<ContribucionMulta>(`${environment.baseUrl}/api/aprovechamientoMulta`, multa, {

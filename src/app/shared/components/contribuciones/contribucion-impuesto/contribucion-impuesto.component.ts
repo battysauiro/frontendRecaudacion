@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContribucionImpuestos } from 'src/app/shared/modelo/contribuciones/contribucion-impuestos';
 import { ContribucionImpuestoService } from 'src/app/shared/servicio/contribuciones/contribucion-impuesto.service';
+import { ContribucionesService } from 'src/app/shared/servicio/contribuciones/contribuciones.service';
 import { AuthService } from 'src/app/usuario-login/auth.service';
 import swal from 'sweetalert2';
 
@@ -136,16 +137,16 @@ export class ContribucionImpuestoComponent implements OnInit {
   }
 
   public onSearh(){
-    /**if(this.termino==""){
-        this.obtenerContribuciones(this.pagina);
+    if(this.termino==""){
+        this.obtenerContribucionesImpuestos(this.pagina);
     }else{
-      this.contribucionService
-      .buscarTerminoContribucion(0,this.termino)
+      this.contribucionImpuestoService
+      .buscarTerminoContribucionImpuesto(0,this.termino)
       .subscribe(response => {
-        this.contribuciones =response.contenido as Contribucion[];
+        this.contribucionesImpuestos =response.contenido as ContribucionImpuestos[];
         this.paginador = response;
       });
-    }*/
+    }
 
   }
 }

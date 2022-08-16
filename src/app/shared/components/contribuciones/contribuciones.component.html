@@ -29,8 +29,6 @@
         <a class="ms-auto links" routerLink="/formulario-contribucion">Agregar contribucion</a>
       </div>
   </div>
-
-
   <ng-container *ngIf="selected===0">
   <div class="table-wrapper">
     <div class="alert alert-info my-4 text-center" *ngIf="contribuciones!= undefined && contribuciones.length==0">
@@ -70,6 +68,7 @@
                 type="button"
                 name="detalles"
                 class="btn btn-primary btn-sm"
+                data-bs-toggle="modal" data-bs-target="#staticBackdrop"
               >detalles
               </button>
             </td>
@@ -113,4 +112,44 @@
     ></app-paginador-contribuciones>
   </div>
 </ng-container>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="">CONTRIBUCION</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <div class="card">
+              <div class="card-header">
+                DATOS GENERALES
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-header">
+                DATOS ESPECIFICOS
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
