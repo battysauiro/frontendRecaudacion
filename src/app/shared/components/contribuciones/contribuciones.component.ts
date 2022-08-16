@@ -6,6 +6,19 @@ import { Contribucion } from '../../modelo/contribuciones/contribucion';
 import { ContribucionImpuestos } from '../../modelo/contribuciones/contribucion-impuestos';
 import { ContribucionesService } from '../../servicio/contribuciones/contribuciones.service';
 import swal from 'sweetalert2';
+import { ContribucionDerechosGenerales } from '../../modelo/contribuciones/contribucion-derechos-generales';
+import { ContribucionDerechosLicencias } from '../../modelo/contribuciones/contribucion-derechos-licencias';
+import { ContribucionMulta } from '../../modelo/contribuciones/contribucion-multa';
+import { ContribucionMEbriedad } from '../../modelo/contribuciones/contribucion-m-ebriedad';
+import { ContribucionMVehicular } from '../../modelo/contribuciones/contribucion-m-vehicular';
+import { ContribucionOtrosProductos } from '../../modelo/contribuciones/contribucion-otros-productos';
+import { ContribucionDerechosGService } from '../../servicio/contribuciones/contribucion-derechos-g.service';
+import { ContribucionDerechosLicenciasService } from '../../servicio/contribuciones/contribucion-derechos-licencias.service';
+import { ContribucionImpuestoService } from '../../servicio/contribuciones/contribucion-impuesto.service';
+import { ContribucionMultasEbriedadService } from '../../servicio/contribuciones/contribucion-multas-ebriedad.service';
+import { ContribucionMultasVehicularService } from '../../servicio/contribuciones/contribucion-multas-vehicular.service';
+import { ContribucionMultasService } from '../../servicio/contribuciones/contribucion-multas.service';
+import { ContribucionOtrosProductosService } from '../../servicio/contribuciones/contribucion-otros-productos.service';
 
 interface ContribucionInter {
   value: number;
@@ -26,10 +39,21 @@ interface ContribucionGroup {
 export class ContribucionesComponent implements OnInit {
   paginador:any;
   pagina: number = 0;
+  //variables de contribuciones
   contribuciones:Contribucion[];
+  contribucion:any;
+  contribucionImpuesto:ContribucionImpuestos;
+  contribucionDerechosG:ContribucionDerechosGenerales;
+  contribucionDerechosL:ContribucionDerechosLicencias;
+  contribucionMultas:ContribucionMulta;
+  contribucionMultaE:ContribucionMEbriedad;
+  contribucionMultaV:ContribucionMVehicular;
+  contribucionOtrosProductos:ContribucionOtrosProductos;
   contribucionControl = new FormControl(false);
   selected:number = 0;
   termino='';
+  nivelContribucion=0;
+
 
   contribucionGroups: ContribucionGroup[]= [
     {
@@ -65,7 +89,14 @@ export class ContribucionesComponent implements OnInit {
     public contribucionService:ContribucionesService,
     public activatedRoute:ActivatedRoute,
     public authService: AuthService,
-    public router:Router) { }
+    public router:Router,
+    public contribucionImpuestoService:ContribucionImpuestoService,
+    public contribucionDerechosGService:ContribucionDerechosGService,
+    public contribucionDLicenciasService:ContribucionDerechosLicenciasService,
+    public contribucionMultasService:ContribucionMultasService,
+    public contribucionMVehicularService:ContribucionMultasVehicularService,
+    public contribucionMEbriedadService:ContribucionMultasEbriedadService,
+    public contribucionOtrosProductosService:ContribucionOtrosProductosService) { }
 
   ngOnInit(): void {
       this.activatedRoute.paramMap.subscribe(params=>{
@@ -146,6 +177,59 @@ export class ContribucionesComponent implements OnInit {
       });
     }
 
+  }
+  //Obtiene la información de la contribución seleccionada
+  public obtenerInfoContribucion(nivelContribucion:number,codigoContribucion:string){
+    this.nivelContribucion=nivelContribucion;
+    if(nivelContribucion==1){
+      this.contribucionImpuestoService
+      .ObtenerCImpuesto(codigoContribucion)
+      .subscribe(response => {
+        this.contribucion =response;
+      });
+    }
+    if(nivelContribucion==2){
+      this.contribucionDerechosGService
+      .obtenerCDerechoG(codigoContribucion)
+      .subscribe(response => {
+        this.contribucion =response;
+      });
+    }
+    if(nivelContribucion==3){
+      this.contribucionDLicenciasService
+      .ObtenerCDerechosLicencias(codigoContribucion)
+      .subscribe(response => {
+        this.contribucion =response;
+      });
+    }
+    if(nivelContribucion==4){
+      this.contribucionMultasService
+      .ObtenerCMulta(codigoContribucion)
+      .subscribe(response => {
+        this.contribucion =response;
+      });
+    }
+    if(nivelContribucion==5){
+      this.contribucionMEbriedadService
+      .obtenerCMebriedad(codigoContribucion)
+      .subscribe(response => {
+        this.contribucion =response;
+      });
+    }
+    if(nivelContribucion==6){
+      this.contribucionMVehicularService
+      .obtenerCMvehicular(codigoContribucion)
+      .subscribe(response => {
+        this.contribucion =response;
+      });
+    }
+    if(nivelContribucion==7){
+      this.contribucionOtrosProductosService
+      .obtenerCOtrosProductos(codigoContribucion)
+      .subscribe(response => {
+        this.contribucion =response;
+      });
+    }
   }
 
 }

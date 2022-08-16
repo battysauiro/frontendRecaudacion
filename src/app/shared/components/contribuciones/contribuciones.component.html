@@ -69,6 +69,7 @@
                 name="detalles"
                 class="btn btn-primary btn-sm"
                 data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                (click)="obtenerInfoContribucion(contribucion.nivelContribucion,contribucion.codigo_contribucion)"
               >detalles
               </button>
             </td>
@@ -119,7 +120,7 @@
   <div class="modal-dialog" >
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h5 class="">CONTRIBUCION</h5>
+        <h5 class="text-center">CONTRIBUCION</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -129,10 +130,12 @@
               <div class="card-header">
                 DATOS GENERALES
               </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
+              <ul class="list-group list-group-flush" *ngIf="contribucion!=undefined">
+                <li class="list-group-item">Contribución: {{contribucion.concepto_contribucion}}</li>
+                <li class="list-group-item">Codigo: {{contribucion.codigo_contribucion}}</li>
+                <li class="list-group-item">Concepto contribución: {{contribucion.descripcion}}</li>
+                <li class="list-group-item">Tipo pago: {{contribucion.tipo_pago}}</li>
+
               </ul>
             </div>
           </div>
@@ -141,10 +144,31 @@
               <div class="card-header">
                 DATOS ESPECIFICOS
               </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
+              <ul class="list-group list-group-flush" *ngIf="nivelContribucion==1 || nivelContribucion==4">
+                <li class="list-group-item">Costo: {{contribucion.cantidad}} {{contribucion.tipo_pago}}</li>
+              </ul>
+              <ul class="list-group list-group-flush" *ngIf="nivelContribucion==2">
+                <li class="list-group-item">Costo: {{contribucion.cantidad}} {{contribucion.tipo_pago}}</li>
+                <li class="list-group-item">Periodicidad: {{contribucion.periodicidad}}</li>
+              </ul>
+              <ul class="list-group list-group-flush" *ngIf="nivelContribucion==3">
+                <li class="list-group-item">Expedición: {{contribucion.expedicion}} {{contribucion.tipo_pago}}</li>
+                <li class="list-group-item">Refrendo: {{contribucion.refrendo}} {{contribucion.tipo_pago}}</li>
+              </ul>
+              <ul class="list-group list-group-flush" *ngIf="nivelContribucion==5">
+                <li class="list-group-item">Uma min: {{contribucion.uma_min}}</li>
+                <li class="list-group-item">Uma max: {{contribucion.uma_max}}</li>
+                <li class="list-group-item">Cantidad alcohol: {{contribucion.cantidad_alcohol}}</li>
+              </ul>
+              <ul class="list-group list-group-flush" *ngIf="nivelContribucion==6">
+                <li class="list-group-item">Artículo: {{contribucion.descripcion_articulo}}</li>
+                <li class="list-group-item">Uma min: {{contribucion.uma_min}}</li>
+                <li class="list-group-item">Uma max: {{contribucion.uma_max}}</li>
+                <li class="list-group-item">Tipo vehiculo: {{contribucion.svehiculo}}</li>
+              </ul>
+              <ul class="list-group list-group-flush" *ngIf="nivelContribucion==7">
+                <li class="list-group-item">Costo: {{contribucion.cantidad}} {{contribucion.tipo_pago}}</li>
+                <li class="list-group-item">Periodicidad: {{contribucion.speriodicidad}}</li>
               </ul>
             </div>
           </div>
