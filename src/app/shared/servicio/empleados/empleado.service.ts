@@ -65,4 +65,12 @@ export class EmpleadoService {
   obtenerEmpleadoByMunicipio(idMunicipio:number,idEmpleado:string):Observable<Empleado>{
     return this.httpClient.get<Empleado>(`${environment.baseUrl}/api/empleado/municipio/${idMunicipio}/empleado/${idEmpleado}`,{headers:this.agregarAuthorizationHeader()});
   }
+
+  actualizarEmpleado(empleado:Empleado):Observable<Empleado>{
+    return this.httpClient.put<Empleado>(`${environment.baseUrl}/api/empleado/${empleado.curp}`,empleado,{headers:this.agregarAuthorizationHeader()});
+  }
+
+  eliminarEmpleado(id:string):Observable<Object>{
+    return this.httpClient.delete(`${environment.baseUrl}/api/empleado/${id}`,{headers:this.agregarAuthorizationHeader()});
+  }
 }
