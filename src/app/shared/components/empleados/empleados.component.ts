@@ -37,8 +37,7 @@ export class EmpleadosComponent implements OnInit {
   }
   //Listara solo a los empleados del municipio seleccionado
   public obtenerEmpleadosByMunicipio(page:number){
-    console.log(this.authService._usuario.id_municipio);
-    this.empleadoService.obtenerListaEmpleadosPorMunicipio(page,1).subscribe(
+    this.empleadoService.obtenerListaEmpleadosPorMunicipio(page,this.authService._usuario.id_municipio).subscribe(
       response=> {this.empleados= response.contenido as Empleado[]
         this.paginador=response;
       }
@@ -70,6 +69,16 @@ export class EmpleadosComponent implements OnInit {
 
   public onSearh(){
 
+    if(this.termino==""){
+      this.obtenerEmpleadosByMunicipio(this.pagina);
+    }else{
+      this.empleadoService
+      .buscarTerminoEmpleados(0,this.termino,this.authService._usuario.id_municipio)
+      .subscribe(response => {
+        this.empleados =response.contenido as Empleado[];
+        this.paginador = response;
+      });
     }
+  }
 
 }
