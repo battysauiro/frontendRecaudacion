@@ -31,13 +31,14 @@ export class EmpleadosComponent implements OnInit {
         page=0;
       }
       this.pagina=page;
-      this.obtenerEmpleados(page);
+      this.obtenerEmpleadosByMunicipio(page);
      }
      );
   }
-
-  public obtenerEmpleados(page:number){
-    this.empleadoService.obtenerListaEmpleados(page).subscribe(
+  //Listara solo a los empleados del municipio seleccionado
+  public obtenerEmpleadosByMunicipio(page:number){
+    console.log(this.authService._usuario.id_municipio);
+    this.empleadoService.obtenerListaEmpleadosPorMunicipio(page,1).subscribe(
       response=> {this.empleados= response.contenido as Empleado[]
         this.paginador=response;
       }
@@ -56,7 +57,7 @@ export class EmpleadosComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.empleadoService.eliminarEmpleado(empleado.curp).subscribe(response=>{
-        this.obtenerEmpleados(this.pagina);
+        this.obtenerEmpleadosByMunicipio(this.pagina);
           swal(
             'Empleado Eliminado!',
             `Empleado ${empleado.nombre} ${empleado.apellido_p} ${empleado.apellido_m} eliminado con éxito`,
@@ -68,32 +69,7 @@ export class EmpleadosComponent implements OnInit {
   }
 
   public onSearh(){
-    /**if(this.termino==""){
-      if(this.banderaTipo){
-        this.obtenerContribuyentesFisicas(this.pagina);
-      }else{
-        this.obtenerContribuyentesM(this.pagina);
-      }
 
-    }else{
-      if(this.banderaTipo){
-      this.contribuyentesService
-      .buscarTerminoFisica(0,this.termino)
-      .subscribe(response => {
-        this.contribuyentesFisicas =response.contenido as ContribuyenteFisica[];
-        this.paginador = response;
-      });
-      }else{
-        this.contribuyentesService
-        .buscarTerminoMoral(0,this.termino)
-        .subscribe(response => {
-          this.contribuyentesMorales =response.contenido as ContribuyenteMoral[];
-          this.paginador = response;
-      });
-      }
-
-    }*/
-    //this.authService._usuario.
-  }
+    }
 
 }
