@@ -10,6 +10,7 @@ import { ContribucionOtrosProductosComponent } from './shared/components/contrib
 import { ContribucionesComponent } from './shared/components/contribuciones/contribuciones.component';
 import { FormContribucionesComponent } from './shared/components/contribuciones/form-contribuciones/form-contribuciones.component';
 import { ContribuyentesComponent } from './shared/components/contribuyentes/contribuyentes.component';
+import { EmpleadosComponent } from './shared/components/empleados/empleados.component';
 import { InicioComponent } from './shared/components/inicio/inicio.component';
 import { LoginComponent } from './usuario-login/login/login.component';
 
@@ -38,7 +39,9 @@ const routes: Routes = [
   {path:'otrosProductos/page/:page',component:ContribucionOtrosProductosComponent},
   {path:'formulario-contribucion/:tipo/:id',component:FormContribucionesComponent},
   {path:'formulario-contribucion',component:FormContribucionesComponent},
-  {path:'formulario-contribucion/:tipoSeleccion',component:FormContribucionesComponent}
+  {path:'formulario-contribucion/:tipoSeleccion',component:FormContribucionesComponent},
+  {path:'empleados',component:EmpleadosComponent},
+  {path:'empleados/page/:page',component:EmpleadosComponent},
 ];
 
 @NgModule({

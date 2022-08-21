@@ -33,7 +33,7 @@ export class EmpleadoService {
 
   //se obtiene la lista de empleados en general
   obtenerListaEmpleados(pageNo:number):Observable<any>{
-    return this.httpClient.get(`${environment.baseUrl}/api/derechoGeneral/page/${pageNo}`,{headers:this.agregarAuthorizationHeader()}).pipe(
+    return this.httpClient.get(`${environment.baseUrl}/api/empleado/page/${pageNo}`,{headers:this.agregarAuthorizationHeader()}).pipe(
       map((response:any)=>{
         return response
       }));

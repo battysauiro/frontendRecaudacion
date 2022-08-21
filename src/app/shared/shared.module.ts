@@ -29,10 +29,12 @@ import { ContribucionMultasVehicularComponent } from './components/contribucione
 import { ContribucionMultasEbriedadComponent } from './components/contribuciones/contribucion-multas-ebriedad/contribucion-multas-ebriedad.component';
 import { ContribucionOtrosProductosComponent } from './components/contribuciones/contribucion-otros-productos/contribucion-otros-productos.component';
 import { FormContribucionesComponent } from './components/contribuciones/form-contribuciones/form-contribuciones.component';
+import { EmpleadosComponent } from './components/empleados/empleados.component';
+import { PaginadorEmpleadoComponent } from './components/paginadores/paginadores-empleados/paginador-empleado/paginador-empleado.component';
 
 
 @NgModule({
-  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent, PaginadorContribucionesComponent, PaginadorImpuestosComponent, PaginadorContribucionDerechosGComponent, PaginadorContribucionDerechosLicenciasComponent, PaginadorContribucionMultasComponent, PaginadorContribucionMultasVehicularComponent, PaginadorContribucionMultasEbriedadComponent, PaginadorContribucionOtrosProductosComponent, ContribucionDerechoGComponent, ContribucionDerechosLicenciasComponent, ContribucionMultasComponent, ContribucionMultasVehicularComponent, ContribucionMultasEbriedadComponent, ContribucionOtrosProductosComponent, FormContribucionesComponent],
+  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent, PaginadorContribucionesComponent, PaginadorImpuestosComponent, PaginadorContribucionDerechosGComponent, PaginadorContribucionDerechosLicenciasComponent, PaginadorContribucionMultasComponent, PaginadorContribucionMultasVehicularComponent, PaginadorContribucionMultasEbriedadComponent, PaginadorContribucionOtrosProductosComponent, ContribucionDerechoGComponent, ContribucionDerechosLicenciasComponent, ContribucionMultasComponent, ContribucionMultasVehicularComponent, ContribucionMultasEbriedadComponent, ContribucionOtrosProductosComponent, FormContribucionesComponent, EmpleadosComponent, PaginadorEmpleadoComponent],
   imports: [
     CommonModule,
     HttpClientModule,

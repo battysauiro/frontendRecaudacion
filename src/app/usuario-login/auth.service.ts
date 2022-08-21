@@ -40,7 +40,6 @@ export class AuthService {
     params.set('grant_type','password');
     params.set('username',usuario.username);
     params.set('password',usuario.password);
-    console.log(params.toString());
     return this.http.post<any>(environment.baseUrl+'/oauth/token',params.toString(),{headers:httpHeaders});
   }
 
@@ -49,6 +48,7 @@ export class AuthService {
     this._usuario= new Usuario();
     //aqui se puede guardar mas datos del usuario
     this._usuario.username=payLoad.user_name;
+    this._usuario.id_municipio=payLoad.id_municipio;
     this._usuario.roles=payLoad.authorities;
     sessionStorage.setItem('usuario',JSON.stringify(this._usuario));
 
