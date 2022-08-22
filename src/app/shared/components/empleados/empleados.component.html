@@ -48,6 +48,9 @@
             <th>Nombre</th>
             <th>Apellido Paterno</th>
             <th>Apellido Materno</th>
+            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+              <i class="fas fa-address-card"></i>
+            </th>
             <th
               class="text-center"
               *ngIf="
@@ -82,8 +85,25 @@
             >
               <button
                 type="button"
-                name="editar"
+                name="verUser"
                 data-bs-toggle="modal" data-bs-target="#exampleModal"
+                class="btn btn-primary btn-sm"
+              >
+                usuario
+              </button>
+            </td>
+            <td
+              *ngIf="
+                authService.hasRole([
+                  'ROLE_ADMIN',
+                  'ROLE_PRESIDENTE',
+                  'ROLE_TESORERO'
+                ])
+              "
+            >
+              <button
+                type="button"
+                name="editar"
                 class="btn btn-primary btn-sm"
                 [routerLink]="['/empleados/formulario-empleados',empleado.curp]"
               >

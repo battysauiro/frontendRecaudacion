@@ -32,4 +32,8 @@ export class MunicipioService {
     ObtenerListaMunicipios():Observable<Municipio[]>{
       return this.httpClient.get<Municipio[]>(`${environment.baseUrl}/api/municipios`,{headers:this.agregarAuthorizationHeader()})
       }
+
+    obtenerMunicipio(id):Observable<Municipio>{
+      return this.httpClient.get<Municipio>(`${environment.baseUrl}/api/municipios/${id}`,{headers:this.agregarAuthorizationHeader()});
+    }
 }

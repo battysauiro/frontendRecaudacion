@@ -1,5 +1,5 @@
 export class Municipio {
-  clave:string;
+  clave:number;
   nombre_municipios: string;
   cabecera_municipal: string;
 }

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Empleado } from 'src/app/shared/modelo/empleados/empleado';
+import { Municipio } from 'src/app/shared/modelo/municipios/municipio';
 import { EmpleadoService } from 'src/app/shared/servicio/empleados/empleado.service';
+import { MunicipioService } from 'src/app/shared/servicio/municipios/municipio.service';
+import { AuthService } from 'src/app/usuario-login/auth.service';
 import swal from 'sweetalert2';
 
 @Component({
@@ -12,15 +15,23 @@ import swal from 'sweetalert2';
 export class FormEmpleadosComponent implements OnInit {
 
   empleado= new Empleado();
+  municipio= new Municipio();
   idFound=false;
   titulo="AÑADIR EMPLEADO";
-  constructor(public empleadoService:EmpleadoService,public router:Router,public activatedRouter:ActivatedRoute) { }
+  constructor(public empleadoService:EmpleadoService,public router:Router,public activatedRouter:ActivatedRoute,
+    public authService:AuthService,
+    public municipioService:MunicipioService) { }
 
   ngOnInit(): void {
+    this.obtenerMunicipio();
     this.cargarEmpleado();
+
   }
 
+
   public agregarEmpleado():void{
+    this.empleado.municipio=this.municipio.clave;
+    console.log(this.empleado,"VA AQUIIII");
     this.empleadoService.crearEmpleado(this.empleado).subscribe(
       response=> {this.empleado=response;
                   this.irEmpleados();
@@ -41,6 +52,8 @@ export class FormEmpleadosComponent implements OnInit {
   }
 
   public actualizarEmpleado():void{
+    this.empleado.municipio=this.municipio.clave;
+    console.log(this.empleado,"VA AQUIIII");
     this.empleadoService.actualizarEmpleado(this.empleado).subscribe(empleado=>{
       this.irEmpleados();
       //this.router.navigate(['/inicio/contribuyentes']);
@@ -63,6 +76,15 @@ export class FormEmpleadosComponent implements OnInit {
         else{
           return false;
         }
+  }
+
+  public obtenerMunicipio(){
+
+    this.
+    municipioService.obtenerMunicipio(this.authService._usuario.id_municipio)
+      .subscribe(response => {
+        this.municipio =response;
+      });
   }
 
   //CONVIERTE A MAYUSCULAS LA CADENA cambia a servicio para optimizacion
