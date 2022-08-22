@@ -7,7 +7,7 @@
       <input
         class="form-control mr-sm-2 busqueda text-center"
         type="search"
-        placeholder="buscar contribuyente"
+        placeholder="buscar Empleado"
         aria-label="Search"
         name="term"
         (keyup)="onSearh()"
@@ -16,6 +16,7 @@
     </div>
     <div>
       <button type="button"  class="btn boton-principal"
+      routerLink="/empleados/formulario-empleados"
       data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Empleado</button>
     </div>
   </div>
@@ -84,7 +85,7 @@
                 name="editar"
                 data-bs-toggle="modal" data-bs-target="#exampleModal"
                 class="btn btn-primary btn-sm"
-
+                [routerLink]="['/empleados/formulario-empleados',empleado.curp]"
               >
                 <i class="fas fa-pencil-alt"></i>
               </button>

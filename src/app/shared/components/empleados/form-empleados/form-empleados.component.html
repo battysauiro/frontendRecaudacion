@@ -1,0 +1,63 @@
+<div class="container-fluid  mx-auto">
+  <div class="row d-flex justify-content-center">
+      <div class=" col-lg-8 col-md-9 col-11 text-center">
+          <div class="card">
+              <h5 class="text-center mb-4">{{titulo}}</h5>
+
+              <form class="form-card">
+
+                  <div class="row justify-content-between text-left">
+                      <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Curp<span class="text-danger"> *</span></label> <input (keyup)="onKey($event)" [disabled]="idFound?true:false" type="text"  name="curp" placeholder="CURP" [(ngModel)]="empleado.curp" required minlength="18" maxlength="18" #curpv="ngModel">
+                          <div class="alert alert-danger" *ngIf="curpv.invalid && (curpv.dirty || curpv.touched)">
+                              <div *ngIf="curpv.errors.required">
+                                  la CURP es requerida
+                              </div>
+                              <div *ngIf="curpv.errors.minlength">
+                                  la CURP debe tener 18 caracteres
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Municipio<span class="text-danger"> *</span></label> <input disabled=true type="text" name="nombreM" [(ngModel)]="empleado.nombre_municipio">
+                    </div>
+
+                  </div>
+                  <div class="row justify-content-between text-left">
+                      <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Nombre<span class="text-danger"> *</span></label> <input (keyup)="onKey($event)" type="text"  name="nombre" placeholder="Nombre" [(ngModel)]="empleado.nombre" required #nombre="ngModel">
+                          <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                              <div *ngIf="nombre.errors.required">
+                                  El Nombre es requerido
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Apellido Paterno<span class="text-danger"> *</span></label> <input (keyup)="onKey($event)" type="text"  name="apellidoP" placeholder="Apellido Paterno" [(ngModel)]="empleado.apellido_p" required #apellidoP="ngModel">
+                          <div class="alert alert-danger" *ngIf="apellidoP.invalid && (apellidoP.dirty || apellidoP.touched)">
+                              <div *ngIf="apellidoP.errors.required">
+                                  El Apellido Paterno es requerido
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Apellido Materno<span class="text-danger"> *</span></label> <input (keyup)="onKey($event)" type="text"  name="apellidoM" placeholder="Apellido Materno" [(ngModel)]="empleado.apellido_m" required #apellidoM="ngModel">
+                          <div class="alert alert-danger" *ngIf="apellidoM.invalid && (apellidoM.dirty || apellidoM.touched)">
+                              <div *ngIf="apellidoM.errors.required">
+                                  El Apellido Materno es requerido
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row justify-content-between text-left">
+                      <div class="form-group col-sm-4 flex-column d-flex"></div>
+                      <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3"><span class="text-danger">. </span></label>
+                          <button #buttonCrear [disabled]="vacio()" [ngClass]="buttonCrear.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='agregarEmpleado()' *ngIf="!idFound else elseBlock">Añadir</button>
+                      </div>
+                      <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3"><span class="text-danger">. </span></label>
+                          <button type="button" class="btn-block btn-danger" (click)='irEmpleados()'  >Cancelar</button>
+                      </div>
+                      <ng-template #elseBlock>
+                          <button #buttonUpdate [disabled]="vacio()" [ngClass]="buttonUpdate.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='actualizarEmpleado()' >Actualizar</button>
+                      </ng-template>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>

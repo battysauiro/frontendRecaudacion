@@ -11,6 +11,7 @@ import { ContribucionesComponent } from './shared/components/contribuciones/cont
 import { FormContribucionesComponent } from './shared/components/contribuciones/form-contribuciones/form-contribuciones.component';
 import { ContribuyentesComponent } from './shared/components/contribuyentes/contribuyentes.component';
 import { EmpleadosComponent } from './shared/components/empleados/empleados.component';
+import { FormEmpleadosComponent } from './shared/components/empleados/form-empleados/form-empleados.component';
 import { InicioComponent } from './shared/components/inicio/inicio.component';
 import { LoginComponent } from './usuario-login/login/login.component';
 
@@ -42,6 +43,8 @@ const routes: Routes = [
   {path:'formulario-contribucion/:tipoSeleccion',component:FormContribucionesComponent},
   {path:'empleados',component:EmpleadosComponent},
   {path:'empleados/page/:page',component:EmpleadosComponent},
+  {path:'empleados/formulario-empleados',component:FormEmpleadosComponent},
+  {path:'empleados/formulario-empleados/:id',component:FormEmpleadosComponent}
 ];
 
 @NgModule({
