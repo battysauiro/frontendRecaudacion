@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/usuario-login/auth.service';
 import { Empleado } from '../../modelo/empleados/empleado';
 import { EmpleadoService } from '../../servicio/empleados/empleado.service';
@@ -40,7 +40,8 @@ export class EmpleadosComponent implements OnInit {
     public activatedRoute:ActivatedRoute,
     public authService:AuthService,
     public rolesService:RolesService,
-    public usuarioService:UsuarioService) { }
+    public usuarioService:UsuarioService,
+    public router:Router) { }
 
   ngOnInit(): void {
     this.municipio.clave=this.authService._usuario.id_municipio;
@@ -98,9 +99,10 @@ export class EmpleadosComponent implements OnInit {
           this.obtenerUsuarioByEmpleado(empleado.curp);
         }
       });
+  }
 
-
-
+  agregarEmpleado(empleado:Empleado){
+    this.usuario.id_empleado=empleado.curp;
   }
 
   obtenerUsuarioByEmpleado(idEmpleado:string){
@@ -133,7 +135,20 @@ export class EmpleadosComponent implements OnInit {
       });
     }
   }
+
+  irEmpleados(){
+    this.router.navigate(['/empleados']);
+  }
 //metodos de usuario
+
+public crearUsuario():void{
+  this.usuarioService.crearUsuario(this.usuario).subscribe(
+    response=> {this.usuario=response;
+              this.obtenerEmpleadosByMunicipio(0);
+                swal('Usuario Agregado',`Usuario ${this.usuario.email} creado con éxito`,'success');
+              }
+  );
+}
 
 obtenerListaRoles(){
   this.rolesService.obtenerListaRole().subscribe(

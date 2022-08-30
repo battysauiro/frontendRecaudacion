@@ -107,7 +107,7 @@
                 name="verUser"
                 data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                 class="btn btn-primary btn-sm"
-
+                (click)="agregarEmpleado(empleado)"
               >
                 crear usuario
               </button>
@@ -214,7 +214,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="limpiarModal()">Cancelar</button>
-          <button type="button"  data-bs-dismiss="modal" class="btn btn-primary" *ngIf="!banderaActualizar else elseBlock">Crear Usuario</button>
+          <button type="button"  data-bs-dismiss="modal" class="btn btn-primary" (click)='crearUsuario()' *ngIf="!banderaActualizar else elseBlock">Crear Usuario</button>
           <ng-template #elseBlock>
             <button   type="button" class="btn btn-primary" data-bs-dismiss="modal" type="submit"   >Cambiar contraseña</button>
           </ng-template>

@@ -6,7 +6,7 @@ export class Usuario {
     puesto_usuario :string;
     estado_usuario:boolean;
     url_imagen_usuario: string;
-    id_empleado :number;
+    id_empleado :string;
     id_municipio:number;
     roles:string[]=[];
 
