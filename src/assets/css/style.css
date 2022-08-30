@@ -287,6 +287,13 @@ body.active .page .content{
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+.validRelleno{
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: .875em;
+  color: green;
+}
+
 /*estilo de los links */
 .links:hover{
   text-decoration: none;

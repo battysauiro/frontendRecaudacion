@@ -31,7 +31,6 @@ export class FormEmpleadosComponent implements OnInit {
 
   public agregarEmpleado():void{
     this.empleado.municipio=this.municipio.clave;
-    console.log(this.empleado,"VA AQUIIII");
     this.empleadoService.crearEmpleado(this.empleado).subscribe(
       response=> {this.empleado=response;
                   this.irEmpleados();

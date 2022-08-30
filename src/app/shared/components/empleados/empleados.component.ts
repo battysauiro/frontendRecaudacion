@@ -5,6 +5,12 @@ import { Empleado } from '../../modelo/empleados/empleado';
 import { EmpleadoService } from '../../servicio/empleados/empleado.service';
 import swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { Usuario } from '../../modelo/usuarios/usuario';
+import { Rol } from '../../modelo/roles/rol';
+import { RolesService } from '../../servicio/roles/roles.service';
+import { UsuarioService } from '../../servicio/usuarios/usuario.service';
+import { Municipio } from '../../modelo/municipios/municipio';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-empleados',
@@ -15,16 +21,30 @@ export class EmpleadosComponent implements OnInit {
 
   paginador:any;
   empleados:Empleado[];
+  empleado= new Empleado;
+  usuario= new Usuario;
+  municipio= new Municipio;
+  roles:Rol[];
   pagina=0;
   termEmpleado='';
+  banderaActualizar:boolean=false;
+  banderaPassword=false;
+  Cpassword:string;
   urlEndPoint: string = environment.baseUrl;
   termino='';
+  existe=false;
+  seleccionado:Rol;
+
 
   constructor(public empleadoService:EmpleadoService,
     public activatedRoute:ActivatedRoute,
-    public authService:AuthService) { }
+    public authService:AuthService,
+    public rolesService:RolesService,
+    public usuarioService:UsuarioService) { }
 
   ngOnInit(): void {
+    this.municipio.clave=this.authService._usuario.id_municipio;
+    this.obtenerListaRoles();
     this.activatedRoute.paramMap.subscribe(params=>{
       let page:number=+params.get('page');
       if(!page){
@@ -34,10 +54,11 @@ export class EmpleadosComponent implements OnInit {
       this.obtenerEmpleadosByMunicipio(page);
      }
      );
+
   }
   //Listara solo a los empleados del municipio seleccionado
   public obtenerEmpleadosByMunicipio(page:number){
-    this.empleadoService.obtenerListaEmpleadosPorMunicipio(page,this.authService._usuario.id_municipio).subscribe(
+    this.empleadoService.obtenerListaEmpleadosPorMunicipio(page,this.municipio.clave).subscribe(
       response=> {this.empleados= response.contenido as Empleado[]
         this.paginador=response;
       }
@@ -67,6 +88,38 @@ export class EmpleadosComponent implements OnInit {
     })
   }
 
+  rellenarFormularioUsuario(empleado:Empleado){
+    this.usuarioService
+      .existeUsuarioEmpleado(empleado.curp)
+      .subscribe(response => {
+         this.existe =response;
+         if(this.existe){
+          console.log("entra aquiiiiiiii 2");
+          this.obtenerUsuarioByEmpleado(empleado.curp);
+        }
+      });
+
+
+
+  }
+
+  obtenerUsuarioByEmpleado(idEmpleado:string){
+    this.usuarioService
+      .buscarEmpleadoByUsuario(idEmpleado)
+      .subscribe(response => {
+        this.usuario =response;
+      });
+  }
+
+  existeUsuario(idEmpleado:string){
+    this.usuarioService
+      .existeUsuarioEmpleado(idEmpleado)
+      .subscribe(response => {
+         this.existe =response;
+      });
+
+  }
+
   public onSearh(){
 
     if(this.termino==""){
@@ -80,5 +133,119 @@ export class EmpleadosComponent implements OnInit {
       });
     }
   }
+//metodos de usuario
 
+obtenerListaRoles(){
+  this.rolesService.obtenerListaRole().subscribe(
+    response=> {this.roles= response
+    }
+  );
+  }
+  compararRoles(o1:number,o2:number){
+    if (o1==null || o2==null)
+    {
+      return false;
+    }
+      return o1===o2;
+
+  }
+
+  validarCorreo(){
+    let correo=this.usuario.email;
+    if(correo===undefined){
+      correo="";
+    }
+    var expCorreo=  /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+    if(correo.match(expCorreo)){
+      return true;
+
+    }else{
+    return false;
+  }
+  }
+
+  validarContrasena(event){
+    let password=this.usuario.password;
+    var passw=  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!%*¡¿#?&./()=])[A-Za-z\d$@!%*¡¿#?&./()=]{8,15}[^'\s]/;
+    if(password.match(passw)){
+      this.banderaPassword=true;
+    }else{
+    this.banderaPassword=false;}
+  }
+
+  compararContrasena(){
+    let password=this.usuario.password;
+    if(password===undefined){
+      return false;
+    }
+    if(password===null){
+      return false;
+    }
+    if(password===""){
+      return false;
+    }
+    if(password===this.Cpassword && password.length>8 && this.Cpassword.length >8){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  checarLongitud():boolean{
+    if(this.usuario.password!=undefined && this.usuario.password.length>=8)
+      return true;
+    else
+      return false;
+  }
+
+  validarMinusculaMayuscula():boolean{
+    let numeros=["0","1","2","3","4","5","6","7","8","9"];
+    let contieneMayuscula=false;
+    let contieneMinuscula=false;
+    if(this.usuario.password!=undefined){
+      for(let letra of this.usuario.password){
+        if(letra.startsWith(letra.toUpperCase()) && !numeros.includes(letra))
+          contieneMayuscula=true;
+        else if(letra.startsWith(letra.toLowerCase()) && !numeros.includes(letra)){
+          contieneMinuscula=true;
+        }
+      }
+    }
+    if(contieneMayuscula && contieneMinuscula)
+      return true;
+    else
+      return false;
+  }
+
+  validarNumeroCaracterEspecial():boolean{
+    let numeros=["0","1","2","3","4","5","6","7","8","9"];
+    let caracterEspecial=  ["$","@","!",";","%","*","¡","¿","#","?","&",".","/","(",")","="];
+    let contieneNumeros=false;
+    let contieneCaracterEspeciales=false;
+    console.log("contiene numeros ",contieneNumeros);
+    console.log("contiene caracteres especiales ",contieneCaracterEspeciales);
+    if(this.usuario.password!=undefined){
+      for(let letra of this.usuario.password){
+        if(numeros.includes(letra))
+          contieneNumeros=true;
+        else if(caracterEspecial.includes(letra)){
+          contieneCaracterEspeciales=true;
+        }
+      }
+    }
+    if(contieneNumeros && contieneCaracterEspeciales)
+      return true;
+    else
+      return false;
+
+
+  }
+  //metodos del modal
+  //limpiar el modal de agregar usuario
+  limpiarModal() {
+    var element = <HTMLFormElement>document.getElementById('formUsuario');
+    element.reset();
+    this.banderaActualizar=false;
+  }
 }

@@ -6,4 +6,5 @@ export class Empleado {
     apellido_m:string;
     municipio:number;
     nombre_municipio:string;
+    usuario:boolean;
 }

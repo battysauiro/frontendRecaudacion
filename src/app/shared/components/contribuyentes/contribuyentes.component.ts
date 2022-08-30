@@ -123,7 +123,7 @@ export class ContribuyentesComponent implements OnInit {
   }
 
   public vacioMoral():boolean {
-    if(
+    if( 
       this.rfc == null ||
       this.rfc == '' ||
       this.razonSocial == null ||

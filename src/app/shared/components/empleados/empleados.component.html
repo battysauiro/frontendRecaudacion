@@ -80,16 +80,36 @@
                   'ROLE_ADMIN',
                   'ROLE_PRESIDENTE',
                   'ROLE_TESORERO'
-                ])
+                ]) && empleado.usuario
               "
             >
               <button
                 type="button"
                 name="verUser"
-                data-bs-toggle="modal" data-bs-target="#exampleModal"
+                data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                 class="btn btn-primary btn-sm"
+                (click)="rellenarFormularioUsuario(empleado)"
               >
                 usuario
+              </button>
+            </td>
+            <td
+              *ngIf="
+                authService.hasRole([
+                  'ROLE_ADMIN',
+                  'ROLE_PRESIDENTE',
+                  'ROLE_TESORERO'
+                ]) && !empleado.usuario
+              "
+            >
+              <button
+                type="button"
+                name="verUser"
+                data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                class="btn btn-primary btn-sm"
+
+              >
+                crear usuario
               </button>
             </td>
             <td
@@ -132,4 +152,76 @@
     </div>
   </ng-container>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="limpiarModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="col">
+            <div class="card">
+              <div class="card-header text-center">
+                DATOS DEL USUARIO
+              </div>
+              <form class="row g-3 needs-validation" id="formUsuario" novalidate >
+                <div class="col-md-12 ">
+                  <label for="validationCustom01" class="form-label"> Correo Electronico:</label>
+                  <input type="text" [disabled]="banderaActualizar?true:false" [ngClass]="correo.invalid && (correo.dirty || correo.touched)?'invalid-contorno':'form-controll'" id="validationCustom01" name="correo" [(ngModel)]="usuario.email" #correo="ngModel" required >
+                  <div class="invalid-relleno" *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+                    <div  *ngIf="correo.errors.required">
+                      El correo es requerido
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                                <select [compareWith]="compararRoles" name="role" [(ngModel)]="usuario.id_rol"
+                                    class="form-controll"
+                                    style="height: 40px; ">
+                                    <option [ngValue]="undefined">-- Seleccionar Rol --</option>
+                                    <option *ngFor="let rol of roles" [ngValue]="rol.id_rol">{{rol.descripcion}}
+                                    </option>
+                                </select>
+
+                </div>
+                <div class="col-md-12">
+                  <label for="validationCustom03" class="form-label">Contraseña:</label>
+                  <input type="text" [ngClass]="password.invalid && (password.dirty || password.touched)?'invalid-contorno':'form-controll'" id="validationCustom03" name="calle" [(ngModel)]="usuario.password" required #password="ngModel">
+                  <div >
+                    <div>
+                        <ul>
+                          <li [ngClass]="checarLongitud()?'validRelleno':'invalid-relleno'" >debe tener una longitud minima de 8 caracteres</li>
+                          <li [ngClass]="validarMinusculaMayuscula()?'validRelleno':'invalid-relleno'">al menos una letra mayuscula y minuscula</li>
+                          <li [ngClass]="validarNumeroCaracterEspecial()?'validRelleno':'invalid-relleno'">al menos un numero y un caracter especial</li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 ">
+                  <label for="validationCustom02" class="form-label">Confirmar contraseña:</label>
+                  <input type="text" [ngClass]="cPassword.invalid && (cPassword.dirty || cPassword.touched)?'invalid-contorno':'form-controll'" id="validationCustom02" name="correoC" [(ngModel)]="Cpassword" (keyup)="compararContrasena()" #cPassword="ngModel" required >
+                  <div class="invalid-relleno"  *ngIf="!compararContrasena() && (cPassword.dirty || cPassword.touched)">
+                    <div  *ngIf="!compararContrasena()">
+                      las contraseñas no son iguales
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="limpiarModal()">Cancelar</button>
+          <button type="button"  data-bs-dismiss="modal" class="btn btn-primary" *ngIf="!banderaActualizar else elseBlock">Crear Usuario</button>
+          <ng-template #elseBlock>
+            <button   type="button" class="btn btn-primary" data-bs-dismiss="modal" type="submit"   >Cambiar contraseña</button>
+          </ng-template>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 

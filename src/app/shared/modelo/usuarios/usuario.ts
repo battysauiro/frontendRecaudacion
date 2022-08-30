@@ -9,4 +9,13 @@ export class Usuario {
     id_empleado :number;
     id_municipio:number;
     roles:string[]=[];
+
+    email: string;
+    estado:boolean;
+    sEstado:string;
+    url_imagen: string;
+    nombre_empleado: string;
+    id_rol: number;
+    nombre_rol:string;
+
 }
