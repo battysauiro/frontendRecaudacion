@@ -94,7 +94,6 @@ export class EmpleadosComponent implements OnInit {
       .subscribe(response => {
          this.existe =response;
          if(this.existe){
-          console.log("entra aquiiiiiiii 2");
           this.obtenerUsuarioByEmpleado(empleado.curp);
         }
       });
@@ -223,8 +222,6 @@ obtenerListaRoles(){
     let caracterEspecial=  ["$","@","!",";","%","*","¡","¿","#","?","&",".","/","(",")","="];
     let contieneNumeros=false;
     let contieneCaracterEspeciales=false;
-    console.log("contiene numeros ",contieneNumeros);
-    console.log("contiene caracteres especiales ",contieneCaracterEspeciales);
     if(this.usuario.password!=undefined){
       for(let letra of this.usuario.password){
         if(numeros.includes(letra))
