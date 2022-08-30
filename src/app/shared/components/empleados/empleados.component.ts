@@ -149,6 +149,13 @@ public crearUsuario():void{
               }
   );
 }
+actualizarDatosUsuario(){
+  this.usuarioService.actualizarDatosUsuario(this.usuario).subscribe(usuario=>{
+    this.obtenerEmpleadosByMunicipio(0);
+    swal('Datos actualizados',`Usuario ${this.usuario.email} actualizado con éxito`,'success');
+  });
+  this.Cpassword="";
+}
 
 obtenerListaRoles(){
   this.rolesService.obtenerListaRole().subscribe(
@@ -253,6 +260,20 @@ obtenerListaRoles(){
       return false;
 
 
+  }
+
+  public vacio(){
+    if(this.usuario.email==null || this.usuario.email=="" ||
+      this.usuario.id_rol==null ||
+      this.usuario.password==null || this.usuario.password=="" ||
+      this.usuario.password.length <9 ||
+      this.Cpassword.length<9 && this.Cpassword!=undefined &&
+      (!this.compararContrasena())){
+        return true;
+      }
+        else{
+          return false;
+        }
   }
   //metodos del modal
   //limpiar el modal de agregar usuario

@@ -214,9 +214,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="limpiarModal()">Cancelar</button>
-          <button type="button"  data-bs-dismiss="modal" class="btn btn-primary" (click)='crearUsuario()' *ngIf="!banderaActualizar else elseBlock">Crear Usuario</button>
+          <button type="button"  data-bs-dismiss="modal" [disabled]="vacio()" class="btn btn-primary" (click)='crearUsuario()' *ngIf="!banderaActualizar else elseBlock">Crear Usuario</button>
           <ng-template #elseBlock>
-            <button   type="button" class="btn btn-primary" data-bs-dismiss="modal" type="submit"   >Cambiar contraseña</button>
+            <button   type="button" [disabled]="vacio()" class="btn btn-primary" data-bs-dismiss="modal" type="submit"  (click)='actualizarDatosUsuario()' >Actualizar datos</button>
           </ng-template>
         </div>
       </div>
