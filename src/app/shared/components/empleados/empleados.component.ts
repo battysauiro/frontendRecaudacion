@@ -94,6 +94,7 @@ export class EmpleadosComponent implements OnInit {
       .subscribe(response => {
          this.existe =response;
          if(this.existe){
+          this.banderaActualizar=true;
           this.obtenerUsuarioByEmpleado(empleado.curp);
         }
       });
