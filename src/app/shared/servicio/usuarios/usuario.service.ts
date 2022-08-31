@@ -69,6 +69,14 @@ export class UsuarioService {
     return this.httpClient.get<Usuario>(`${environment.baseUrl}/api/usuario/${id}`,{headers:this.agregarAuthorizationHeader()});
   }
 
+  //se obtiene la lista de usuarios por el municipio seleccionado
+  obtenerListaUsuarioPorMunicipio(pageNo:number,idMunicipio:number):Observable<any>{
+    return this.httpClient.get(`${environment.baseUrl}/api/usuario/${pageNo}/municipio/${idMunicipio}`,{headers:this.agregarAuthorizationHeader()}).pipe(
+      map((response:any)=>{
+        return response
+      }));
+  }
+
   actualizarUsuario(usuario:Usuario):Observable<Usuario>{
     return this.httpClient.put<Usuario>(`${environment.baseUrl}/api/usuario/${usuario.email}`,usuario,{headers:this.agregarAuthorizationHeader()});
   }

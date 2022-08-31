@@ -13,6 +13,7 @@ import { ContribuyentesComponent } from './shared/components/contribuyentes/cont
 import { EmpleadosComponent } from './shared/components/empleados/empleados.component';
 import { FormEmpleadosComponent } from './shared/components/empleados/form-empleados/form-empleados.component';
 import { InicioComponent } from './shared/components/inicio/inicio.component';
+import { UsuariosComponent } from './shared/components/usuarios/usuarios.component';
 import { LoginComponent } from './usuario-login/login/login.component';
 
 const routes: Routes = [
@@ -44,7 +45,9 @@ const routes: Routes = [
   {path:'empleados',component:EmpleadosComponent},
   {path:'empleados/page/:page',component:EmpleadosComponent},
   {path:'empleados/formulario-empleados',component:FormEmpleadosComponent},
-  {path:'empleados/formulario-empleados/:id',component:FormEmpleadosComponent}
+  {path:'empleados/formulario-empleados/:id',component:FormEmpleadosComponent},
+  {path:'usuario',component:UsuariosComponent},
+  {path:'usuario/page/:page',component:UsuariosComponent},
 ];
 
 @NgModule({

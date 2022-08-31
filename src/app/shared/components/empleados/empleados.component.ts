@@ -23,13 +23,13 @@ export class EmpleadosComponent implements OnInit {
   empleados:Empleado[];
   empleado= new Empleado;
   usuario= new Usuario;
-  municipio= new Municipio;
+  municipioClave=this.authService.usuario.id_municipio;
   roles:Rol[];
   pagina=0;
   termEmpleado='';
   banderaActualizar:boolean=false;
   banderaPassword=false;
-  Cpassword:string;
+  Cpassword=" ";
   urlEndPoint: string = environment.baseUrl;
   termino='';
   existe=false;
@@ -44,7 +44,6 @@ export class EmpleadosComponent implements OnInit {
     public router:Router) { }
 
   ngOnInit(): void {
-    this.municipio.clave=this.authService._usuario.id_municipio;
     this.obtenerListaRoles();
     this.activatedRoute.paramMap.subscribe(params=>{
       let page:number=+params.get('page');
@@ -59,7 +58,7 @@ export class EmpleadosComponent implements OnInit {
   }
   //Listara solo a los empleados del municipio seleccionado
   public obtenerEmpleadosByMunicipio(page:number){
-    this.empleadoService.obtenerListaEmpleadosPorMunicipio(page,this.municipio.clave).subscribe(
+    this.empleadoService.obtenerListaEmpleadosPorMunicipio(page,this.municipioClave).subscribe(
       response=> {this.empleados= response.contenido as Empleado[]
         this.paginador=response;
       }
@@ -154,7 +153,7 @@ actualizarDatosUsuario(){
     this.obtenerEmpleadosByMunicipio(0);
     swal('Datos actualizados',`Usuario ${this.usuario.email} actualizado con éxito`,'success');
   });
-  this.Cpassword="";
+  this.Cpassword=" ";
 }
 
 obtenerListaRoles(){
@@ -267,7 +266,7 @@ obtenerListaRoles(){
       this.usuario.id_rol==null ||
       this.usuario.password==null || this.usuario.password=="" ||
       this.usuario.password.length <9 ||
-      this.Cpassword.length<9 && this.Cpassword!=undefined &&
+      this.Cpassword.length<9  &&
       (!this.compararContrasena())){
         return true;
       }
