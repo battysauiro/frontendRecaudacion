@@ -15,7 +15,7 @@ export class UsuariosComponent implements OnInit {
   paginador:any;
   usuarios:Usuario[];
   pagina=0;
-  termUsuario='';
+  termino='';
   municipioClave=this.authService.usuario.id_municipio;
   constructor(public usuarioService:UsuarioService,
     public activatedRoute:ActivatedRoute,
@@ -82,6 +82,20 @@ export class UsuariosComponent implements OnInit {
       this.router.navigate(['/usuario']);
 
     });
+  }
+
+  public onSearh(){
+
+    if(this.termino==""){
+      this.obtenerUsuarios(this.pagina);
+    }else{
+      this.usuarioService
+      .buscarTerminoUsuario(0,this.termino,this.municipioClave)
+      .subscribe(response => {
+        this.usuarios =response.contenido as Usuario[];
+        this.paginador = response;
+      });
+    }
   }
 
 }

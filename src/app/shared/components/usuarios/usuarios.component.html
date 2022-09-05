@@ -1,7 +1,29 @@
 <div class="container">
-  <div class="form-inline my-2 my-lg-0 align-items-center justify-content-center ">
-    <input class="form-control mr-sm-2 busqueda" type="search" placeholder="buscar" aria-label="Search" name="termUsuario" [(ngModel)]="termUsuario">
+  <div
+  class="form-inline my-2 my-lg-0 align-items-center justify-content-between"
+>
+<div><h1></h1></div>
+  <div>
+    <input
+      class="form-control mr-sm-2 busqueda text-center"
+      type="search"
+      placeholder="buscar usuario"
+      aria-label="Search"
+      name="term"
+      (keyup)="onSearh()"
+      [(ngModel)]="termino"
+    />
   </div>
+  <div>
+    <button type="button"  class="btn boton-principal"
+    routerLink="/empleados/formulario-empleados"
+    data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Usuario</button>
+  </div>
+</div>
+<div class="">
+  <br>
+</div>
+
   <table class="table table-bordered table-striped tabla-estilo" >
     <thead class="cabecera text-white">
       <tr >

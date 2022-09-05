@@ -127,7 +127,7 @@ export class EmpleadosComponent implements OnInit {
       this.obtenerEmpleadosByMunicipio(this.pagina);
     }else{
       this.empleadoService
-      .buscarTerminoEmpleados(0,this.termino,this.authService._usuario.id_municipio)
+      .buscarTerminoEmpleados(0,this.termino,this.municipioClave)
       .subscribe(response => {
         this.empleados =response.contenido as Empleado[];
         this.paginador = response;

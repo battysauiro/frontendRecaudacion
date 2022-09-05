@@ -50,6 +50,15 @@ export class UsuarioService {
       return this.httpClient.get<Usuario>(`${environment.baseUrl}/api/usuario/buscar-empleado/${idEmpleado}`,{headers:this.agregarAuthorizationHeader()})
     }
 
+    //busca por termino a todos los usuarios de los municipios
+    buscarTerminoUsuario(pageNo: number,term:string,id_municipio:number):Observable<any>{
+      return this.httpClient.get(`${environment.baseUrl}/api/usuario/filtrar/${pageNo}/municipio/${id_municipio}/term/${term}`,{headers:this.agregarAuthorizationHeader()}).pipe(
+        map((response: any) => {
+          return response;
+        })
+      );
+    }
+
     obtenerListaEmpleados():Observable<Empleado[]>{
       return this.httpClient.get<Empleado[]>(`${environment.baseUrl}/api/empleado`,{headers:this.agregarAuthorizationHeader()})
       }
