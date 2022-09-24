@@ -34,10 +34,14 @@ import { PaginadorEmpleadoComponent } from './components/paginadores/paginadores
 import { FormEmpleadosComponent } from './components/empleados/form-empleados/form-empleados.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { PaginadorUsuarioComponent } from './components/paginadores/paginadores-usuario/paginador-usuario/paginador-usuario.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import { FormUsuarioComponent } from './components/usuarios/form-usuario/form-usuario.component';
 
 
 @NgModule({
-  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent, PaginadorContribucionesComponent, PaginadorImpuestosComponent, PaginadorContribucionDerechosGComponent, PaginadorContribucionDerechosLicenciasComponent, PaginadorContribucionMultasComponent, PaginadorContribucionMultasVehicularComponent, PaginadorContribucionMultasEbriedadComponent, PaginadorContribucionOtrosProductosComponent, ContribucionDerechoGComponent, ContribucionDerechosLicenciasComponent, ContribucionMultasComponent, ContribucionMultasVehicularComponent, ContribucionMultasEbriedadComponent, ContribucionOtrosProductosComponent, FormContribucionesComponent, EmpleadosComponent, PaginadorEmpleadoComponent, FormEmpleadosComponent, UsuariosComponent, PaginadorUsuarioComponent],
+  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent, PaginadorContribucionesComponent, PaginadorImpuestosComponent, PaginadorContribucionDerechosGComponent, PaginadorContribucionDerechosLicenciasComponent, PaginadorContribucionMultasComponent, PaginadorContribucionMultasVehicularComponent, PaginadorContribucionMultasEbriedadComponent, PaginadorContribucionOtrosProductosComponent, ContribucionDerechoGComponent, ContribucionDerechosLicenciasComponent, ContribucionMultasComponent, ContribucionMultasVehicularComponent, ContribucionMultasEbriedadComponent, ContribucionOtrosProductosComponent, FormContribucionesComponent, EmpleadosComponent, PaginadorEmpleadoComponent, FormEmpleadosComponent, UsuariosComponent, PaginadorUsuarioComponent, FormUsuarioComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -46,7 +50,9 @@ import { PaginadorUsuarioComponent } from './components/paginadores/paginadores-
     ReactiveFormsModule,
     MatSelectModule,
     MatFormFieldModule,
-
+    MatAutocompleteModule,
+    MatInputModule,
+    MatIconModule
   ],
   exports:[
     FormsModule,

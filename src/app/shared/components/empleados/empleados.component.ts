@@ -168,7 +168,6 @@ obtenerListaRoles(){
       return false;
     }
       return o1===o2;
-
   }
 
   validarCorreo(){

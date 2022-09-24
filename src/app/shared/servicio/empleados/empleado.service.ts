@@ -38,6 +38,14 @@ export class EmpleadoService {
         return response
       }));
     }
+
+  //se obtiene la lista de empleados que no tienen un usuario
+  obtenerListaEmpleadosNoUsuarios(idMunicipio:number):Observable<any>{
+    return this.httpClient.get(`${environment.baseUrl}/api/empleado/municipio/${idMunicipio}`,{headers:this.agregarAuthorizationHeader()}).pipe(
+      map((response:any)=>{
+        return response
+      }));
+    }
     //busca por termino a todos los empleados de los municipios
     buscarTerminoEmpleados(pageNo: number,term:string,id_municipio:number):Observable<any>{
       return this.httpClient.get(`${environment.baseUrl}/api/empleado/filtrar/${pageNo}/municipio/${id_municipio}/term/${term}`,{headers:this.agregarAuthorizationHeader()}).pipe(

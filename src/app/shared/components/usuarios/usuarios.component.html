@@ -16,7 +16,7 @@
   </div>
   <div>
     <button type="button"  class="btn boton-principal"
-    routerLink="/empleados/formulario-empleados"
+    routerLink="/usuario/formUsuario"
     data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Usuario</button>
   </div>
 </div>
@@ -27,7 +27,6 @@
   <table class="table table-bordered table-striped tabla-estilo" >
     <thead class="cabecera text-white">
       <tr >
-          <th>Imagen</th>
           <th>Curp Empleado</th>
           <th>Correo</th>
           <th>estado</th>
@@ -39,11 +38,6 @@
     </thead>
     <tbody>
       <tr class="table-white " *ngFor="let usuario of usuarios">
-          <td><img *ngIf="usuario?.url_imagen" src="https://recaudacion-ingresos.herokuapp.com/api/usuario/uploads/img/{{usuario.url_imagen}}" alt="usuario.url_imagen" class="img-thumbnail rounded"
-            style="width:64px; cursor: pointer;">
-            <img *ngIf="!usuario?.url_imagen" src="https://recaudacion-ingresos.herokuapp.com/static/imagenes/no_usuario.png" alt="Sin foto" class="img-thumbnail rounded"
-            style="width:64px; cursor: pointer;">
-          </td>
           <td>{{usuario.id_empleado}} </td>
           <td>{{usuario.email}}</td>
           <td [ngClass]="inputEstado.checked?'text-success':'text-danger'">{{usuario.sEstado}}</td>
