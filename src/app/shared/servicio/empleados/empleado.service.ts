@@ -40,11 +40,8 @@ export class EmpleadoService {
     }
 
   //se obtiene la lista de empleados que no tienen un usuario
-  obtenerListaEmpleadosNoUsuarios(idMunicipio:number):Observable<any>{
-    return this.httpClient.get(`${environment.baseUrl}/api/empleado/municipio/${idMunicipio}`,{headers:this.agregarAuthorizationHeader()}).pipe(
-      map((response:any)=>{
-        return response
-      }));
+  obtenerListaEmpleadosNoUsuarios(idMunicipio:number,term:string):Observable<Empleado[]>{
+    return this.httpClient.get<Empleado[]>(`${environment.baseUrl}/api/empleado/municipio/${idMunicipio}/term/${term}`,{headers:this.agregarAuthorizationHeader()})
     }
     //busca por termino a todos los empleados de los municipios
     buscarTerminoEmpleados(pageNo: number,term:string,id_municipio:number):Observable<any>{

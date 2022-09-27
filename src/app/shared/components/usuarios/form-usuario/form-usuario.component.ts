@@ -11,6 +11,8 @@ import swal from 'sweetalert2';
 import { AuthService } from 'src/app/usuario-login/auth.service';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { Observable } from 'rxjs';
+import { map, mergeMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-form-usuario',
@@ -21,7 +23,7 @@ export class FormUsuarioComponent implements OnInit {
 
   usuario= new Usuario();
   roles:Rol[];
-  empleados:Empleado[];
+  empleados:Observable<any[]>;
   empleado= new Empleado();
   idFound=false;
   Cpassword:string;
@@ -29,6 +31,7 @@ export class FormUsuarioComponent implements OnInit {
   banderaPassword=false;
   municipioClave=this.authService.usuario.id_municipio;
   mensaje='';
+  nombreCompleto='';
 
   options = {
     autoClose: true,
@@ -46,7 +49,14 @@ export class FormUsuarioComponent implements OnInit {
     public authService:AuthService) { }
 
   ngOnInit(): void {
+    this.empleados = this.autoCompleteEmpleado.valueChanges.pipe(
+
+      map(value => typeof value === 'string' ? value : value.rfc_contribuyente),
+      mergeMap(value => value ? this._filterEmpleadoNoUsuario(value) : []),
+    );
+    this.obtenerListaRoles();
   }
+
 
   public crearUsuario():void{
     this.userService.crearUsuario(this.usuario).subscribe(
@@ -71,10 +81,16 @@ export class FormUsuarioComponent implements OnInit {
       }
     );
   }
+  //filtro para filtrar a los empleados que no tienen usuario
+  public _filterEmpleadoNoUsuario(value: string): Observable<Empleado[]> {
+    const filterValue = value.toLowerCase();
+
+    return this.empleadoService.obtenerListaEmpleadosNoUsuarios(this.municipioClave,filterValue);
+  }
   //obtiene la lista de empleados que no tiene un usuario creado
   obtenerListaEmpleadosNoUsuarios(){
-    this.empleadoService.obtenerListaEmpleadosNoUsuarios(this.municipioClave).subscribe(
-      response=> {this.empleados= response
+    this.empleadoService.obtenerListaEmpleadosNoUsuarios(this.municipioClave,"").subscribe(
+      response=> {//this.empleados= response
         console.log(this.empleados);
       }
     );
@@ -106,8 +122,9 @@ export class FormUsuarioComponent implements OnInit {
   }
 
   compararRoles(o1:number,o2:number){
-    if (o1==null || o2==null)
+    if (o1===null || o2===null)
     {
+      console.log(o1 +" ooo2 "+o2)
       return false;
     }
       return o1===o2;
@@ -128,6 +145,8 @@ export class FormUsuarioComponent implements OnInit {
   seleccionarEmpleado(event: MatAutocompleteSelectedEvent): void {
 
       this.empleado = event.option.value as Empleado;
+      this.nombreCompleto=this.empleado.nombre +" " +this.empleado.apellido_p +" "+ this.empleado.apellido_m;
+      this.usuario.id_empleado=this.empleado.curp;
       this.autoCompleteEmpleado.setValue('');
       event.option.focus();
       event.option.deselect();

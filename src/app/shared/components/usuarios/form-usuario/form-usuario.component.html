@@ -21,7 +21,7 @@
                                      [matAutocomplete]="auto1">
                                      <mat-icon matSuffix>search</mat-icon>
                                   <mat-autocomplete #auto1="matAutocomplete" [displayWith]="mostrarDatosEmpleado" (optionSelected)="seleccionarEmpleado($event)">
-                                  <mat-option  *ngFor="let empleado of empleados ">
+                                  <mat-option  *ngFor="let empleado of empleados | async" [value]="empleado">
                                     {{empleado.nombre}} {{empleado.apellido_p}} {{empleado.apellido_m}}
                                   </mat-option>
                               </mat-autocomplete>
@@ -57,14 +57,14 @@
                       <div class="col-sm">
 
                         <div class="form-group col-sm flex-column d-flex mt-3">
-                          <input class="form-controll text-center" type="text" disabled=true  id="validationCustom01" name="datos" placeholder="Nombre del empleado" >
+                          <input class="form-controll text-center" type="text" disabled=true  id="validationCustom01" name="datos" placeholder="Nombre del empleado" [(ngModel)]="nombreCompleto" >
                         </div>
                         <div class="form-group col-sm flex-column d-flex margin-top">
                           <label
                           class="form-control-label px-3">Seleccionar Rol<span class="text-danger"> *</span></label>
                           <select [compareWith]="compararRoles" name="role" [(ngModel)]="usuario.id_rol" class="form-controll"
-                              style="height: 30px;">
-                              <option [ngValue]="undefined">-- Seleccionar Rol --</option>
+                              style="height: 35px;">
+                              <option class="text-center" [ngValue]="undefined">[ Seleccionar Rol ]</option>
                               <option *ngFor="let rol of roles" [ngValue]="rol.id_rol">{{rol.descripcion}}
                               </option>
                           </select>
