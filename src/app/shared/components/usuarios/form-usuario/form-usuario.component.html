@@ -98,7 +98,7 @@
 
               <div class="row justify-content-between text-left">
                   <ng-template #elseBlock>
-                      <button #buttonUpdate [disabled]="!usuario.id_empleado" [ngClass]="buttonUpdate.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='actualizarDatosUsuario()'>Actualizar</button>
+                      <button #buttonUpdate [disabled]="vacio()" [ngClass]="buttonUpdate.disabled?'btn btn-secondary disabled':''" type="submit" class="btn-block btn-primary" (click)='actualizarDatosUsuario()'>Actualizar</button>
                   </ng-template>
               </div>
           </div>

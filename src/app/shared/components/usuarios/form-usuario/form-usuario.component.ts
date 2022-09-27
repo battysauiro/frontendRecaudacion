@@ -55,6 +55,7 @@ export class FormUsuarioComponent implements OnInit {
       mergeMap(value => value ? this._filterEmpleadoNoUsuario(value) : []),
     );
     this.obtenerListaRoles();
+    this.cargarUsuarios();
   }
 
 
@@ -81,6 +82,8 @@ export class FormUsuarioComponent implements OnInit {
       }
     );
   }
+
+
   //filtro para filtrar a los empleados que no tienen usuario
   public _filterEmpleadoNoUsuario(value: string): Observable<Empleado[]> {
     const filterValue = value.toLowerCase();
@@ -105,7 +108,8 @@ export class FormUsuarioComponent implements OnInit {
         this.titulo="ACTUALIZAR USUARIO";
         this.userService.obtenerUsuario(id).subscribe(usuario=>{
           usuario.password="";
-          this.usuario=usuario})
+          this.usuario=usuario
+          this.nombreCompleto=usuario.nombre_empleado})
       }
     });
   }
