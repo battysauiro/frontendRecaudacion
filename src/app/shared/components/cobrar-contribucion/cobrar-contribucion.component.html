@@ -1,5 +1,18 @@
 <div class="card bg-light">
-  <div class="card-header text-center">{{titulo}}</div>
+  <!--<div class="card-header">{{titulo}}</div>-->
+  <!--PUEDE QUE LA ETIQUETA form y el TITULO AFECTEN AL
+    DISEÑO DE LA CARD ORIGINAL O SE LA CARD DE ARRIBA-->
+  <!--<h3><strong>RECACUDACIÓN DE INGRESOS</strong></h3>-->
+
+  <!--SI ALGO FALLA BORRAR EL <form id="msform">-->
+
+    <!--SI FALLAN COSAS BORRAR TODO EL CONTENIDO DEL progressbar-->
+    <!-- progressbar -->
+    <ul id="progressbar" class="text-center">
+      <li class="active" id="account"><strong>Calcular presupuesto</strong></li>
+      <li id="personal"><strong>Formato de pago</strong></li>
+  </ul>
+  <!--SI ALGO FALLA BORRAR EL FIELDSET-->
   <div class="card-body">
 
     <form #lineaCaptura="ngForm">
@@ -14,6 +27,8 @@
                    [formControl]="autoCompleteContribuyente"
                    [matAutocomplete]="auto1">
                    <mat-icon matSuffix>search</mat-icon>
+                   <!--SI ALGO FALLA BORRAR EL COMENTARIO DEL MAT AUTCOMPLETE
+                    YYYYY AAAAAARRRRIBBBBBBBAAAAAAAAAA ABAJO DE [formControl]="autoCompleteContribuyente" DEBE DE IR LO SIGUIENTE [matAutocomplete]="auto1"-->
             <mat-autocomplete #auto1="matAutocomplete" [displayWith]="mostrarNombreContribuyente" (optionSelected)="seleccionarContribuyente($event,inputEstado.checked)">
               <ng-container *ngIf="inputEstado.checked else elseBlock">
                 <mat-option  *ngFor="let contribuyente of filtroContribuyente | async" [value]="contribuyente">
@@ -28,6 +43,12 @@
             </mat-autocomplete>
           </mat-form-field>
         </div>
+        <!--
+        <div class="col-auto mt-4">
+          <a routerLink="/sendEmail" class="link2">agregar nuevo contribuyente</a>
+        </div>-->
+
+        <!--BOTON SWITCH DE CAMBIAR CONTRIBUYENTE-->
         <div class="col-auto mt-4">
 
           <label for="tipoContribuyente" class="toggle-switchy" data-size="lg" data-style="default">
@@ -39,13 +60,15 @@
         <label class="form-check-label" for="tipoContribuyente">Seleccione el tipo de Contribuyente a buscar</label>
         </div>
       </div>
-
-
+      <div class="row col-3">
+        <a routerLink="/sendEmail" class="link">agregar contribuyente</a>
+      </div>
+<!-- BLOCK DE CAMBIAR TIPO DE CONTRIBUYENTE-->
       <div class="row g-2" *ngIf="inputEstado.checked else elseContribuyenteMoral">
         <div class="col-3">
           <div class="input-group">
             <span class="input-group-text">
-                RFC
+                R.F.C
             </span>
             <input [(ngModel)]="rfcContribuyente" name="rfc_contribuyente" type="text" class="form-control" placeholder="RFC contribuyente" disabled>
           </div>
@@ -63,6 +86,7 @@
         </div>
     </div>
       </div>
+      <!--SEGUNDO BLOCK DE CAMBIAR TIPO DE CONTRIBUYENTE-->
       <ng-template #elseContribuyenteMoral>
         <div class="row g-2">
           <div class="col-3">
@@ -182,10 +206,17 @@
       </table>
       <div class="form-group row">
         <div class="col-sm-2">
+          <input type="submit" class="btn btn-primary" (click)="irCapturaFolio()" value="      Siguiente     ">
+        </div>
+        <div class="col-sm-2">
           <input type="submit" #buttonCrear [ngClass]="buttonCrear.disabled?'btn btn-secondary disabled':'btn btn-primary'" (click)="generarFactura()" value="Generar Linea de pago"  [disabled]="lineaCaptura.form.invalid || factura.items.length== 0">
+        </div>
+        <div class="col-sm-2">
+          <input type="submit" class="btn btn-primary" (click)="irCapturaFolio()" value="      Cancelar     ">
         </div>
       </div>
     </form>
+
   </div>
 </div>
 

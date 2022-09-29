@@ -35,7 +35,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-cobrar-contribucion',
   templateUrl: './cobrar-contribucion.component.html',
-  styleUrls: ['./cobrar-contribucion.component.css']
+  styleUrls: ['./linea-capturascss.component.scss','./cobrar-contribucion.component.css']
 })
 export class CobrarContribucionComponent implements OnInit {
 
@@ -427,6 +427,10 @@ export class CobrarContribucionComponent implements OnInit {
     else{
       this.total=this.costo;
     }
+  }
+
+  irCapturaFolio(): void{
+    this.router.navigate(['/inicio']);
   }
 
   createPDF(){
