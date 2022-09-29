@@ -5,39 +5,50 @@
 }
 
 .main-container{
-  background :linear-gradient(35deg, #acd3e4, #0454a2);;
+  background-color: #740432;
   background-size: cover;
   height: 100vh;
 }
-
+/*decia center border: 4px solid #a3585b;*/
 .center{
   position: absolute;
   width: 360px;
   height: 580px;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #ffffff;
+  left: 50%; /*decia left*/
+  transform: translate(50%, -50%);
+  background: #FFFFFF;
   border-radius: 10px;
   text-align: center;
-  box-shadow: 10px 5px 5px #044e79;
+}
+
+.left{
+  position: absolute;
+  width: 360px;
+  height: 200px;
+  top: 50%;
+  left: 50%; /*decia left*/
+  transform: translate(-150%, -50%);
+  background: #FFFFFF;
+  border-radius: 10px;
+  text-align: center;
 }
 
 .tittle{
   font-family: Sansation;
   font-style: normal;
   font-weight: bold;
-  font-size: 25px;
-  line-height: 145px;
+  font-size: 21px;
+  line-height: 40px;
   align-items: center;
   font-family: "Sansation", sans-serif;
-  color: #2874A6;
+  color: #740432;
 }
 
 .logo{
-  width: 120px;
-  height: 120px;
-  margin-top: -40px;
+  width: 280px;
+  height: 190px;
+  margin-top: 50px;
 }
 
 input[type="text"],
@@ -46,13 +57,13 @@ input[type="password"]{
   outline: none;
   background: none;
   font-size: 20px;
-  color: #2874A6;
+  color: #740432;
   padding: 20px 10px 20px 5px;
-  border: 2px solid #2874A6;
+  border: 2px solid #740432;
   width: 280px;
   height: 45px;
   margin: 15px;
-  border-radius: 10px;
+  border-radius: 25px;
   box-sizing: border-box;
   text-align: center;
   overflow: hidden;
@@ -60,7 +71,7 @@ input[type="password"]{
 }
 
 ::placeholder{
-  color: #2874A6;
+  color: #909497;
   font-size: 18px;
 }
 
@@ -68,22 +79,23 @@ button{
   width: 260px;
   height: 45px;
   left: 1273px;
-  top: 780px;
+  top: 28px;
   font-family: "Sansation", sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
   line-height: 28px;
   cursor: pointer;
-  color: #2874A6;
+  color: #c8c6bb;
   border: none;
-  background: #F9DB5C;
+  background: #740432;
   border-radius: 25px;
+  margin-top: 50px;
 }
 
 button:hover{
   cursor: pointer;
-  background: #2874A6;
+  background: #a3585b;
   color: #ECF0F1;
 }
 
@@ -91,7 +103,7 @@ button:hover{
   text-align: center;
   display: block;
   margin: 18px;
-  color: #2874A6;
+  color: #909497;
   font-family: "Scheherazade New", serif;
   font-weight: bold;
   text-decoration: none;
