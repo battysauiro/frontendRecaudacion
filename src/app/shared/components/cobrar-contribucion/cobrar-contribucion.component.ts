@@ -429,8 +429,8 @@ export class CobrarContribucionComponent implements OnInit {
     }
   }
 
-  irCapturaFolio(): void{
-    this.router.navigate(['/inicio']);
+  irPasoDos(): void{
+    this.router.navigate(['/generarLinea-captura-paso-dos']);
   }
 
   createPDFC(){

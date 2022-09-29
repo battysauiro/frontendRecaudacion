@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CobrarContribucionPasoDosComponent } from './shared/components/cobrar-contribucion-paso-dos/cobrar-contribucion-paso-dos.component';
 import { CobrarContribucionComponent } from './shared/components/cobrar-contribucion/cobrar-contribucion.component';
 import { ContribucionDerechoGComponent } from './shared/components/contribuciones/contribucion-derecho-g/contribucion-derecho-g.component';
 import { ContribucionDerechosLicenciasComponent } from './shared/components/contribuciones/contribucion-derechos-licencias/contribucion-derechos-licencias.component';
@@ -52,7 +53,8 @@ const routes: Routes = [
   {path:'usuario/page/:page',component:UsuariosComponent},
   {path:'usuario/formUsuario',component:FormUsuarioComponent},
   {path:'usuario/formUsuario/:id',component:FormUsuarioComponent},
-  {path:'generarLinea-captura',component:CobrarContribucionComponent}
+  {path:'generarLinea-captura',component:CobrarContribucionComponent},
+  {path:'generarLinea-captura-paso-dos',component:CobrarContribucionPasoDosComponent}
 ];
 
 @NgModule({
