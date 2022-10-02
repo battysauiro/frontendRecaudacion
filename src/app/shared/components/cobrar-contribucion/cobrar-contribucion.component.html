@@ -61,7 +61,7 @@
         </div>
       </div>
       <div class="row col-3">
-        <a routerLink="/sendEmail" class="link">agregar contribuyente</a>
+        <a routerLink="/contribuyentes" class="link">agregar contribuyente</a>
       </div>
 <!-- BLOCK DE CAMBIAR TIPO DE CONTRIBUYENTE-->
       <div class="row g-2" *ngIf="inputEstado.checked else elseContribuyenteMoral">
@@ -206,7 +206,7 @@
       </table>
       <div class="form-group row">
         <div class="col-sm-2">
-          <input type="button" class="btn btn-primary" (click)="irPasoDos()" value="      Siguiente     ">
+          <input type="button" class="btn btn-primary" (click)="irPasoDos()" [disabled]="this.nombreContribuyente!=undefined && this.factura.items.length<=0"  value="      Siguiente     ">
         </div>
 
       </div>

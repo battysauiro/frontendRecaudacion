@@ -10,20 +10,20 @@
       <div>
         <div class="input-group">
           <span class="input-group-text"><i class="bi bi-people" ></i>   Nombre</span>
-          <input type="text" class="form-control" placeholder="Nombre del Contribuyente">
+          <input type="text" class="form-control" placeholder="Nombre del Contribuyente" name="nombre" [(ngModel)]="this.factura.nombre_contribuyente">
         </div>
       </div>
       <div class="row g-2 mt-3">
         <div class="col-4">
           <div class="input-group">
             <span class="input-group-text">R.F.C</span>
-            <input type="text" class="form-control" placeholder="RFC Contribuyente">
+            <input type="text" class="form-control" placeholder="RFC Contribuyente" name="rfc" [(ngModel)]="this.factura.contribuyente_id">
           </div>
         </div>
         <div class="col-8">
           <div class="input-group">
             <span class="input-group-text"><span class="bi bi-geo-alt-fill"></span></span>
-            <input name="calle" type="text" class="form-control" placeholder="Dirección contribuyente">
+            <input name="calle" type="text" class="form-control" placeholder="Dirección contribuyente" [(ngModel)]="this.factura.direccion_contribuyente">
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@
         <div class="col-12">
           <div class="input-group">
             <span class="input-group-text">Concepto</span>
-            <input name="concepto" type="text" class="form-control" placeholder="Concepto">
+            <input name="concepto" type="text" class="form-control" placeholder="Concepto" [(ngModel)]="this.factura.items[0].contribucion.concepto_contribucion">
           </div>
         </div>
       </div>
@@ -39,28 +39,22 @@
         <div class="col-4">
           <div class="input-group">
             <span class="input-group-text">Fecha</span>
-            <input name="calle" type="text" class="form-control" placeholder="Fecha">
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="input-group">
-            <span class="input-group-text">Folio</span>
-            <input name="folio" type="text" class="form-control" placeholder="Folio">
+            <input name="fecha" type="text" class="form-control" placeholder="Fecha" [(ngModel)]="this.todayWithPipe">
           </div>
         </div>
         <div class="col-4">
           <div class="input-group">
             <span class="input-group-text">Total $</span>
-            <input name="total" type="text" class="form-control" placeholder="total">
+            <input name="total" type="text" class="form-control" placeholder="total" [(ngModel)]="this.factura.total">
           </div>
         </div>
       </div>
       <div class="form-group row mt-3">
         <div class="col-sm-2">
-          <input type="submit" class="btn btn-primary" (click)="irPasoUno()" value="  Cancelar  ">
+          <input type="button" class="btn btn-primary" (click)="irPasoUno()" value="  Cancelar  ">
         </div>
         <div class="col-sm-2">
-          <input type="submit"  class="btn btn-primary" value="Generar Linea de pago">
+          <input type="button"  class="btn btn-primary" (click)="generarFactura()" value="Generar Linea de pago">
         </div>
       </div>
     </form>

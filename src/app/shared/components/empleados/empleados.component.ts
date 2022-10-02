@@ -44,6 +44,7 @@ export class EmpleadosComponent implements OnInit {
     public router:Router) { }
 
   ngOnInit(): void {
+    console.log("holaaaaaaaaaaaaa")
     this.obtenerListaRoles();
     this.activatedRoute.paramMap.subscribe(params=>{
       let page:number=+params.get('page');

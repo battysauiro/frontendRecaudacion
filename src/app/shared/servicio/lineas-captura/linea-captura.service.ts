@@ -24,6 +24,7 @@ export class LineaCapturaService {
   public urlContribuyenteFisica: string =environment.baseUrl+"/api/contribuyenteFisica";
   public urlContribuyenteMoral: string =environment.baseUrl+"/api/contribuyenteMoral";
   public httpHeaders= new HttpHeaders({'Content-Type':'application/json'});
+  public _factura:Factura;
   constructor(
     public httpCliente: HttpClient,
     public authService:AuthService,
@@ -36,6 +37,14 @@ export class LineaCapturaService {
       return this.httpHeaders.append('Authorization','Bearer '+token);
     }
     return this.httpHeaders;
+  }
+
+  public get factura():Factura{
+    return this._factura;
+  }
+
+  public set factura(factura:Factura){
+    this._factura=factura;
   }
 
   getFactura(id:number):Observable<Factura>{

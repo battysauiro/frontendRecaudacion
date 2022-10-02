@@ -11,4 +11,6 @@ export class Factura {
     total : number;
     items : Array<ItemFactura>=[];
     estado_pago:boolean;
+    nombre_contribuyente:string;
+    direccion_contribuyente:string;
 }
