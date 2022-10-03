@@ -10,6 +10,7 @@ import swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/usuario-login/auth.service';
 import { ContribuyenteMoral } from '../../modelo/contribuyentes/contribuyente-moral';
+import { Contribuyente } from '../../modelo/contribuyentes/contribuyente';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,12 @@ export class ContribuyentesService {
     }
     return this.httpHeaders;
   }
+
+  /**--------------- CRUD CONTRIBUYENTES----------- */
+  filtrarContribuyentes(term:string):Observable<Contribuyente[]>{
+    return this.httpClient.get<Contribuyente[]>(environment.baseUrl+'/api/contribuyente/filtrar/term/'+term);
+  }
+
   /**--------------- CRUD CONTRIBUYENTES FISICAS----------- */
   //obtiene los contribuyentes Fisicas
   ObtenerListaContribuentes(pageNo: number): Observable<any> {

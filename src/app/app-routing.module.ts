@@ -17,6 +17,7 @@ import { FormEmpleadosComponent } from './shared/components/empleados/form-emple
 import { InicioComponent } from './shared/components/inicio/inicio.component';
 import { FormUsuarioComponent } from './shared/components/usuarios/form-usuario/form-usuario.component';
 import { UsuariosComponent } from './shared/components/usuarios/usuarios.component';
+import { VistaAdeudosComponent } from './shared/components/vista-adeudos/vista-adeudos.component';
 import { LoginComponent } from './usuario-login/login/login.component';
 
 const routes: Routes = [
@@ -54,7 +55,8 @@ const routes: Routes = [
   {path:'usuario/formUsuario',component:FormUsuarioComponent},
   {path:'usuario/formUsuario/:id',component:FormUsuarioComponent},
   {path:'generarLinea-captura',component:CobrarContribucionComponent},
-  {path:'generarLinea-captura-paso-dos',component:CobrarContribucionPasoDosComponent}
+  {path:'generarLinea-captura-paso-dos',component:CobrarContribucionPasoDosComponent},
+  {path:'vista-adeudos',component:VistaAdeudosComponent}
 ];
 
 @NgModule({
