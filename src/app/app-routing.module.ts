@@ -15,6 +15,8 @@ import { ContribuyentesComponent } from './shared/components/contribuyentes/cont
 import { EmpleadosComponent } from './shared/components/empleados/empleados.component';
 import { FormEmpleadosComponent } from './shared/components/empleados/form-empleados/form-empleados.component';
 import { InicioComponent } from './shared/components/inicio/inicio.component';
+import { RecuperarPasswordComponent } from './shared/components/recuperar-password/recuperar-password.component';
+import { SendEmailComponent } from './shared/components/recuperar-password/send-email.component';
 import { FormUsuarioComponent } from './shared/components/usuarios/form-usuario/form-usuario.component';
 import { UsuariosComponent } from './shared/components/usuarios/usuarios.component';
 import { VistaAdeudosComponent } from './shared/components/vista-adeudos/vista-adeudos.component';
@@ -56,7 +58,9 @@ const routes: Routes = [
   {path:'usuario/formUsuario/:id',component:FormUsuarioComponent},
   {path:'generarLinea-captura',component:CobrarContribucionComponent},
   {path:'generarLinea-captura-paso-dos',component:CobrarContribucionPasoDosComponent},
-  {path:'vista-adeudos',component:VistaAdeudosComponent}
+  {path:'vista-adeudos',component:VistaAdeudosComponent},
+  {path:'sendEmail',component:SendEmailComponent},
+  {path:'changePassword/:tokenPassword',component:RecuperarPasswordComponent}
 ];
 
 @NgModule({

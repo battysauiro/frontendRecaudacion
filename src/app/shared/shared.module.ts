@@ -41,11 +41,15 @@ import { FormUsuarioComponent } from './components/usuarios/form-usuario/form-us
 import { CobrarContribucionComponent } from './components/cobrar-contribucion/cobrar-contribucion.component';
 import { CobrarContribucionPasoDosComponent } from './components/cobrar-contribucion-paso-dos/cobrar-contribucion-paso-dos.component';
 import { VistaAdeudosComponent } from './components/vista-adeudos/vista-adeudos.component';
+import { RecuperarPasswordComponent } from './components/recuperar-password/recuperar-password.component';
+import { SendEmailComponent } from './components/recuperar-password/send-email.component';
+import { AlertModule } from '../alerts/alert/alert.module';
 
 
 @NgModule({
-  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent, PaginadorContribucionesComponent, PaginadorImpuestosComponent, PaginadorContribucionDerechosGComponent, PaginadorContribucionDerechosLicenciasComponent, PaginadorContribucionMultasComponent, PaginadorContribucionMultasVehicularComponent, PaginadorContribucionMultasEbriedadComponent, PaginadorContribucionOtrosProductosComponent, ContribucionDerechoGComponent, ContribucionDerechosLicenciasComponent, ContribucionMultasComponent, ContribucionMultasVehicularComponent, ContribucionMultasEbriedadComponent, ContribucionOtrosProductosComponent, FormContribucionesComponent, EmpleadosComponent, PaginadorEmpleadoComponent, FormEmpleadosComponent, UsuariosComponent, PaginadorUsuarioComponent, FormUsuarioComponent, CobrarContribucionComponent, CobrarContribucionPasoDosComponent, VistaAdeudosComponent],
+  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent, PaginadorContribucionesComponent, PaginadorImpuestosComponent, PaginadorContribucionDerechosGComponent, PaginadorContribucionDerechosLicenciasComponent, PaginadorContribucionMultasComponent, PaginadorContribucionMultasVehicularComponent, PaginadorContribucionMultasEbriedadComponent, PaginadorContribucionOtrosProductosComponent, ContribucionDerechoGComponent, ContribucionDerechosLicenciasComponent, ContribucionMultasComponent, ContribucionMultasVehicularComponent, ContribucionMultasEbriedadComponent, ContribucionOtrosProductosComponent, FormContribucionesComponent, EmpleadosComponent, PaginadorEmpleadoComponent, FormEmpleadosComponent, UsuariosComponent, PaginadorUsuarioComponent, FormUsuarioComponent, CobrarContribucionComponent, CobrarContribucionPasoDosComponent, VistaAdeudosComponent, RecuperarPasswordComponent, SendEmailComponent],
   imports: [
+    AlertModule,
     CommonModule,
     HttpClientModule,
     RouterModule,

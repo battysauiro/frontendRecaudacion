@@ -1,0 +1,13 @@
+<app-alerts></app-alerts>
+<div class="main-container">
+    <div class="center">
+        <h4 class="tittle"> RECUPERAR CONTRASEÑA</h4>
+        <span>te enviaremos un correo para recuperar la contraseña</span>
+        <div class="form-container">
+                <div class=" username">
+                    <input  [(ngModel)]="emailDTO.mailTo" type="text" class="user-input" name="username" id="username" placeholder="Ingrese su correo" >
+                </div>
+            </div>
+            <button autofocus (click)='onSendEmail(emailDTO)' type="submit">Enviar Correo de recuperacion</button>
+    </div>
+</div>
