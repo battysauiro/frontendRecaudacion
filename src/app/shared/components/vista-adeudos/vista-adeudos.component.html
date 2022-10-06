@@ -79,25 +79,33 @@
               </div>
             </div>
             <div class="row g-2 mt-3">
-            <table class="table table-striped table-hover table-sm">
+            <table class="table table-sm">
               <thead>
                 <tr>
-                  <th class="texto">Fecha de Pago</th>
-                  <th class="texto">Concepto</th>
-                  <th class="texto">Importe</th>
+                  <th class="texto">Fecha</th>
+                  <th class="texto">Datos de la Contribucion</th>
+                  <th class="texto">Total</th>
                 </tr>
               </thead>
+              <tbody class="texto">
+                <tr *ngFor="let factura of facturas">
+                    <td class="texto">{{factura.fecha_solicitud}}</td>
+                    <td>{{factura.contribucion}}</td>
+                    <td>{{factura.total}}</td>
+                </tr>
+              </tbody>
             </table>
           </div>
-            <!--
             <div class="form-group row">
               <div class="col-sm-2">
-                <input type="submit" class="btn btn-primary" (click)="irCapturaFolio()" value="      Siguiente     ">
+
               </div>
               <div class="col-sm-2">
-                <input type="submit" #buttonCrear [ngClass]="buttonCrear.disabled?'btn btn-secondary disabled':'btn btn-primary'" (click)="generarFactura()" value="Generar Linea de pago"  [disabled]="lineaCaptura.form.invalid || factura.items.length== 0">
+                <div class="col-sm-2">
+                  <input type="button"  class="btn btn-primary" (click)="createPDF()" value="Generar Linea de pago">
+                </div>
               </div>
-            </div>-->
+            </div>
           </form>
 
         </div>
