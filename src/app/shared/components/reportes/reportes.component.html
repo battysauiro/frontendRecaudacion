@@ -1,0 +1,47 @@
+<label class="mx-2">Buscar por: </label>
+<div class="form-check form-check-inline">
+  <input checked class="form-check-input" (change)="cambiarEstado(true)" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+  <label class="form-check-label" for="inlineRadio1">Tipo Contribucion</label>
+</div>
+<div class="form-check form-check-inline">
+  <input  (change)="cambiarEstado(false)" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+  <label class="form-check-label" for="inlineRadio2">Por concepto contribución</label>
+</div>
+<div class="form-check form-check-inline">
+  <input (change)="seleecionarTodas($event)" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+  <label class="form-check-label" for="inlineRadio3">Todas</label>
+</div>
+<select (change)="seleccion($event)" *ngIf="estado && !seleccionTodas"  class="form-select col-md-4" aria-label="Disabled select example" >
+  <option *ngFor="let tipo of tipoContribuciones" value="{{tipo.codigo}}">{{tipo.nombre}}</option>
+</select>
+<mat-form-field  appearance="outline" *ngIf="!estado && !seleccionTodas">
+  <mat-label>Buscar Contribucion</mat-label>
+  <input type="text"
+         placeholder="Ingrese Codigo o descripcion"
+         aria-label="Number"
+         matInput
+         [formControl]="autoCompleteContribucion"
+         [matAutocomplete]="auto">
+         <mat-icon matSuffix>search</mat-icon>
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarNombreContribucion" (optionSelected)="seleccionarContribucion($event)">
+    <mat-option *ngFor="let contribucion of flitroContribuciones | async" [value]="contribucion">
+      {{contribucion.codigo_contribucion}} {{contribucion.concepto_contribucion}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+<button type="button" (click)="rellenarTabla()" class="btn btn-primary">Generar Reporte/s</button>
+<table class="table  table-Light table-bordered table-striped mt-3" *ngIf="mapaReportes.length>0">
+  <thead class="table-estilo text-white">
+    <tr >
+        <th width="30%">Reporte</th>
+        <th width="30%"><i class="bi bi-download">Descargar</i></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="table-white " *ngFor="let dato of mapaReportes">
+        <td>{{dato.descripcion}} </td>
+        <td><a type="button" class="btn btn-danger" href="{{dato.url}}">Descargar PDF</a> </td>
+    </tr>
+  </tbody>
+</table>
+
