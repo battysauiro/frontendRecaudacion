@@ -102,7 +102,7 @@
               </div>
               <div class="col-sm-2">
                 <div class="col-sm-2">
-                  <input type="button"  class="btn btn-primary" (click)="createPDF()" value="Generar Linea de pago">
+                  <a type="button" class="btn btn-danger" href='{{base}}/api/reportes/informacionPagos/exportarPDF/{{this.contribuyente.nombreContribuyente}}/{{this.contribuyente.rfc_contribuyente}}/{{this.contribuyente.direccion}}/0'>Descargar PDF</a>
                 </div>
               </div>
             </div>

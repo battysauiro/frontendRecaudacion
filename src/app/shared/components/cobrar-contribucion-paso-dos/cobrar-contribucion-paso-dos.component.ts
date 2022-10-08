@@ -157,7 +157,7 @@ export class CobrarContribucionPasoDosComponent implements OnInit {
                   },
                   {
                     table:{
-                      widths: ['auto',240],
+                      widths: ['auto',340],
                       heights: ['auto','auto',200],
                       headerRows: 1,
                       body: [
