@@ -38,10 +38,14 @@ export class VistaAdeudosComponent implements OnInit {
   autoCompleteContribuyente = new FormControl('');
   contribuyente= new Contribuyente();
   facturas:FacturasNoPagadasDTO[];
+  facturasPagadas:FacturasNoPagadasDTO[];
+  facturasProximas:FacturasNoPagadasDTO[];
   filas:fila[];
   filtroContribuyente: Observable<Contribuyente[]>;
   base=environment.baseUrl;
-  tipoConsulta=false;
+  tipoConsulta=true;
+  value="true";
+  proximas:boolean=false;
   constructor(
     public contribuyenteService:ContribuyentesService,
     public router:Router
@@ -58,7 +62,7 @@ export class VistaAdeudosComponent implements OnInit {
 
   public _filterContribuyente(value: string): Observable<Contribuyente[]> {
     const filterValue = value.toLowerCase();
-    return this.contribuyenteService.filtrarContribuyentes(filterValue,false);
+    return this.contribuyenteService.filtrarContribuyentes(filterValue,this.tipoConsulta);
   }
 
   mostrarNombreContribuyente(contribuyente?: Contribuyente): string | undefined {
@@ -68,23 +72,34 @@ export class VistaAdeudosComponent implements OnInit {
   seleccionarContribuyente(event: MatAutocompleteSelectedEvent): void {
 
       this.contribuyente = event.option.value as Contribuyente;
-      this.facturas=this.contribuyente.contribuciones;
+      this.facturas=this.contribuyente.contribucionesPagadas;
+      this.facturasPagadas=this.contribuyente.contribucionesPagadas;
+      this.facturasProximas=this.contribuyente.contribucionesProximas;
       this.autoCompleteContribuyente.setValue('');
       event.option.focus();
       event.option.deselect();
 
   }
 
-  mostrarDatos(){
-    console.log("este es el tipo de consultaaaaaaaaaaaaaaaaaaaaa: "+this.tipoConsulta);
-  }
   createPDF(){
-    console.log("este es el tipo de consultaaaaaaaaaaaaaaaaaaaaa: "+this.tipoConsulta);
-    //let urlAux:string=environment.baseUrl+'/api/reportes/informacionPagos/exportarPDF/'+this.contribuyente.nombreContribuyente+'/'+this.contribuyente.rfc_contribuyente+'/'+this.contribuyente.direccion+'/'+false;
-    //this.router.navigate(['/'+urlAux]);
+    let urlAux:string=environment.baseUrl+'/api/reportes/informacionPagos/exportarPDF/'+this.contribuyente.nombreContribuyente+'/'+this.contribuyente.rfc_contribuyente+'/'+this.contribuyente.direccion+'/'+false;
+    this.router.navigate(['/'+urlAux]);
+
+  }
+
+  onChange(){
+    if(this.value==='true'){
+      this.facturas=this.facturasPagadas;
+      this.tipoConsulta=true;
+    }
+    if(this.value==='false'){
+      this.facturas=this.facturasProximas;
+      this.tipoConsulta=false;
+    }
+    }
 
   }
 
   //AQUI VA LA ESTRUCTURA PARA QUE EL PDF PUEDA SER DESCARGADO
 
-}
+
