@@ -39,7 +39,7 @@ export class ContribuyentesService {
 
   /**--------------- CRUD CONTRIBUYENTES----------- */
   filtrarContribuyentes(term:string,estadoPago:boolean):Observable<Contribuyente[]>{
-    return this.httpClient.get<Contribuyente[]>(environment.baseUrl+'/api/contribuyente/filtrar/term/'+term+'/estadoPago/'+estadoPago);
+    return this.httpClient.get<Contribuyente[]>(environment.baseUrl+'/api/contribuyente/filtrar/term/'+term);
   }
 
   /**--------------- CRUD CONTRIBUYENTES FISICAS----------- */

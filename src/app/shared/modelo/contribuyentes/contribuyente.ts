@@ -4,5 +4,6 @@ export class Contribuyente {
   rfc_contribuyente:string;
   nombreContribuyente:string;
   direccion:string;
-  contribuciones:FacturasNoPagadasDTO[];
+  contribucionesPagadas:FacturasNoPagadasDTO[];
+  contribucionesProximas:FacturasNoPagadasDTO[];
 }
