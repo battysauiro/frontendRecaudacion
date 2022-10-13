@@ -71,10 +71,9 @@
             </ng-template>
             <div class="mt-3">
               <div class="mt-3">
-                <select class="form-select">
-                  <option selected value="Seleccionar Tipo de Consulta">Seleccionar Tipo de Consulta</option>
-                  <option value="Consultar Pagos">Consultar Pagos</option>
-                  <option value="Consultar Proximos Pagos">Consultar Proximos Pagos</option>
+                <select [(ngModel)]="value" (change)="onChange()" name="consulta" class="form-select">
+                  <option selected value='true'>Consultar contribuciones pagadas</option>
+                  <option value='false'>Consultar proximos pagos de contribuciones</option>
                 </select>
               </div>
             </div>
@@ -102,7 +101,7 @@
               </div>
               <div class="col-sm-2">
                 <div class="col-sm-2">
-                  <a type="button" class="btn btn-danger" href='{{base}}/api/reportes/informacionPagos/exportarPDF/{{this.contribuyente.nombreContribuyente}}/{{this.contribuyente.rfc_contribuyente}}/{{this.contribuyente.direccion}}/0'>Descargar PDF</a>
+                  <a type="button" class="btn btn-danger" href='{{base}}/api/reportes/informacionPagos/exportarPDF/{{this.contribuyente.nombreContribuyente}}/{{this.contribuyente.rfc_contribuyente}}/{{this.contribuyente.direccion}}/{{tipoConsulta}}'>Descargar PDF</a>
                 </div>
               </div>
             </div>

@@ -41,6 +41,7 @@ export class VistaAdeudosComponent implements OnInit {
   filas:fila[];
   filtroContribuyente: Observable<Contribuyente[]>;
   base=environment.baseUrl;
+  tipoConsulta=false;
   constructor(
     public contribuyenteService:ContribuyentesService,
     public router:Router
@@ -74,9 +75,13 @@ export class VistaAdeudosComponent implements OnInit {
 
   }
 
+  mostrarDatos(){
+    console.log("este es el tipo de consultaaaaaaaaaaaaaaaaaaaaa: "+this.tipoConsulta);
+  }
   createPDF(){
-    let urlAux:string=environment.baseUrl+'/api/reportes/informacionPagos/exportarPDF/'+this.contribuyente.nombreContribuyente+'/'+this.contribuyente.rfc_contribuyente+'/'+this.contribuyente.direccion+'/'+false;
-    this.router.navigate(['/'+urlAux]);
+    console.log("este es el tipo de consultaaaaaaaaaaaaaaaaaaaaa: "+this.tipoConsulta);
+    //let urlAux:string=environment.baseUrl+'/api/reportes/informacionPagos/exportarPDF/'+this.contribuyente.nombreContribuyente+'/'+this.contribuyente.rfc_contribuyente+'/'+this.contribuyente.direccion+'/'+false;
+    //this.router.navigate(['/'+urlAux]);
 
   }
 
