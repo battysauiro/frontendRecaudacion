@@ -77,8 +77,8 @@
                 </select>
               </div>
             </div>
-            <div class="row g-2 mt-3">
-            <table class="table table-sm">
+            <div class="row g-2 mt-3" *ngIf="this.facturasPagadas">
+            <table class="table table-sm" *ngIf="this.facturasPagadas.length>0 || this.facturasProximas.length>0">
               <thead>
                 <tr>
                   <th class="texto">Fecha</th>
@@ -99,9 +99,9 @@
               <div class="col-sm-2">
 
               </div>
-              <div class="col-sm-2">
-                <div class="col-sm-2">
-                  <a type="button" class="btn btn-danger" href='{{base}}/api/reportes/informacionPagos/exportarPDF/{{this.contribuyente.nombreContribuyente}}/{{this.contribuyente.rfc_contribuyente}}/{{this.contribuyente.direccion}}/{{tipoConsulta}}'>Descargar PDF</a>
+              <div class="col-sm-12">
+                <div class="mx-auto" *ngIf="this.facturasPagadas">
+                  <a *ngIf="this.facturasPagadas.length>0 || this.facturasProximas.length>0" type="button" class="btn btn-danger" href='{{base}}/api/reportes/informacionPagos/exportarPDF/{{this.contribuyente.nombreContribuyente}}/{{this.contribuyente.rfc_contribuyente}}/{{this.contribuyente.direccion}}/{{tipoConsulta}}'>Descargar PDF</a>
                 </div>
               </div>
             </div>
