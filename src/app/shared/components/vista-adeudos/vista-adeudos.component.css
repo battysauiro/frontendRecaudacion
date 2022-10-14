@@ -26,3 +26,8 @@
 .texto{
   color: #FFFFFF;
 }
+
+img{
+  background-repeat: no-repeat;
+  background-attachment: fixed
+}
