@@ -10,6 +10,7 @@ import { Contribucion } from '../../modelo/contribuciones/contribucion';
 import { ContribuyenteFisica } from '../../modelo/contribuyentes/contribuyente-fisica';
 import { ContribuyenteMoral } from '../../modelo/contribuyentes/contribuyente-moral';
 import { Factura } from '../../modelo/linea-captura/factura';
+import { FacturasNoPagadasDTO } from '../../modelo/linea-factura/facturas-no-pagadas-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class LineaCapturaService {
   public urlExisteContribucion: string =environment.baseUrl+"/api/facturas-contribuyente";
   public urlExisteFactura: string =environment.baseUrl+"/api/obtenerFactura";
   public urlpagoPendiente: string =environment.baseUrl+"/api/facturas-Pendientecontribuyente";
+  public urlpagosPendientes: string =environment.baseUrl+"/api/facturas/pagosPendientes";
   public urlContribucion: string =environment.baseUrl+"/api/contribucion";
   public urlContribuyenteFisica: string =environment.baseUrl+"/api/contribuyenteFisica";
   public urlContribuyenteMoral: string =environment.baseUrl+"/api/contribuyenteMoral";
@@ -79,6 +81,10 @@ export class LineaCapturaService {
   //verifica si ya paso un mes de generar su captura de pago
   pagoPendiente(id_contribuyente:string,codigo_contribucion:string):Observable<boolean>{
     return this.httpCliente.get<boolean>(this.urlpagoPendiente+'/'+id_contribuyente+'/'+codigo_contribucion,{headers:this.agregarAuthorizationHeader()});
+  }
+ //regresa una lista con las contriuciones que se paaran anualmente
+  pagosPendientes(id_contribuyente:string):Observable<FacturasNoPagadasDTO[]>{
+    return this.httpCliente.get<FacturasNoPagadasDTO[]>(this.urlpagosPendientes+'/'+id_contribuyente,{headers:this.agregarAuthorizationHeader()});
   }
 
   //busca si la linea de captura existe, si es asi regreasara el DTO
