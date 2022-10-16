@@ -265,7 +265,7 @@ body.active .page .content{
   color: #c8c6bb; /*white;*/
 }
 
-.btn-check .boton-principal:hover{
+.boton-principal:hover{
   background-color: #a3585b;
   color: #c8c6bb!important;
 }
