@@ -233,7 +233,7 @@ export class CobrarContribucionComponent implements OnInit {
     this.tipoMoneda="$";
     this.uma=1;
     this.mensaje="";
-
+//añadir la lista de pagos pendientes que se agrego en el servicio de linea captura
     this.facturasService.pagoPendiente(this.contribuyente.rfc_contribuyente,contribucion.codigo_contribucion).subscribe(pago=>{
       if(!pago){
         if(contribucion.nivelContribucion===1){
