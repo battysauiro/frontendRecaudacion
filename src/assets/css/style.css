@@ -260,6 +260,7 @@ body.active .page .content{
 }
 
 /* botones*/
+/*aqui cambie los colores de los botones*/
 .boton-principal{
   background-color: #740432; /*#2b79c7;*/
   color: #c8c6bb; /*white;*/
@@ -272,6 +273,7 @@ body.active .page .content{
 
 .btn-check{
   background-color: #740432;
+  color: #c8c6bb!important;
 }
 
 
