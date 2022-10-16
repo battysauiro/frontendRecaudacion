@@ -270,6 +270,9 @@ body.active .page .content{
   color: #c8c6bb!important;
 }
 
+.btn-check{
+  background-color: white;
+}
 
 
 /* alertas*/
