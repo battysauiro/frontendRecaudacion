@@ -26,7 +26,8 @@
       />
     </div>
     <div class="col-auto">
-      <a class="ms-auto links" [routerLink]="['/formulario-contribucion',3]">Agregar contribucion Derecho Licencia</a>
+      <button type="button" class="btn boton-principal" [routerLink]="['/formulario-contribucion',3]"> Agregar contribución</button>
+      <!--<a class="ms-auto links" [routerLink]="['/formulario-contribucion',3]">Agregar contribucion Derecho Licencia</a>-->
     </div>
   </div>
 <ng-container *ngIf=" selected===3">
@@ -37,12 +38,12 @@
       <table class="table table-bordered table-striped tabla-estilo" *ngIf="contribucionesDLicencias!= undefined && contribucionesDLicencias.length>0">
         <thead class="cabecera text-white">
           <tr>
-            <th>Codigo</th>
-            <th>Descripcion</th>
-            <th>Tipo</th>
-            <th>Tipo Pago</th>
-            <th>Expedicion</th>
-            <th>Refrendo</th>
+            <th>CÓDIGO</th>
+            <th>DESCRIPCIÓN</th>
+            <!--<th>TIPO</th>-->
+            <th>PAGO</th>
+            <th>EXPEDICIÓN</th>
+            <th>REFRENDO</th>
             <th
               class="text-center"
               *ngIf="
@@ -64,7 +65,7 @@
           <tr *ngFor="let contribucion of contribucionesDLicencias">
             <td>{{ contribucion.codigo_contribucion}}</td>
             <td>{{contribucion.scatalogo_derechos}} {{ contribucion.concepto_contribucion}}</td>
-            <td>{{ contribucion.nivelContribucionS}} </td>
+            <!--<td>{{ contribucion.nivelContribucionS}} </td>-->
             <td>{{ contribucion.tipo_pago}} </td>
             <td>{{ contribucion.expedicion}} </td>
             <td>{{ contribucion.refrendo}} </td>
