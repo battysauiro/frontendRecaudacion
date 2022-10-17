@@ -26,7 +26,8 @@
       />
     </div>
     <div class="col-auto">
-      <a class="ms-auto links" [routerLink]="['/formulario-contribucion',5]">Agregar Multa ebriedad</a>
+      <button type="button" class="btn boton-principal" [routerLink]="['/formulario-contribucion',5]"> Agregar contribución</button>
+      <!--<a class="ms-auto links" [routerLink]="['/formulario-contribucion',5]">Agregar Multa ebriedad</a>-->
     </div>
   </div>
 
@@ -38,13 +39,13 @@
       <table class="table table-bordered table-striped tabla-estilo" *ngIf="contribucionesMEbriedad!= undefined && contribucionesMEbriedad.length>0">
         <thead class="cabecera text-white">
           <tr>
-            <th>Codigo</th>
-            <th>Descripcion</th>
-            <th>Tipo</th>
-            <th>Tipo Pago</th>
-            <th>Uma min</th>
-            <th>Uma max</th>
-            <th>cantidad de alcohol</th>
+            <th>CÓDIGO</th>
+            <th>DESCRIPCIÓN</th>
+            <!--<th>TIPO</th>-->
+            <th>PAGO</th>
+            <th>UMA MIN</th>
+            <th>UMA MAX</th>
+            <th>CANTIDAD DE ALCOHOL</th>
             <th
               class="text-center"
               *ngIf="
@@ -66,7 +67,7 @@
           <tr *ngFor="let contribucion of contribucionesMEbriedad">
             <td>{{ contribucion.codigo_contribucion}}</td>
             <td>{{contribucion.scatalogo}} {{ contribucion.concepto_contribucion}}</td>
-            <td>{{ contribucion.nivelContribucionS}} </td>
+            <!--<td>{{ contribucion.nivelContribucionS}} </td>-->
             <td>{{ contribucion.tipo_pago}} </td>
             <td>{{ contribucion.uma_min}} </td>
             <td>{{ contribucion.uma_max}} </td>
