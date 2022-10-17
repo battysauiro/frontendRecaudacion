@@ -21,7 +21,7 @@ body {
   background-color: #e6e6e6;
 }
 .page .sidebar{
-  background: #70a2df;/** linear-gradient(35deg, #66fcf1, #45a29e);*/
+  background: #740432; /*#70a2df; linear-gradient(35deg, #66fcf1, #45a29e);*/
   position: fixed;
   top: 0;
   left: 0;
@@ -324,6 +324,17 @@ body.active .page .content{
   box-shadow: 0 0 0 .2rem #a3585b/*rgba(119, 204, 204, 0.5)*/!important;
 }
 
+/*color de paginadores*/
+/*color paginadores*/
+.paination>li>a,.pagination>li>span{
+  background-color: #740432!important;
+  color: #c8c6bb!important;
+  box-shadow:  #c8c6bb!important;
+}
+.page-link{
+  background-color: #c8c6bb;
+  color: #740432!important;
+}
 /* alertas*/
 .invalid-relleno {
   width: 100%;
