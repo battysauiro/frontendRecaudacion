@@ -10,6 +10,7 @@ import { Contribucion } from '../../modelo/contribuciones/contribucion';
 import { ContribuyenteFisica } from '../../modelo/contribuyentes/contribuyente-fisica';
 import { ContribuyenteMoral } from '../../modelo/contribuyentes/contribuyente-moral';
 import { Factura } from '../../modelo/linea-captura/factura';
+import { Facturac } from '../../modelo/linea-factura/facturac';
 import { FacturasNoPagadasDTO } from '../../modelo/linea-factura/facturas-no-pagadas-dto';
 
 @Injectable({
@@ -94,8 +95,8 @@ export class LineaCapturaService {
   }
 
   //busca si la linea de captura existe, si es asi regreasara el DTO
-  obtenerFacturaContribucion(rmc:string,codigo:string):Observable<Factura>{
-    return this.httpCliente.get<Factura>(this.urlExisteFactura+'/'+rmc+'/'+codigo,{headers:this.agregarAuthorizationHeader()});
+  obtenerFacturaContribucion(rmc:string,codigo:string):Observable<Facturac>{
+    return this.httpCliente.get<Facturac>(this.urlExisteFactura+'/'+rmc+'/'+codigo,{headers:this.agregarAuthorizationHeader()});
   }
 
   //actualiza su estado de pago a pagado y regreasa un DTO
