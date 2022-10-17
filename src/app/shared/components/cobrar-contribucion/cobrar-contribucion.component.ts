@@ -234,7 +234,7 @@ export class CobrarContribucionComponent implements OnInit {
     this.uma=1;
     this.mensaje="";
 //añadir la lista de pagos pendientes que se agrego en el servicio de linea captura
-    this.facturasService.pagoPendiente(this.contribuyente.rfc_contribuyente,contribucion.codigo_contribucion).subscribe(pago=>{
+    this.facturasService.pagado(this.contribuyente.rfc_contribuyente,contribucion.codigo_contribucion).subscribe(pago=>{
       if(!pago){
         if(contribucion.nivelContribucion===1){
           this.cImpuestoService.ObtenerCImpuesto(contribucion.codigo_contribucion).subscribe(contribucion=>{this.costo=contribucion.cantidad;
@@ -346,11 +346,12 @@ export class CobrarContribucionComponent implements OnInit {
           this.cargarFacturaAux(factura);
           this.facturaAux=factura;
           swal({
-            title: 'linea de pago encontrada',
-            text: ``,
+            title: 'El Contribuyente esta al dia',
+            text: `Ya se realizo el pago de esta contribucion de este año`,
             type: 'info',
             showCancelButton: true,
-            confirmButtonText: 'Descargar de nuevo'
+            confirmButtonText: 'Descargar de nuevo',
+            cancelButtonText: 'cancelar'
           }).then((result) => {
             if (result.value) {
               //this.descargarPDF();

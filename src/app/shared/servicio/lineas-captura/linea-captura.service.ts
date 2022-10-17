@@ -23,6 +23,7 @@ export class LineaCapturaService {
   public urlpagoPendiente: string =environment.baseUrl+"/api/facturas-Pendientecontribuyente";
   public urlpagosPendientes: string =environment.baseUrl+"/api/facturas/pagosPendientes";
   public urlContribucion: string =environment.baseUrl+"/api/contribucion";
+  public urlContribuyente: string =environment.baseUrl+"/api/contribuyente";
   public urlContribuyenteFisica: string =environment.baseUrl+"/api/contribuyenteFisica";
   public urlContribuyenteMoral: string =environment.baseUrl+"/api/contribuyenteMoral";
   public httpHeaders= new HttpHeaders({'Content-Type':'application/json'});
@@ -85,6 +86,11 @@ export class LineaCapturaService {
  //regresa una lista con las contriuciones que se paaran anualmente
   pagosPendientes(id_contribuyente:string):Observable<FacturasNoPagadasDTO[]>{
     return this.httpCliente.get<FacturasNoPagadasDTO[]>(this.urlpagosPendientes+'/'+id_contribuyente,{headers:this.agregarAuthorizationHeader()});
+  }
+
+  //regresa true o false si la contribucion con peridocidad o licencias ya fue pagada este año
+  pagado(id_contribuyente:string,codigo:string):Observable<boolean>{
+    return this.httpCliente.get<boolean>(this.urlContribuyente+'/facturaPagada/rfc/'+id_contribuyente+'/codigo/'+codigo,{headers:this.agregarAuthorizationHeader()});
   }
 
   //busca si la linea de captura existe, si es asi regreasara el DTO
