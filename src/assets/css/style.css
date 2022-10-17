@@ -267,15 +267,62 @@ body.active .page .content{
 }
 
 .boton-principal:hover{
-  background-color: #a3585b;
-  color: #c8c6bb!important;
+  background-color: #c8c6bb;
+  color: #740432;
+}
+/** estos son mis intentos por cambiar los colores de los botones outilene-primary
+.btn.check{
+  background-color: #740432!important;
 }
 
-.btn-check{
-  background-color: #740432;
+.btn-outline-primary{
+  background-color: #740432!important;
   color: #c8c6bb!important;
+  border-color: #740432!important;
 }
 
+.btn-outline-primary:hover{
+  background-color: #a3585b!important;
+}*/
+
+/*estos son  los que copie de stackoverflow*/
+.btn-outline-primary {
+  color: #740432!important;
+  background-color: transparent!important;
+  background-image: none!important;
+  border-color: #740432!important;
+}
+
+.btn-outline-primary:hover {
+  color: #c8c6bb!important;
+  background-color: #740432!important;
+  border-color: #740432!important;
+}
+
+.btn-outline-primary:focus,
+.btn-outline-primary.focus {
+  box-shadow: 0 0 0 .2rem #a3585b/*rgba(119, 204, 204, 0.5)*/!important;
+}
+
+.btn-outline-primary.disabled,
+.btn-outline-primary:disabled {
+  color: #c8c6bb!important;
+  background-color: transparent!important;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.show>.btn-outline-primary.dropdown-toggle {
+  color: #740432!important;
+  background-color: #c8c6bb!important;
+  border-color: #740432!important;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active:focus,
+.btn-outline-primary:not(:disabled):not(.disabled).active:focus,
+.show>.btn-outline-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 .2rem #a3585b/*rgba(119, 204, 204, 0.5)*/!important;
+}
 
 /* alertas*/
 .invalid-relleno {
