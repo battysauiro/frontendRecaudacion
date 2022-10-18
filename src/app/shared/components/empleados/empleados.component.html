@@ -45,9 +45,7 @@
         <thead class="cabecera text-white">
           <tr>
             <th>CURP</th>
-            <th>Nombre</th>
-            <th>Apellido Paterno</th>
-            <th>Apellido Materno</th>
+            <th>NOMBRE</th>
             <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN'])">
               <i class="fas fa-address-card"></i>
             </th>
@@ -71,9 +69,7 @@
         <tbody>
           <tr *ngFor="let empleado of empleados">
             <td>{{empleado.curp}} </td>
-            <td>{{empleado.nombre}} </td>
-            <td>{{empleado.apellido_p}}</td>
-            <td>{{empleado.apellido_m}}</td>
+            <td>{{empleado.nombre}} {{empleado.apellido_p}} {{empleado.apellido_m}}</td>
             <td
               *ngIf="
                 authService.hasRole([
