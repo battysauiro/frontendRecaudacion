@@ -26,7 +26,8 @@
       />
     </div>
     <div class="col-auto">
-      <a class="ms-auto links" [routerLink]="['/formulario-contribucion',1]">Agregar contribucion tipo Impuesto</a>
+      <button type="button" class="btn boton-principal" [routerLink]="['/formulario-contribucion',1]"> Agregar contribución</button>
+      <!--<a class="ms-auto links" [routerLink]="['/formulario-contribucion',1]">Agregar contribucion tipo Impuesto</a>-->
     </div>
   </div>
 <ng-container *ngIf=" selected===1">
@@ -37,11 +38,11 @@
       <table class="table table-bordered table-striped tabla-estilo" *ngIf="contribucionesImpuestos!= undefined && contribucionesImpuestos.length>0">
         <thead class="cabecera text-white">
           <tr>
-            <th>Codigo</th>
-            <th>Descripcion</th>
-            <th>Tipo</th>
-            <th>Tipo Pago</th>
-            <th>Cantidad</th>
+            <th>CÓDIGO</th>
+            <th>DESCRIPCIÓN</th>
+            <!--<th>Tipo</th>-->
+            <th>PAGO</th>
+            <!--<th>Cantidad</th>-->
             <th
               class="text-center"
               *ngIf="
@@ -63,9 +64,9 @@
           <tr *ngFor="let contribucion of contribucionesImpuestos">
             <td>{{ contribucion.codigo_contribucion}}</td>
             <td>{{contribucion.scatalogo_impuesto}} {{ contribucion.concepto_contribucion}}</td>
-            <td>{{ contribucion.nivelContribucionS}} </td>
+            <!--<td>{{ contribucion.nivelContribucionS}} </td>-->
             <td>{{ contribucion.tipo_pago}} </td>
-            <td>{{ contribucion.cantidad}} </td>
+            <!--<td>{{ contribucion.cantidad}} </td>-->
             <td
               *ngIf="
                 authService.hasRole([
