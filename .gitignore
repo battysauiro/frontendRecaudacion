@@ -43,3 +43,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+src/assets/img/fondo-4.jpg
+.gitignore
+src/assets/img/SanJacintoLogo.jpg
