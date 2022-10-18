@@ -345,7 +345,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="limpiarModal()">Cancelar</button>
+        <button type="button" class="btn btn-secondary" style="color:white; background-color: red; border-color: red;" data-bs-dismiss="modal" (click)="limpiarModal()">Cancelar</button>
         <button type="button" [disabled]="vacio()" data-bs-dismiss="modal" class="btn btn-primary" (click)='insertarContribuyente()' *ngIf="!banderaActualizar else elseBlock">Añadir contribuyente</button>
         <ng-template #elseBlock>
           <button [disabled]="vacio()"  type="button" class="btn btn-primary" data-bs-dismiss="modal" type="submit"  (click)='actualizarContribuyente()' >Actualizar contribuyente</button>
