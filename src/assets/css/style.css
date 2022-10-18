@@ -21,7 +21,7 @@ body {
   background-color: #e6e6e6;
 }
 .page .sidebar{
-  background: #70a2df;/** linear-gradient(35deg, #66fcf1, #45a29e);*/
+  background: #740432; /*#70a2df; linear-gradient(35deg, #66fcf1, #45a29e);*/
   position: fixed;
   top: 0;
   left: 0;
@@ -38,10 +38,10 @@ body {
 }
 
 .color-border:hover{
-  border-color: rgb(80, 57, 215);
+  border-color: #740432 /*rgb(80, 57, 215);*/
 }
 .color-border a:hover{
-  background-color: rgb(141, 174, 246);
+  background-color: #a3585b; /*rgb(141, 174, 246);*/
 }
 
 .page .content{
@@ -65,7 +65,7 @@ body {
 
 .sidebarToggle {
   font-size: 16px;
-  color: rgb(0, 0, 0, 0.8);
+  color: #c8c6bb; /**rgb(0, 0, 0, 0.8);*/
   margin-left: -20px;
   z-index: 999;
   border-radius: 50px;
@@ -115,7 +115,7 @@ body.active .page .content{
   padding: 0px;
 }
 .logo-sidebar {
-  width: 30px;
+  width: 215px;
   height: auto;
 }
 .brand-name {
@@ -151,7 +151,7 @@ body.active .page .content{
   box-shadow: 0 0 0.4em rgb(255, 255, 255, 0.1);
 }
 .navigation-link {
-  color: rgb(31, 40, 51, 0.8);
+  color: #c8c6bb;/*rgb(31, 40, 51, 0.8);*/
   letter-spacing: 0.5px;
   font-weight: 400;
   text-decoration: none;
@@ -176,7 +176,7 @@ body.active .page .content{
 .teams-title {
   letter-spacing: 0.5px;
   font-size: 17px;
-  color: rgb(31, 40, 51, 0.8);
+  color: #c8c6bb;/*rgb(31, 40, 51, 0.8);*/
   font-family: 'Roboto', sans-serif;
 }
 .teams-list {
@@ -186,7 +186,7 @@ body.active .page .content{
 .teams-item {
   letter-spacing: 0.5px;
   font-size: 16px;
-  color: rgb(31, 40, 51, 0.8);
+  color: #c8c6bb; /*rgb(31, 40, 51, 0.8);*/
   font-family: 'Roboto', sans-serif;
   margin-bottom: 30px;
 }
@@ -222,13 +222,13 @@ body.active .page .content{
 
 /*estilo de las tablas*/
 .tabla-estilo{
-  border: 1px solid #0454a2;
+  border: 1px solid #740432; /*#0454a2;*/
   border-bottom-left-radius: 10%;
 }
 
 .tabla-estilo .cabecera{
-  background-color: #0454a2;
-  border-color: red;
+  background-color: #740432; /*#0454a2;*/
+  border-color: #c8c6bb; /*red;*/
 }
 
 .tabla-estilo .cabecera tr{
@@ -260,17 +260,87 @@ body.active .page .content{
 }
 
 /* botones*/
+/*aqui cambie los colores de los botones*/
 .boton-principal{
-  background-color: #2b79c7;
-  color: white;
+  background-color: #740432; /*#2b79c7;*/
+  color: #c8c6bb; /*white;*/
 }
 
+.boton-principal:hover{
+  background-color: #c8c6bb;
+  color: #740432;
+}
+/** estos son mis intentos por cambiar los colores de los botones outilene-primary
+.btn.check{
+  background-color: #740432!important;
+}
+
+.btn-outline-primary{
+  background-color: #740432!important;
+  color: #c8c6bb!important;
+  border-color: #740432!important;
+}
+
+.btn-outline-primary:hover{
+  background-color: #a3585b!important;
+}*/
+
+/*estos son  los que copie de stackoverflow*/
+.btn-outline-primary {
+  color: #740432!important;
+  background-color: transparent!important;
+  background-image: none!important;
+  border-color: #740432!important;
+}
+
+.btn-outline-primary:hover {
+  color: #c8c6bb!important;
+  background-color: #740432!important;
+  border-color: #740432!important;
+}
+
+.btn-outline-primary:focus,
+.btn-outline-primary.focus {
+  box-shadow: 0 0 0 .2rem #a3585b/*rgba(119, 204, 204, 0.5)*/!important;
+}
+
+.btn-outline-primary.disabled,
+.btn-outline-primary:disabled {
+  color: #c8c6bb!important;
+  background-color: transparent!important;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.show>.btn-outline-primary.dropdown-toggle {
+  color: #740432!important;
+  background-color: #c8c6bb!important;
+  border-color: #740432!important;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active:focus,
+.btn-outline-primary:not(:disabled):not(.disabled).active:focus,
+.show>.btn-outline-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 .2rem #a3585b/*rgba(119, 204, 204, 0.5)*/!important;
+}
+
+/*color de paginadores*/
+/*color paginadores*/
+.paination>li>a,.pagination>li>span{
+  background-color: #740432!important;
+  color: #c8c6bb!important;
+  box-shadow:  #c8c6bb!important;
+}
+.page-link{
+  background-color: #c8c6bb;
+  color: #740432!important;
+}
 /* alertas*/
 .invalid-relleno {
   width: 100%;
   margin-top: 0.25rem;
   font-size: .875em;
-  color: #dc3545;
+  color: #740432;
 }
 
 .invalid-contorno{
@@ -291,7 +361,7 @@ body.active .page .content{
 .links:hover{
   text-decoration: none;
   /**background-color: #0454a2;*/
-  color:#0454a2;
+  color: #0454a2;
 }
 
 .form-controll {

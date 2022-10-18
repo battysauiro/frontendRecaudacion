@@ -1,0 +1,13 @@
+
+.sidebar{
+ background-image: url('../assets/img/fondo-4.jpg');
+ background-repeat: no-repeat;
+ background-attachment: fixed;
+}
+
+/*
+body {
+    background-image: url('../assets/img/fondo-4.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+   }*/
