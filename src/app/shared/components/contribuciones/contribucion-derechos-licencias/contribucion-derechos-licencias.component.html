@@ -30,6 +30,19 @@
       <!--<a class="ms-auto links" [routerLink]="['/formulario-contribucion',3]">Agregar contribucion Derecho Licencia</a>-->
     </div>
   </div>
+  <div class="d-flex flex-row-reverse">
+
+    <div>
+      <span></span>
+      <a
+        href="{{
+          urlEndPoint
+        }}/api/reportes/listaContribucionDerechosL/exportarPDF"
+        class="btn btn-danger btn-sm ml-auto"
+        ><i class="bi bi-printer"></i>Descargar lista</a
+      >
+    </div>
+  </div>
 <ng-container *ngIf=" selected===3">
   <div class="table-wrapper">
     <div class="alert alert-info my-4 text-center" *ngIf="contribucionesDLicencias!= undefined && contribucionesDLicencias.length==0">

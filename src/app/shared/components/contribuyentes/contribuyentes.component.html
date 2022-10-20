@@ -42,9 +42,6 @@
         (keyup)="onSearh()"
         [(ngModel)]="termino"
       />
-      <button class="btn btn-outline-success"  type="submit">
-        <i class="fas fa-search"></i>
-      </button>
     </div>
     <div>
       <button type="button"  class="btn boton-principal"
@@ -56,7 +53,7 @@
   </div>
   <div class="d-flex flex-row-reverse">
 
-    <div>
+    <div *ngIf="banderaTipo else PDFmoral">
       <span></span>
       <a
         href="{{
@@ -66,6 +63,16 @@
         ><i class="bi bi-printer"></i>Descargar lista</a
       >
     </div>
+    <ng-template #PDFmoral>
+      <span></span>
+      <a
+        href="{{
+          urlEndPoint
+        }}/api/reportes/listaContribuyenteMoral/exportarPDF"
+        class="btn btn-danger btn-sm ml-auto"
+        ><i class="bi bi-printer"></i>Descargar lista</a
+      >
+    </ng-template>
   </div>
   <ng-container *ngIf="banderaTipo; else blockMoral">
     <div class="table-wrapper">
@@ -230,7 +237,7 @@
   <!-- <app-alerts></app-alerts> -->
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header"> 
+      <div class="modal-header">
         <h5 class="modal-title text-center" id="exampleModalLabel">Agregar Persona {{tipoPersona}}</h5>
         <button type="button" class="btn-close" (click)="limpiarModal()" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>

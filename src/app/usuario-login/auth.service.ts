@@ -49,6 +49,7 @@ export class AuthService {
     //aqui se puede guardar mas datos del usuario
     this._usuario.username=payLoad.user_name;
     this._usuario.id_municipio=payLoad.id_municipio;
+    this._usuario.nombre_empleado=payLoad.nombre_usuario;
     this._usuario.roles=payLoad.authorities;
     sessionStorage.setItem('usuario',JSON.stringify(this._usuario));
 

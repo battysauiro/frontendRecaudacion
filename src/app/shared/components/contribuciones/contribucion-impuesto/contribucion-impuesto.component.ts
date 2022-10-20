@@ -5,6 +5,7 @@ import { ContribucionImpuestos } from 'src/app/shared/modelo/contribuciones/cont
 import { ContribucionImpuestoService } from 'src/app/shared/servicio/contribuciones/contribucion-impuesto.service';
 import { ContribucionesService } from 'src/app/shared/servicio/contribuciones/contribuciones.service';
 import { AuthService } from 'src/app/usuario-login/auth.service';
+import { environment } from 'src/environments/environment';
 import swal from 'sweetalert2';
 
 interface ContribucionInter {
@@ -31,6 +32,7 @@ export class ContribucionImpuestoComponent implements OnInit {
   contribucionControl = new FormControl(false);
   selected:number =1;
   termino='';
+  urlEndPoint: string = environment.baseUrl;
   contribucionGroups: ContribucionGroup[]= [
     {
       name: 'Impuestos',

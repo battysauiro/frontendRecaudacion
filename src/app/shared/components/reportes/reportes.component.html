@@ -1,6 +1,6 @@
 <label class="mx-2">Buscar por: </label>
 <div class="form-check form-check-inline">
-  <input checked class="form-check-input" (change)="cambiarEstado(true)" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+  <input checked class="form-check-input " (change)="cambiarEstado(true)" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
   <label class="form-check-label" for="inlineRadio1">Tipo Contribucion</label>
 </div>
 <div class="form-check form-check-inline">
@@ -11,7 +11,7 @@
   <input (change)="seleecionarTodas($event)" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
   <label class="form-check-label" for="inlineRadio3">Todas</label>
 </div>
-<select (change)="seleccion($event)" *ngIf="estado && !seleccionTodas"  class="form-select col-md-4" aria-label="Disabled select example" >
+<select (change)="seleccion($event)" *ngIf="estado && !seleccionTodas"  class="form-select col-md-12" aria-label="Disabled select example" >
   <option *ngFor="let tipo of tipoContribuciones" value="{{tipo.codigo}}">{{tipo.nombre}}</option>
 </select>
 <mat-form-field  appearance="outline" *ngIf="!estado && !seleccionTodas">
@@ -29,7 +29,9 @@
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
-<button type="button" (click)="rellenarTabla()" class="btn btn-primary">Generar Reporte/s</button>
+<div class="mt-2">
+  <button type="button" (click)="rellenarTabla()" class="btn btn-primary">Generar Reporte/s</button>
+</div>
 <table class="table table-bordered table-striped tabla-estilo" *ngIf="mapaReportes.length>0">
   <thead class="cabecera text-white">
     <tr >
