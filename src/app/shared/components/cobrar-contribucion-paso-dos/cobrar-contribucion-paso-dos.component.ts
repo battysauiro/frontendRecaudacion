@@ -62,6 +62,8 @@ export class CobrarContribucionPasoDosComponent implements OnInit {
       }).then((result) => {
         if (result.value) {
           this.irPasoUno();
+        }else{
+          this.irPasoUno();
         }
       })
       //this.alertService.success('Se ha creado la linea de pago', this.options);
@@ -157,7 +159,7 @@ export class CobrarContribucionPasoDosComponent implements OnInit {
                   },
                   {
                     table:{
-                      widths: ['auto',340],
+                      widths: ['auto',285],
                       heights: ['auto','auto',200],
                       headerRows: 1,
                       body: [
