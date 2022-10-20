@@ -7,7 +7,7 @@
 .toggle-switchy > input:checked + .toggle {background: #740432!important;/*#008218;*/}
 .toggle-switchy > input:not(:checked) + .toggle {background: #740432!important;/*rgb(2, 190, 43);*/}
 .toggle-switchy > input:checked + .toggle > .switch {border:3px solid #740432!important;/*#008218;*/}
-.toggle-switchy > input:not(:checked) + .toggle > .switch {border:5px solid #ccc;}
+.toggle-switchy > input:not(:checked) + .toggle > .switch {border: 0px solid #ccc;}
 .toggle-switchy > input:focus + .toggle,
 .toggle-switchy > input:active + .toggle {box-shadow:0 0 1px 1px #c8c6bb!important;/*rgba(0, 119, 200, 0.50);*/}
 
@@ -60,10 +60,10 @@ CORE STYLES ABOVE - NO TOUCHY
 
 /* Size: Large */
 .toggle-switchy[data-size='lg'] > input + .toggle							{width:100px; height:35px;}
-.toggle-switchy[data-size='lg'] > input + .toggle > .switch					{width:35px;}
+.toggle-switchy[data-size='lg'] > input + .toggle > .switch					{width:15px;}
 .toggle-switchy[data-size='lg'] > input + .toggle:before,
 .toggle-switchy[data-size='lg'] > input + .toggle:after						{font-size:1rem;}
-.toggle-switchy[data-size='lg'] > input:not(:checked) + .toggle > .switch	{right:calc(100% - 35px);}
+.toggle-switchy[data-size='lg'] > input:not(:checked) + .toggle > .switch	{right:calc(100% - 15px);}
 
 /* Size: Default (Medium) */
 .toggle-switchy > input + .toggle											{width:65px; height:30px;}
