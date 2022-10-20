@@ -14,6 +14,7 @@
 <select (change)="seleccion($event)" *ngIf="estado && !seleccionTodas"  class="form-select col-md-12" aria-label="Disabled select example" >
   <option *ngFor="let tipo of tipoContribuciones" value="{{tipo.codigo}}">{{tipo.nombre}}</option>
 </select>
+<div class="row">
 <mat-form-field  appearance="outline" *ngIf="!estado && !seleccionTodas">
   <mat-label>Buscar Contribucion</mat-label>
   <input type="text"
@@ -29,14 +30,15 @@
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
+</div>
 <div class="mt-2">
-  <button type="button" (click)="rellenarTabla()" class="btn btn-primary">Generar Reporte/s</button>
+  <button type="button" (click)="rellenarTabla()" class="btn btn-primary">Generar Reporte</button>
 </div>
 <table class="table table-bordered table-striped tabla-estilo" *ngIf="mapaReportes.length>0">
   <thead class="cabecera text-white">
     <tr >
         <th width="30%">Reporte</th>
-        <th width="30%"><i class="bi bi-download"></i>Descargar</th>
+        <th width="30%">Descargar</th>
     </tr>
   </thead>
   <tbody>

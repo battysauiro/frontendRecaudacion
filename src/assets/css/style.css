@@ -326,7 +326,7 @@ body.active .page .content{
 
 /*color de paginadores*/
 /*color paginadores*/
-.paination>li>a,.pagination>li>span{
+.pagination>li>span{
   background-color: #740432!important;
   color: #c8c6bb!important;
   box-shadow:  #c8c6bb!important;

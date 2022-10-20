@@ -4,16 +4,16 @@
 .toggle-switchy > input + .toggle:after {content:'Moral';}
 .toggle-switchy > input + .toggle > .switch {background:#fff;}
 .toggle-switchy > input + .toggle + .label {color:#000;}
-.toggle-switchy > input:checked + .toggle {background:#008218;}
-.toggle-switchy > input:not(:checked) + .toggle {background:rgb(2, 190, 43);}
-.toggle-switchy > input:checked + .toggle > .switch {border:3px solid #008218;}
-.toggle-switchy > input:not(:checked) + .toggle > .switch {border:3px solid #ccc;}
+.toggle-switchy > input:checked + .toggle {background: #740432!important;/*#008218;*/}
+.toggle-switchy > input:not(:checked) + .toggle {background: #740432!important;/*rgb(2, 190, 43);*/}
+.toggle-switchy > input:checked + .toggle > .switch {border:3px solid #740432!important;/*#008218;*/}
+.toggle-switchy > input:not(:checked) + .toggle > .switch {border:5px solid #ccc;}
 .toggle-switchy > input:focus + .toggle,
-.toggle-switchy > input:active + .toggle {box-shadow:0 0 5px 3px rgba(0, 119, 200, 0.50);}
+.toggle-switchy > input:active + .toggle {box-shadow:0 0 1px 1px #c8c6bb!important;/*rgba(0, 119, 200, 0.50);*/}
 
 /* Rounded switch corners */
 .toggle-switchy > input + .toggle {border-radius:4px;}
-.toggle-switchy > input + .toggle .switch {border-radius:6px;}
+.toggle-switchy > input + .toggle .switch {border-radius:10px;}
 
 /* //////////////////////////
 CORE STYLES BELOW - NO TOUCHY
@@ -435,4 +435,43 @@ select.list-dt:focus {
 .link:hover{
   cursor: pointer;
   color: #740432;
+}
+
+/*color boton siguiente*/
+.btn-primary {
+  color: #740432!important;
+  background-color: transparent!important;
+  
+  border-color: #740432!important;
+}
+
+.btn-primary:hover {
+  color: #740432!important;
+  background-color: #c8c6bb!important;
+  border-color: #740432!important;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+  box-shadow: 0 0 0 .2rem #a3585b/*rgba(119, 204, 204, 0.5)*/!important;
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+  color: #740432!important;
+  background-color: transparent!important;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show>.btn-primary.dropdown-toggle {
+  color: #740432!important;
+  background-color: #c8c6bb!important;
+  border-color: #740432!important;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 .2rem #a3585b/*rgba(119, 204, 204, 0.5)*/!important;
 }

@@ -1,7 +1,7 @@
 .tab {
   overflow: hidden;
   border: 1px solid #ccc;
-  background-color: rgb(75, 69, 198); /**#f1f1f1;*/
+  background-color: #740432;/*rgb(75, 69, 198); #f1f1f1;*/
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -31,4 +31,47 @@
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
+}
+
+.btn-primary {
+  color: #740432!important;
+  background-color: transparent!important;
+  background-image: none!important;
+  border-color: #740432!important;
+}
+
+.btn-primary:hover {
+  color: #c8c6bb!important;
+  background-color: #740432!important;
+  border-color: #740432!important;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+  box-shadow: 0 0 0 .2rem #a3585b/*rgba(119, 204, 204, 0.5)*/!important;
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+  color: #c8c6bb!important;
+  background-color: transparent!important;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show>.btn-primary.dropdown-toggle {
+  color: #740432!important;
+  background-color: #c8c6bb!important;
+  border-color: #740432!important;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 .2rem #a3585b/*rgba(119, 204, 204, 0.5)*/!important;
+}
+
+.table-estilo{
+  background-color: #740432!important;
+  color: #c8c6bb!important;
 }
