@@ -146,3 +146,46 @@ select.list-dt:focus {
   object-fit: cover;
 }
 /*CSS DEL HTML DE LA CLASE LINEA CAPTURA*/
+.btn-primary {
+  color: #740432!important;
+  background-color: transparent!important;
+  
+  border-color: #740432!important;
+}
+
+.btn-primary:hover {
+  color: #740432!important;
+  background-color: #c8c6bb!important;
+  border-color: #740432!important;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+  box-shadow: 0 0 0 .2rem #a3585b/*rgba(119, 204, 204, 0.5)*/!important;
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+  color: #740432!important;
+  background-color: transparent!important;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show>.btn-primary.dropdown-toggle {
+  color: #740432!important;
+  background-color: #c8c6bb!important;
+  border-color: #740432!important;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 .2rem #a3585b/*rgba(119, 204, 204, 0.5)*/!important;
+}
+
+.btn-primary2{
+  color: white;
+  background-color: red;
+  border-color: red;
+}
