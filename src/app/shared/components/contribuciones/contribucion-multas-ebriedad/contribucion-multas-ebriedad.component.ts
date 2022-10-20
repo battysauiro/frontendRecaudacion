@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ContribucionMEbriedad } from 'src/app/shared/modelo/contribuciones/contribucion-m-ebriedad';
 import { ContribucionMultasEbriedadService } from 'src/app/shared/servicio/contribuciones/contribucion-multas-ebriedad.service';
 import { AuthService } from 'src/app/usuario-login/auth.service';
+import { environment } from 'src/environments/environment';
 import swal from 'sweetalert2';
 
 interface ContribucionInter {
@@ -30,6 +31,7 @@ export class ContribucionMultasEbriedadComponent implements OnInit {
   contribucionControl = new FormControl(false);
   selected:number =5;
   termino='';
+  urlEndPoint: string = environment.baseUrl;
   contribucionGroups: ContribucionGroup[]= [
     {
       name: 'Impuestos',

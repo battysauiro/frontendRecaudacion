@@ -1,0 +1,217 @@
+<div class="card bg-light">
+  <!--<div class="card-header">{{titulo}}</div>-->
+  <!--PUEDE QUE LA ETIQUETA form y el TITULO AFECTEN AL
+    DISEÑO DE LA CARD ORIGINAL O SE LA CARD DE ARRIBA-->
+  <!--<h3><strong>RECACUDACIÓN DE INGRESOS</strong></h3>-->
+
+  <!--SI ALGO FALLA BORRAR EL <form id="msform">-->
+
+    <!--SI FALLAN COSAS BORRAR TODO EL CONTENIDO DEL progressbar-->
+    <!-- progressbar -->
+    <ul id="progressbar" class="text-center">
+      <li class="active" id="account"><strong>Calcular presupuesto</strong></li>
+      <li id="personal"><strong>Formato de pago</strong></li>
+  </ul>
+  <!--SI ALGO FALLA BORRAR EL FIELDSET-->
+  <div class="card-body">
+
+    <form #lineaCaptura="ngForm">
+      <div class="row g-3">
+        <div class="col-sm-5">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Buscar Contribuyente</mat-label>
+            <input type="text"
+                   placeholder="Ingrese RFC o Nombre"
+                   aria-label="Buscar"
+                   matInput
+                   [formControl]="autoCompleteContribuyente"
+                   [matAutocomplete]="auto1">
+                   <mat-icon matSuffix>search</mat-icon>
+                   <!--SI ALGO FALLA BORRAR EL COMENTARIO DEL MAT AUTCOMPLETE
+                    YYYYY AAAAAARRRRIBBBBBBBAAAAAAAAAA ABAJO DE [formControl]="autoCompleteContribuyente" DEBE DE IR LO SIGUIENTE [matAutocomplete]="auto1"-->
+            <mat-autocomplete #auto1="matAutocomplete" [displayWith]="mostrarNombreContribuyente" (optionSelected)="seleccionarContribuyente($event,inputEstado.checked)">
+              <ng-container *ngIf="inputEstado.checked else elseBlock">
+                <mat-option  *ngFor="let contribuyente of filtroContribuyente | async" [value]="contribuyente">
+                  {{contribuyente.rfc_contribuyente}} {{contribuyente.nombre}}
+                </mat-option>
+              </ng-container>
+              <ng-template #elseBlock>
+                <mat-option  *ngFor="let contribuyente of filtroContribuyente | async" [value]="contribuyente">
+                  {{contribuyente.rfc_contribuyente}} {{contribuyente.razon_social}}
+                </mat-option>
+            </ng-template>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <!--
+        <div class="col-auto mt-4">
+          <a routerLink="/sendEmail" class="link2">agregar nuevo contribuyente</a>
+        </div>-->
+
+        <!--BOTON SWITCH DE CAMBIAR CONTRIBUYENTE-->
+        <div class="col-auto mt-4">
+
+          <label for="tipoContribuyente" class="toggle-switchy" data-size="lg" data-style="default">
+            <input checked #inputEstado type="checkbox" id="tipoContribuyente" [checked]="checked" (change)="onChange(inputEstado.checked)">
+            <span class="toggle">
+                <span class="switch"></span>
+            </span>
+        </label>
+        <label class="form-check-label" for="tipoContribuyente">Seleccione el tipo de Contribuyente a buscar</label>
+        </div>
+      </div>
+      <div class="row col-3">
+        <a routerLink="/contribuyentes" class="link">agregar contribuyente</a>
+      </div>
+<!-- BLOCK DE CAMBIAR TIPO DE CONTRIBUYENTE-->
+      <div class="row g-2" *ngIf="inputEstado.checked else elseContribuyenteMoral">
+        <div class="col-3">
+          <div class="input-group">
+            <span class="input-group-text">
+                R.F.C
+            </span>
+            <input [(ngModel)]="rfcContribuyente" name="rfc_contribuyente" type="text" class="form-control" placeholder="RFC contribuyente" disabled>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="input-group">
+            <span class="input-group-text"><span class="bi-person"></span></span>
+            <input [(ngModel)]="nombreContribuyente" name="nombre" type="text" class="form-control" placeholder="Nombre contribuyente" disabled>
+          </div>
+      </div>
+      <div class="col-5">
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+          <input [(ngModel)]="direccionContribuyente" name="calle" type="text" class="form-control" placeholder="Dirección contribuyente" disabled>
+        </div>
+    </div>
+      </div>
+      <!--SEGUNDO BLOCK DE CAMBIAR TIPO DE CONTRIBUYENTE-->
+      <ng-template #elseContribuyenteMoral>
+        <div class="row g-2">
+          <div class="col-3">
+            <div class="input-group">
+              <span class="input-group-text">
+                  RFC
+              </span>
+              <input [(ngModel)]="rfcContribuyente" name="rfc_contribuyente" type="text" class="form-control" placeholder="RFC contribuyente" disabled>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-people"></i></span>
+              <input [(ngModel)]="nombreContribuyente" name="razon_social" type="text" class="form-control" placeholder="Nombre contribuyente" disabled>
+            </div>
+        </div>
+        <div class="col-5">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+            <input [(ngModel)]="direccionContribuyente" name="calle" type="text" class="form-control" placeholder="Dirección contribuyente" disabled>
+          </div>
+      </div>
+        </div>
+      </ng-template>
+      <div class="row g-2 mt-3">
+        <div class="col-sm-5">
+          <mat-form-field  appearance="outline">
+            <mat-label>Buscar Contribucion</mat-label>
+            <input type="text"
+                   placeholder="Ingrese Codigo o descripcion"
+                   aria-label="Number"
+                   matInput
+                   [formControl]="autoCompleteContribucion"
+                   [matAutocomplete]="auto">
+                   <mat-icon matSuffix>search</mat-icon>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarNombreContribucion" (optionSelected)="seleccionarContribucion($event)">
+              <mat-option *ngFor="let contribucion of flitroContribuciones | async" [value]="contribucion">
+                {{contribucion.codigo_contribucion}} {{contribucion.concepto_contribucion}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div class="col-3 mt-3">
+          <div class="input-group">
+            <span class="input-group-text">Costo</span>
+            <input [(ngModel)]="costo" name="costo" type="number" class="form-control" placeholder="Ingrese el costo" (keyup)="actualizarTotal()"
+              required min="1" #costoM="ngModel">
+              <span class="input-group-text">{{tipoMoneda}}</span>
+          </div>
+        </div>
+        <div class="col-4 mt-3">
+
+          <select *ngIf="!esLicencia else blockLicencia" class="form-select" aria-label="Default select example" [(ngModel)]="opcionSeleccionado" name="opcionSeleccionado">
+            <option selected value="0">Seleccionar Descuento</option>
+            <option value="10">10%</option>
+            <option value="20">20%</option>
+            <option value="30">30%</option>
+            <option value="40">40%</option>
+            <option value="50">50%</option>
+          </select>
+          <ng-template #blockLicencia>
+            <label for="licencia" class="toggle-switchyLicencia" data-size="lg" data-style="default">
+              <input checked #inputEstadoLicencia type="checkbox" id="licencia"  [checked]="checkedLicencia"(change)="onChangeLicencia(inputEstadoLicencia.checked)">
+              <span class="toggle">
+                  <span class="switch"></span>
+              </span>
+          </label>
+          </ng-template>
+        </div>
+
+      </div>
+
+      <div class="row g-2">
+        <div class="col-sm-5">
+
+        </div>
+        <div class="col-3 ">
+          <div class="alert alert-danger" *ngIf="costoM.invalid && (costoM.dirty || costoM.touched)">
+            El costo debe ser mayor a 0
+          </div>
+        </div>
+        <div class="col-4 mt-3">
+
+        </div>
+      </div>
+      <div class="row g-2">
+        <div class="col-sm-12 alert alert-warning" *ngIf="mensaje.length>0">
+          {{mensaje}}
+        </div>
+      </div>
+
+      <div class="alert alert-info my-4" *ngIf="factura.items.length== 0">
+        Seleccione una contribucion a cobrar
+      </div>
+      <table class="table table-striped table-hover table-sm" *ngIf="factura.items.length > 0">
+        <thead>
+          <tr>
+            <th>Codigo</th>
+            <th>Concepto</th>
+            <th>Costo</th>
+            <th>Descuento</th>
+            <th>Total</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let itemContribucion of factura.items">
+            <td>{{itemContribucion.contribucion.codigo_contribucion}}</td>
+            <td>{{itemContribucion.contribucion.concepto_contribucion}}</td>
+            <td>{{costo}}</td>
+            <td>{{opcionSeleccionado}}%</td>
+            <td *ngIf="opcionSeleccionado>=10">{{total-(total*(opcionSeleccionado/100))}}</td>
+            <td *ngIf="opcionSeleccionado<10">{{total}}</td>
+            <td><button class="btn btn-danger btn-sm" type="button" (click)="eliminar()">x</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="form-group row">
+        <div class="col-sm-2">
+          <input type="button" class="btn btn-primary" (click)="irPasoDos()" [disabled]="this.nombreContribuyente!=undefined && this.factura.items.length<=0"  value="      Siguiente     ">
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</div>
+

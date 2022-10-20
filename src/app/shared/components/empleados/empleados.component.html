@@ -1,0 +1,210 @@
+<div class="container">
+  <div
+    class="form-inline my-2 my-lg-0 align-items-center justify-content-between"
+  >
+  <div><h1></h1></div>
+    <div>
+      <input
+        class="form-control mr-sm-2 busqueda text-center"
+        type="search"
+        placeholder="buscar Empleado"
+        aria-label="Search"
+        name="term"
+        (keyup)="onSearh()"
+        [(ngModel)]="termino"
+      />
+    </div>
+    <div>
+      <button type="button"  class="btn boton-principal"
+      routerLink="/empleados/formulario-empleados"
+      data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Empleado</button>
+    </div>
+  </div>
+  <div class="">
+    <br>
+  </div>
+  <ng-container>
+    <div class="table-wrapper">
+      <div class="alert alert-info my-4 text-center" *ngIf="empleados!= undefined && empleados.length==0">
+        no hay ningun empleado agregado
+      </div>
+      <table class="table table-bordered table-striped tabla-estilo" *ngIf="empleados!= undefined && empleados.length>0">
+        <thead class="cabecera text-white">
+          <tr>
+            <th>CURP</th>
+            <th>NOMBRE</th>
+            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+              <i class="fas fa-address-card"></i>
+            </th>
+            <th
+              class="text-center"
+              *ngIf="
+                authService.hasRole([
+                  'ROLE_ADMIN',
+                  'ROLE_PRESIDENTE',
+                  'ROLE_TESORERO'
+                ])
+              "
+            >
+              <i class="fas fa-pencil-alt"></i>
+            </th>
+            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+              <i class="fas fa-trash-alt"></i>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let empleado of empleados">
+            <td>{{empleado.curp}} </td>
+            <td>{{empleado.nombre}} {{empleado.apellido_p}} {{empleado.apellido_m}}</td>
+            <td
+              *ngIf="
+                authService.hasRole([
+                  'ROLE_ADMIN',
+                  'ROLE_PRESIDENTE',
+                  'ROLE_TESORERO'
+                ]) && empleado.usuario
+              "
+            >
+              <button
+                type="button"
+                name="verUser"
+                data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                class="btn btn-primary btn-sm"
+                (click)="rellenarFormularioUsuario(empleado)"
+              >
+                usuario
+              </button>
+            </td>
+            <td
+              *ngIf="
+                authService.hasRole([
+                  'ROLE_ADMIN',
+                  'ROLE_PRESIDENTE',
+                  'ROLE_TESORERO'
+                ]) && !empleado.usuario
+              "
+            >
+              <button
+                type="button"
+                name="verUser"
+                data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                class="btn btn-primary btn-sm"
+                (click)="agregarEmpleado(empleado)"
+              >
+                crear usuario
+              </button>
+            </td>
+            <td
+              *ngIf="
+                authService.hasRole([
+                  'ROLE_ADMIN',
+                  'ROLE_PRESIDENTE',
+                  'ROLE_TESORERO'
+                ])
+              "
+            >
+              <button
+                type="button"
+                name="editar"
+                class="btn btn-primary btn-sm"
+                [routerLink]="['/empleados/formulario-empleados',empleado.curp]"
+              >
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+            </td>
+            <td *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+              <button
+                type="button"
+                name="eliminar"
+                class="btn btn-danger btn-sm"
+                (click)="eliminarEmpleado(empleado)"
+              >
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="container">
+      <app-paginador-empleado
+        *ngIf="paginador"
+        [paginador]="paginador"
+      ></app-paginador-empleado>
+    </div>
+  </ng-container>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="limpiarModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="col">
+            <div class="card">
+              <div class="card-header text-center">
+                DATOS DEL USUARIO
+              </div>
+              <form class="row g-3 needs-validation" id="formUsuario" novalidate >
+                <div class="col-md-12 ">
+                  <label for="validationCustom01" class="form-label"> Correo Electronico:</label>
+                  <input type="text" [disabled]="banderaActualizar?true:false" [ngClass]="correo.invalid && (correo.dirty || correo.touched)?'invalid-contorno':'form-controll'" id="validationCustom01" name="correo" [(ngModel)]="usuario.email" #correo="ngModel" required >
+                  <div class="invalid-relleno" *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+                    <div  *ngIf="correo.errors.required">
+                      El correo es requerido
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                                <select [compareWith]="compararRoles" name="role" [(ngModel)]="usuario.id_rol"
+                                    class="form-controll"
+                                    style="height: 40px; ">
+                                    <option [ngValue]="undefined">-- Seleccionar Rol --</option>
+                                    <option *ngFor="let rol of roles" [ngValue]="rol.id_rol">{{rol.descripcion}}
+                                    </option>
+                                </select>
+
+                </div>
+                <div class="col-md-12">
+                  <label for="validationCustom03" class="form-label">Contraseña:</label>
+                  <input type="text" [ngClass]="password.invalid && (password.dirty || password.touched)?'invalid-contorno':'form-controll'" id="validationCustom03" name="calle" [(ngModel)]="usuario.password" required #password="ngModel">
+                  <div >
+                    <div>
+                        <ul>
+                          <li [ngClass]="checarLongitud()?'validRelleno':'invalid-relleno'" >debe tener una longitud minima de 8 caracteres</li>
+                          <li [ngClass]="validarMinusculaMayuscula()?'validRelleno':'invalid-relleno'">al menos una letra mayuscula y minuscula</li>
+                          <li [ngClass]="validarNumeroCaracterEspecial()?'validRelleno':'invalid-relleno'">al menos un numero y un caracter especial</li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 ">
+                  <label for="validationCustom02" class="form-label">Confirmar contraseña:</label>
+                  <input type="text" [ngClass]="cPassword.invalid && (cPassword.dirty || cPassword.touched)?'invalid-contorno':'form-controll'" id="validationCustom02" name="correoC" [(ngModel)]="Cpassword" (keyup)="compararContrasena()" #cPassword="ngModel" required >
+                  <div class="invalid-relleno"  *ngIf="!compararContrasena() && (cPassword.dirty || cPassword.touched)">
+                    <div  *ngIf="!compararContrasena()">
+                      las contraseñas no son iguales
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="limpiarModal()">Cancelar</button>
+          <button type="button"  data-bs-dismiss="modal" [disabled]="vacio()" class="btn btn-primary" (click)='crearUsuario()' *ngIf="!banderaActualizar else elseBlock">Crear Usuario</button>
+          <ng-template #elseBlock>
+            <button   type="button" [disabled]="vacio()" class="btn btn-primary" data-bs-dismiss="modal" type="submit"  (click)='actualizarDatosUsuario()' >Actualizar datos</button>
+          </ng-template>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+

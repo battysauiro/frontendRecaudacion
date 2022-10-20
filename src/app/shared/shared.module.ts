@@ -29,11 +29,29 @@ import { ContribucionMultasVehicularComponent } from './components/contribucione
 import { ContribucionMultasEbriedadComponent } from './components/contribuciones/contribucion-multas-ebriedad/contribucion-multas-ebriedad.component';
 import { ContribucionOtrosProductosComponent } from './components/contribuciones/contribucion-otros-productos/contribucion-otros-productos.component';
 import { FormContribucionesComponent } from './components/contribuciones/form-contribuciones/form-contribuciones.component';
+import { EmpleadosComponent } from './components/empleados/empleados.component';
+import { PaginadorEmpleadoComponent } from './components/paginadores/paginadores-empleados/paginador-empleado/paginador-empleado.component';
+import { FormEmpleadosComponent } from './components/empleados/form-empleados/form-empleados.component';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { PaginadorUsuarioComponent } from './components/paginadores/paginadores-usuario/paginador-usuario/paginador-usuario.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import { FormUsuarioComponent } from './components/usuarios/form-usuario/form-usuario.component';
+import { CobrarContribucionComponent } from './components/cobrar-contribucion/cobrar-contribucion.component';
+import { CobrarContribucionPasoDosComponent } from './components/cobrar-contribucion-paso-dos/cobrar-contribucion-paso-dos.component';
+import { VistaAdeudosComponent } from './components/vista-adeudos/vista-adeudos.component';
+import { RecuperarPasswordComponent } from './components/recuperar-password/recuperar-password.component';
+import { SendEmailComponent } from './components/recuperar-password/send-email.component';
+import { AlertModule } from '../alerts/alert/alert.module';
+import { ReportesComponent } from './components/reportes/reportes.component';
+import { ReportesContribuyentesComponent } from './components/reportes/reportes-contribuyentes/reportes-contribuyentes.component';
 
 
 @NgModule({
-  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent, PaginadorContribucionesComponent, PaginadorImpuestosComponent, PaginadorContribucionDerechosGComponent, PaginadorContribucionDerechosLicenciasComponent, PaginadorContribucionMultasComponent, PaginadorContribucionMultasVehicularComponent, PaginadorContribucionMultasEbriedadComponent, PaginadorContribucionOtrosProductosComponent, ContribucionDerechoGComponent, ContribucionDerechosLicenciasComponent, ContribucionMultasComponent, ContribucionMultasVehicularComponent, ContribucionMultasEbriedadComponent, ContribucionOtrosProductosComponent, FormContribucionesComponent],
+  declarations: [...fromComponents.components, InicioComponent, FormularioPrincipalComponent, FormFisicaComponent, FormMoralComponent, ContribucionImpuestoComponent, ContribucionesComponent, PaginadorContribucionesComponent, PaginadorImpuestosComponent, PaginadorContribucionDerechosGComponent, PaginadorContribucionDerechosLicenciasComponent, PaginadorContribucionMultasComponent, PaginadorContribucionMultasVehicularComponent, PaginadorContribucionMultasEbriedadComponent, PaginadorContribucionOtrosProductosComponent, ContribucionDerechoGComponent, ContribucionDerechosLicenciasComponent, ContribucionMultasComponent, ContribucionMultasVehicularComponent, ContribucionMultasEbriedadComponent, ContribucionOtrosProductosComponent, FormContribucionesComponent, EmpleadosComponent, PaginadorEmpleadoComponent, FormEmpleadosComponent, UsuariosComponent, PaginadorUsuarioComponent, FormUsuarioComponent, CobrarContribucionComponent, CobrarContribucionPasoDosComponent, VistaAdeudosComponent, RecuperarPasswordComponent, SendEmailComponent, ReportesComponent, ReportesContribuyentesComponent],
   imports: [
+    AlertModule,
     CommonModule,
     HttpClientModule,
     RouterModule,
@@ -41,7 +59,9 @@ import { FormContribucionesComponent } from './components/contribuciones/form-co
     ReactiveFormsModule,
     MatSelectModule,
     MatFormFieldModule,
-
+    MatAutocompleteModule,
+    MatInputModule,
+    MatIconModule
   ],
   exports:[
     FormsModule,

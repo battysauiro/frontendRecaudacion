@@ -30,7 +30,19 @@
       <!--<a class="ms-auto links" [routerLink]="['/formulario-contribucion',6]">Agregar Multa Vehicular</a>-->
     </div>
   </div>
+  <div class="d-flex flex-row-reverse">
 
+    <div>
+      <span></span>
+      <a
+        href="{{
+          urlEndPoint
+        }}/api/reportes/listaContribucionMVehicular/exportarPDF"
+        class="btn btn-danger btn-sm ml-auto"
+        ><i class="bi bi-printer"></i>Descargar lista</a
+      >
+    </div>
+  </div>
 <ng-container *ngIf=" selected===6">
   <div class="table-wrapper">
     <div class="alert alert-info my-4 text-center" *ngIf="contribucionesMVehicular!= undefined && contribucionesMVehicular.length==0">

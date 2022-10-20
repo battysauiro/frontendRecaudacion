@@ -9,6 +9,8 @@ export class Factura {
     fecha : string;
     descuento : number;
     total : number;
-    items : Array<ItemFactura>=[];
+    items : ItemFactura[]=[];
     estado_pago:boolean;
+    nombre_contribuyente:string;
+    direccion_contribuyente:string;
 }

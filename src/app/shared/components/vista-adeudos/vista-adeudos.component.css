@@ -1,0 +1,33 @@
+/*MI CSS*/
+.card{
+  position: absolute;
+  width: 1310px;
+  height: auto;
+  top: 1%;
+  left: 1%; /*decia left*/
+  transform: translate(1%, 1%);
+  background: #FFFFFF;
+  background-color:hsla(327, 97%, 24%, 0.3);
+  border-radius: 3px;
+  text-align: center;
+}
+
+.tittle{
+  font-family: Sansation;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 21px;
+  line-height: 40px;
+  align-items: center;
+  font-family: "Sansation", sans-serif;
+  color: #FFFFFF;
+}
+
+.texto{
+  color: #FFFFFF;
+}
+
+img{
+  background-repeat: no-repeat;
+  background-attachment: fixed
+}
