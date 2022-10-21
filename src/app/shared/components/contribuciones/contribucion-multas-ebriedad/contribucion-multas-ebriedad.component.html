@@ -60,17 +60,10 @@
             <th>CANTIDAD DE ALCOHOL</th>
             <th
               class="text-center"
-              *ngIf="
-                authService.hasRole([
-                  'ROLE_ADMIN',
-                  'ROLE_PRESIDENTE',
-                  'ROLE_TESORERO'
-                ])
-              "
-            >
+              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])">
               <i class="fas fa-pencil-alt"></i>
             </th>
-            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
               <i class="fas fa-trash-alt"></i>
             </th>
           </tr>
@@ -86,13 +79,7 @@
             <td>{{ contribucion.cantidad_alcohol}} </td>
             <td
               *ngIf="
-                authService.hasRole([
-                  'ROLE_ADMIN',
-                  'ROLE_PRESIDENTE',
-                  'ROLE_TESORERO'
-                ])
-              "
-            >
+                authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])">
               <button
                 type="button"
                 name="editar"
@@ -103,7 +90,7 @@
                 <i class="fas fa-pencil-alt"></i>
               </button>
             </td>
-            <td *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+            <td *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
               <button
                 type="button"
                 name="eliminar"
