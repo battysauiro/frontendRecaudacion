@@ -87,17 +87,10 @@
             <th>DIRECIÓN</th>
             <th
               class="text-center"
-              *ngIf="
-                authService.hasRole([
-                  'ROLE_ADMIN',
-                  'ROLE_PRESIDENTE',
-                  'ROLE_TESORERO'
-                ])
-              "
-            >
+              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])">
               <i class="fas fa-pencil-alt"></i>
             </th>
-            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
               <i class="fas fa-trash-alt"></i>
             </th>
           </tr>
@@ -115,14 +108,7 @@
               {{ contribuyente.colonia }} {{ contribuyente.codigo_postal }}
             </td>
             <td
-              *ngIf="
-                authService.hasRole([
-                  'ROLE_ADMIN',
-                  'ROLE_PRESIDENTE',
-                  'ROLE_TESORERO'
-                ])
-              "
-            >
+              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])">
               <button
                 type="button"
                 name="editar"
@@ -133,7 +119,7 @@
                 <i class="fas fa-pencil-alt"></i>
               </button>
             </td>
-            <td *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+            <td *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
               <button
                 type="button"
                 name="eliminar"
@@ -167,17 +153,10 @@
             <th>DIRECCIÓN</th>
             <th
               class="text-center"
-              *ngIf="
-                authService.hasRole([
-                  'ROLE_ADMIN',
-                  'ROLE_PRESIDENTE',
-                  'ROLE_TESORERO'
-                ])
-              "
-            >
+              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])">
               <i class="fas fa-pencil-alt"></i>
             </th>
-            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
               <i class="fas fa-trash-alt"></i>
             </th>
           </tr>
@@ -191,14 +170,7 @@
               {{ contribuyente.colonia }} {{ contribuyente.codigo_postal }}
             </td>
             <td class="text-center"
-              *ngIf="
-                authService.hasRole([
-                  'ROLE_ADMIN',
-                  'ROLE_PRESIDENTE',
-                  'ROLE_TESORERO'
-                ])
-              "
-            >
+              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])">
               <button
                 type="button"
                 name="editar" data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -208,7 +180,7 @@
                 <i class="fas fa-pencil-alt"></i>
               </button>
             </td>
-            <td class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+            <td class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
               <button
                 type="button"
                 name="eliminar"

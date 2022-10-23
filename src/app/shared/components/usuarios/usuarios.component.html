@@ -31,9 +31,9 @@
           <th>Correo</th>
           <th>estado</th>
           <th>Rol</th>
-          <th *ngIf="authService.hasRole(['ROLE_ADMIN','ROLE_PRESIDENTE'])"><i class="fas fa-pencil-alt"></i></th>
-          <th *ngIf="authService.hasRole(['ROLE_ADMIN'])"><i class="fas fa-trash-alt"></i></th>
-          <th *ngIf="authService.hasRole(['ROLE_ADMIN','ROLE_PRESIDENTE'])">Desactivar</th>
+          <th *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])"><i class="fas fa-pencil-alt"></i></th>
+          <th *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])"><i class="fas fa-trash-alt"></i></th>
+          <th *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">Desactivar</th>
       </tr>
     </thead>
     <tbody>
@@ -42,13 +42,13 @@
           <td>{{usuario.email}}</td>
           <td [ngClass]="inputEstado.checked?'text-success':'text-danger'">{{usuario.sEstado}}</td>
           <td>{{usuario.nombre_rol}}</td>
-          <td *ngIf="authService.hasRole(['ROLE_ADMIN','ROLE_PRESIDENTE'])">
+          <td *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
             <button type="button" name="editar"  class="btn btn-primary btn-sm" [routerLink]="['/usuario/formUsuario',usuario.email]"><i class="fas fa-pencil-alt"></i></button>
           </td>
-          <td *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+          <td *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
             <button type="button" name="eliminar"  class="btn btn-danger btn-sm" (click)='eliminarUsuario(usuario)'><i class="fas fa-trash-alt"></i></button>
           </td>
-          <td>
+          <td *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
               <label [for]="usuario.email" class="toggle-switchy" data-style="rounded">
                   <input #inputEstado checked type="checkbox" [id]="usuario.email" [checked]="usuario.estado" (change)="onChange(usuario,inputEstado.checked)" >
                   <span class="toggle">

@@ -44,17 +44,10 @@
             <th>DETALLES</th>
             <th
               class="text-center"
-              *ngIf="
-                authService.hasRole([
-                  'ROLE_ADMIN',
-                  'ROLE_PRESIDENTE',
-                  'ROLE_TESORERO'
-                ])
-              "
-            >
+              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS', 'ROLE_USER'])">
               <i class="fas fa-pencil-alt"></i>
             </th>
-            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
               <i class="fas fa-trash-alt"></i>
             </th>
           </tr>
@@ -75,25 +68,16 @@
               </button>
             </td>
             <td
-              *ngIf="
-                authService.hasRole([
-                  'ROLE_ADMIN',
-                  'ROLE_PRESIDENTE',
-                  'ROLE_TESORERO'
-                ])
-              "
-            >
+              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])">
               <button
                 type="button"
                 name="editar"
                 [routerLink]="['/formulario-contribucion',contribucion.nivelContribucion,contribucion.codigo_contribucion]"
-                class="btn btn-primary btn-sm"
-
-              >
+                class="btn btn-primary btn-sm">
                 <i class="fas fa-pencil-alt"></i>
               </button>
             </td>
-            <td *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+            <td *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
               <button
                 type="button"
                 name="eliminar"
