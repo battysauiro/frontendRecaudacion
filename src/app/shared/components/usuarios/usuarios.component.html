@@ -14,8 +14,8 @@
       [(ngModel)]="termino"
     />
   </div>
-  <div>
-    <button type="button"  class="btn boton-principal"
+  <div >
+    <button type="button"  class="btn boton-principal" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])"
     routerLink="/usuario/formUsuario"
     data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Usuario</button>
   </div>
@@ -33,7 +33,7 @@
           <th>Rol</th>
           <th *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])"><i class="fas fa-pencil-alt"></i></th>
           <th *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])"><i class="fas fa-trash-alt"></i></th>
-          <th *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">Desactivar</th>
+          <th >Desactivar</th>
       </tr>
     </thead>
     <tbody>
@@ -48,9 +48,9 @@
           <td *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
             <button type="button" name="eliminar"  class="btn btn-danger btn-sm" (click)='eliminarUsuario(usuario)'><i class="fas fa-trash-alt"></i></button>
           </td>
-          <td *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
+          <td>
               <label [for]="usuario.email" class="toggle-switchy" data-style="rounded">
-                  <input #inputEstado checked type="checkbox" [id]="usuario.email" [checked]="usuario.estado" (change)="onChange(usuario,inputEstado.checked)" >
+                  <input #inputEstado checked type="checkbox" [id]="usuario.email" [checked]="usuario.estado" (change)="onChange(usuario,inputEstado.checked)" [disabled]="!authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])" >
                   <span class="toggle">
                       <span class="switch"></span>
                   </span>
