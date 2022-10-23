@@ -232,7 +232,7 @@ export class CobrarContribucionComponent implements OnInit {
 
   seleccionarContribucion(event: MatAutocompleteSelectedEvent): void {
 
-
+    this.esLicencia=false;
     let contribucion = event.option.value as Contribucion;
     this.contribucionAux= contribucion;
     this.tipoMoneda="$";

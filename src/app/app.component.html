@@ -26,7 +26,7 @@
       </div>
       <div class="sidebar-body">
         <ul class="navigation-list">
-          <li class="navigation-list-item" routerLinkActive="active">
+          <li class="navigation-list-item" routerLinkActive="active" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
             <a class="navigation-link" routerLink="generarLinea-captura">
               <div class="row">
                 <div class="col-2">
@@ -128,7 +128,7 @@
                 class="dropdown-menu dropdown-menu-end color-border"
                 aria-labelledby="navbarDropdown"
               >
-                
+
                 <li>
                   <a class="dropdown-item" (click)="logout()"
                     ><i class="fas fa-sign-out-alt"></i>Cerrar sesion</a

@@ -149,7 +149,7 @@
           </select>
           <ng-template #blockLicencia>
             <label for="licencia" class="toggle-switchyLicencia" data-size="lg" data-style="default">
-              <input checked #inputEstadoLicencia type="checkbox" id="licencia"  [checked]="checkedLicencia"(change)="onChangeLicencia(inputEstadoLicencia.checked)">
+              <input disabled="true" checked #inputEstadoLicencia type="checkbox" id="licencia"  [checked]="checkedLicencia"(change)="onChangeLicencia(inputEstadoLicencia.checked)">
               <span class="toggle">
                   <span class="switch"></span>
               </span>
