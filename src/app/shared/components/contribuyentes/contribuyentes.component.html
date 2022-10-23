@@ -44,10 +44,11 @@
       />
     </div>
     <div>
-      <button type="button"  class="btn boton-principal"
+      <button type="button"  class="btn boton-principal" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS', 'ROLE_TESORERO', 'ROLE_CONTADOR'])"
       data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar persona {{tipoPersona}}</button>
     </div>
   </div>
+  
   <div class="">
     <br>
   </div>
