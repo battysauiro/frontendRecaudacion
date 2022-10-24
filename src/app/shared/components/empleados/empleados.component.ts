@@ -44,7 +44,6 @@ export class EmpleadosComponent implements OnInit {
     public router:Router) { }
 
   ngOnInit(): void {
-    console.log("holaaaaaaaaaaaaa")
     this.obtenerListaRoles();
     this.activatedRoute.paramMap.subscribe(params=>{
       let page:number=+params.get('page');
@@ -164,7 +163,7 @@ obtenerListaRoles(){
   );
   }
   compararRoles(o1:number,o2:number){
-    if (o1==null || o2==null)
+    if (o1===null || o2===null)
     {
       return false;
     }
