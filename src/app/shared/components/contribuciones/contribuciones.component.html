@@ -26,7 +26,9 @@
         />
       </div>
       <div class="col-auto">
-        <button type="button" class="btn boton-principal" routerLink="/formulario-contribucion"> Agregar contribución</button>
+        <button type="button" class="btn boton-principal" routerLink="/formulario-contribucion"
+        *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
+         Agregar contribución</button>
         <!--<a class="ms-auto links" routerLink="/formulario-contribucion">Agregar contribucion</a>-->
       </div>
   </div>
