@@ -15,7 +15,7 @@
       />
     </div>
     <div>
-      <button type="button"  class="btn boton-principal" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER, 'ROLE_ADMINSYSTEMAS'])"
+      <button type="button"  class="btn boton-principal" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])"
       routerLink="/empleados/formulario-empleados"
       data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Empleado</button>
     </div>
@@ -33,12 +33,12 @@
           <tr>
             <th>CURP</th>
             <th>NOMBRE</th>
-            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN'. 'ROLE_ADMINSYSTEMAS])">
+            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])">
               <i class="fas fa-address-card"></i>
             </th>
             <th
               class="text-center"
-              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
+              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])">
               <i class="fas fa-pencil-alt"></i>
             </th>
             <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
@@ -51,7 +51,7 @@
             <td>{{empleado.curp}} </td>
             <td>{{empleado.nombre}} {{empleado.apellido_p}} {{empleado.apellido_m}}</td>
             <td
-              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS']) && empleado.usuario">
+              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER','ROLE_ADMINSYSTEMAS']) && empleado.usuario">
               <button
                 type="button"
                 name="verUser"
@@ -63,7 +63,7 @@
               </button>
             </td>
             <td
-              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS']) && !empleado.usuario">
+              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER','ROLE_ADMINSYSTEMAS']) && !empleado.usuario">
               <button
                 type="button"
                 name="verUser"
@@ -75,7 +75,7 @@
               </button>
             </td>
             <td
-              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
+              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER','ROLE_ADMINSYSTEMAS'])">
               <button
                 type="button"
                 name="editar"
@@ -85,7 +85,7 @@
                 <i class="fas fa-pencil-alt"></i>
               </button>
             </td>
-            <td *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
+            <td *ngIf="authService.hasRole(['ROLE_ADMIN','ROLE_USER', 'ROLE_ADMINSYSTEMAS'])">
               <button
                 type="button"
                 name="eliminar"
