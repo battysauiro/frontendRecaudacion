@@ -364,7 +364,7 @@ export class ContribuyentesComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.contribuyentesService
-          .deleteM(contribuyenteM.rfc_contribuyente)
+          .eliminarPersonaMoralByEstado(contribuyenteM,true)
           .subscribe((response) => {
             this.obtenerContribuyentesM(this.pagina);
             swal(

@@ -74,6 +74,28 @@ export class ContribuyentesService {
   crearContribuyenteFisica(contribuyenteFisica:ContribuyenteFisica):Observable<ContribuyenteFisica>{
     return this.httpClient.post<ContribuyenteFisica>(`${environment.baseUrl}/api/contribuyenteFisica`,contribuyenteFisica,{headers:this.agregarAuthorizationHeader()}).pipe(
       catchError(e=>{
+        if(e.status==301){
+          swal({
+            title: 'Contribuyente Fisico dado de baja',
+            text: `¿Desea darlo de alta de nuevo?`,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, dar de alta!',
+            cancelButtonText: 'No, cancelar'
+          }).then((result) => {
+            if (result.value) {
+              //this.empleadoService.eliminarEmpleado
+              this.eliminarPersonaFisicaByEstado(contribuyenteFisica,false).subscribe(response=>{
+                this.router.navigate(['/contribuyentes/page/0']);
+                swal(
+                  'Contribuyente Fisico dado de alta!',
+                  ``,
+                  'success'
+                )
+              });
+            }
+          })
+        }
         this.isNoAutorizado(e);
         return throwError(e);
       })
@@ -148,6 +170,10 @@ export class ContribuyentesService {
 
   actualizarPersonaMoral(contribuyenteMoral:ContribuyenteMoral):Observable<ContribuyenteMoral>{
     return this.httpClient.put<ContribuyenteMoral>(`${environment.baseUrl}/api/contribuyenteMoral/${contribuyenteMoral.rfc_contribuyente}`,contribuyenteMoral,{headers:this.agregarAuthorizationHeader()});
+  }
+
+  eliminarPersonaMoralByEstado(contribuyenteMoral:ContribuyenteMoral,estado:boolean):Observable<ContribuyenteMoral>{
+    return this.httpClient.put<ContribuyenteMoral>(`${environment.baseUrl}/api/contribuyenteMoral/eliminar/${contribuyenteMoral.rfc_contribuyente}/estado/${estado}`,contribuyenteMoral,{headers:this.agregarAuthorizationHeader()});
   }
 
   deleteM(id:string):Observable<Object>{
