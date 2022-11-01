@@ -83,6 +83,10 @@ export class EmpleadoService {
     return this.httpClient.put<Empleado>(`${environment.baseUrl}/api/empleado/${empleado.curp}`,empleado,{headers:this.agregarAuthorizationHeader()});
   }
 
+  eliminarEmpleadoByEstado(empleado:Empleado):Observable<Empleado>{
+    return this.httpClient.put<Empleado>(`${environment.baseUrl}/api/empleado/eliminar/${empleado.curp}`,empleado,{headers:this.agregarAuthorizationHeader()});
+  }
+
   eliminarEmpleado(id:string):Observable<Object>{
     return this.httpClient.delete(`${environment.baseUrl}/api/empleado/${id}`,{headers:this.agregarAuthorizationHeader()});
   }

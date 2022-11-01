@@ -76,7 +76,8 @@ export class EmpleadosComponent implements OnInit {
       cancelButtonText: 'No, cancelar'
     }).then((result) => {
       if (result.value) {
-        this.empleadoService.eliminarEmpleado(empleado.curp).subscribe(response=>{
+        //this.empleadoService.eliminarEmpleado
+        this.empleadoService.eliminarEmpleadoByEstado(empleado).subscribe(response=>{
         this.obtenerEmpleadosByMunicipio(this.pagina);
           swal(
             'Empleado Eliminado!',

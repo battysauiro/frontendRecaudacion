@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl:'http://sanjacintobb-env.eba-bmrfpi7w.us-west-2.elasticbeanstalk.com'
+  baseUrl:'http://localhost:8080'
 };
 
 /*

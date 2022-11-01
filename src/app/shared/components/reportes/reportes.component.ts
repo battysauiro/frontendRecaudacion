@@ -58,7 +58,6 @@ export class ReportesComponent implements OnInit {
   rellenarTabla(){
     if(this.seleccionTodas===true){
       this.mapaReportes=[
-        {'descripcion':'Contribuciones no pagadas año en curso','url':environment.baseUrl+'/api/reportes/listaContribucionesNoPagadas/exportarPDF/0'},
         {'descripcion':'Contribuciones pagadas año en curso','url':environment.baseUrl+'/api/reportes/listaContribucionesPagadas/exportarPDF/1'},
         ];
     }
@@ -88,8 +87,6 @@ export class ReportesComponent implements OnInit {
       let urlAux:string=environment.baseUrl+'/api/reportes/listaContribucionesTipoNoPagadas/exportarPDF/0/'+this.tipoContribucion;
       let urlAuxPagado:string=environment.baseUrl+'/api/reportes/listaContribucionesTipoNoPagadas/exportarPDF/1/'+this.tipoContribucion;
       this.mapaReportes=[
-
-        {'descripcion':'Contribuciones '+nombre+ ' no pagadas año en curso','url':urlAux},
         {'descripcion':'Contribuciones '+nombre+' pagadas año en curso','url': urlAuxPagado}
         ];
     }
@@ -97,8 +94,6 @@ export class ReportesComponent implements OnInit {
       let urlAux:string=environment.baseUrl+'/api/reportes/listaContribucionesConceptoNoPagadas/exportarPDF/0/'+this.concepto;
       let urlAuxPagado:string=environment.baseUrl+'/api/reportes/listaContribucionesConceptoNoPagadas/exportarPDF/1/'+this.concepto;
       this.mapaReportes=[
-
-        {'descripcion':'Contribuciones '+this.concepto+ ' no pagadas año en curso','url':urlAux},
         {'descripcion':'Contribuciones '+this.concepto+' pagadas año en curso','url': urlAuxPagado}
         ];
     }
@@ -110,7 +105,7 @@ export class ReportesComponent implements OnInit {
 
   seleccionarContribucion(event: MatAutocompleteSelectedEvent): void {
     let contribucion = event.option.value as Contribucion;
-    this.concepto=contribucion.concepto_contribucion;
+    this.concepto=contribucion.codigo_contribucion;//el concepto ahora sera el codigo
     console.log(this.concepto);
     //this.autoCompleteContribucion.setValue('');
     //event.option.focus();

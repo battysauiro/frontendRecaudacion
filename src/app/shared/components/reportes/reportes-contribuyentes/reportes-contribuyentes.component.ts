@@ -115,8 +115,6 @@ export class ReportesContribuyentesComponent implements OnInit {
       let urlAux:string=environment.baseUrl+'/api/reportes/listaContribuyentesFisicasNoPagadas/exportarPDF/'+this.rfcContribuyente+'/0';
       let urlAuxPagado:string=environment.baseUrl+'/api/reportes/listaContribuyentesFisicasNoPagadas/exportarPDF/'+this.rfcContribuyente+'/1';
       this.mapaReportes=[
-
-        {'descripcion':'Contribuciones no pagadas de la persona Fisica: '+this.nombre,'url':urlAux},
         {'descripcion':'Contribuciones  pagadas de la persona Fisica: '+this.nombre,'url': urlAuxPagado}
         ];
     }
@@ -124,8 +122,6 @@ export class ReportesContribuyentesComponent implements OnInit {
       let urlAux:string=environment.baseUrl+'/api/reportes/listaContribucionesContribuyenteMNoPagadasM/exportarPDF/'+this.rfcContribuyente+'/0';
       let urlAuxPagado:string=environment.baseUrl+'/api/reportes/listaContribucionesContribuyenteMNoPagadasM/exportarPDF/'+this.rfcContribuyente+'/1';
       this.mapaReportes=[
-
-        {'descripcion':'Contribuciones no pagadas de la persona Moral: '+this.nombre,'url':urlAux},
         {'descripcion':'Contribuciones  pagadas de la persona Moral: '+this.nombre,'url': urlAuxPagado}
         ];
     }

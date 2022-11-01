@@ -54,7 +54,7 @@ export class UsuariosComponent implements OnInit {
       cancelButtonText: 'No, cancelar'
     }).then((result) => {
       if (result.value) {
-        this.usuarioService.eliminarUsuario(usuario.email).subscribe(response=>{
+        this.usuarioService.eliminarUsuarioByEstado(usuario).subscribe(response=>{
         this.obtenerUsuarios(this.pagina);
           swal(
             'Usuario Eliminado!',
