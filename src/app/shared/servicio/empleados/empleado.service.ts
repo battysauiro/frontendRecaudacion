@@ -6,6 +6,8 @@ import { AlertService } from 'src/app/alerts/alert.service';
 import { AuthService } from 'src/app/usuario-login/auth.service';
 import { environment } from 'src/environments/environment';
 import { Empleado } from '../../modelo/empleados/empleado';
+import swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,8 @@ export class EmpleadoService {
   constructor(
     public httpClient:HttpClient,
     public authService:AuthService,
-    public alertService:AlertService
+    public alertService:AlertService,
+    public router:Router
   ) { }
 
   public agregarAuthorizationHeader(){
@@ -66,6 +69,28 @@ export class EmpleadoService {
         if(e.status==302){
           this.alertService.error('YA EXISTE EL EMPLEADO', this.options);
         }
+        if(e.status==301){
+          swal({
+            title: 'Empleado dado de baja',
+            text: `¿Desea darlo de alta de nuevo?`,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, dar de alta!',
+            cancelButtonText: 'No, cancelar'
+          }).then((result) => {
+            if (result.value) {
+              //this.empleadoService.eliminarEmpleado
+              this.eliminarEmpleadoByEstado(empleado,false).subscribe(response=>{
+                this.router.navigate(['/empleados']);
+                swal(
+                  'Empleado dado de alta!',
+                  ``,
+                  'success'
+                )
+              });
+            }
+          })
+        }
         return throwError(e);
       })
     );
@@ -83,8 +108,8 @@ export class EmpleadoService {
     return this.httpClient.put<Empleado>(`${environment.baseUrl}/api/empleado/${empleado.curp}`,empleado,{headers:this.agregarAuthorizationHeader()});
   }
 
-  eliminarEmpleadoByEstado(empleado:Empleado):Observable<Empleado>{
-    return this.httpClient.put<Empleado>(`${environment.baseUrl}/api/empleado/eliminar/${empleado.curp}`,empleado,{headers:this.agregarAuthorizationHeader()});
+  eliminarEmpleadoByEstado(empleado:Empleado,estado:boolean):Observable<Empleado>{
+    return this.httpClient.put<Empleado>(`${environment.baseUrl}/api/empleado/eliminar/${empleado.curp}/estado/${estado}`,empleado,{headers:this.agregarAuthorizationHeader()});
   }
 
   eliminarEmpleado(id:string):Observable<Object>{

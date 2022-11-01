@@ -77,7 +77,7 @@ export class EmpleadosComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         //this.empleadoService.eliminarEmpleado
-        this.empleadoService.eliminarEmpleadoByEstado(empleado).subscribe(response=>{
+        this.empleadoService.eliminarEmpleadoByEstado(empleado,true).subscribe(response=>{
         this.obtenerEmpleadosByMunicipio(this.pagina);
           swal(
             'Empleado Eliminado!',
