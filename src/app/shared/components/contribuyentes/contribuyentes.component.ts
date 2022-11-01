@@ -123,7 +123,7 @@ export class ContribuyentesComponent implements OnInit {
   }
 
   public vacioMoral():boolean {
-    if( 
+    if(
       this.rfc == null ||
       this.rfc == '' ||
       this.razonSocial == null ||
@@ -312,7 +312,7 @@ export class ContribuyentesComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.contribuyentesService
-          .eliminarContribuyenteFisica(contribuyenteF.rfc_contribuyente)
+          .eliminarPersonaFisicaByEstado(contribuyenteF,true)
           .subscribe((response) => {
             this.obtenerContribuyentesFisicas(this.pagina);
             swal(

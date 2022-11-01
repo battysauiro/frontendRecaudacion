@@ -107,6 +107,10 @@ export class ContribuyentesService {
     return this.httpClient.put<ContribuyenteFisica>(`${environment.baseUrl}/api/contribuyenteFisica/${contribuyenteFisica.rfc_contribuyente}`,contribuyenteFisica,{headers:this.agregarAuthorizationHeader()});
   }
 
+  eliminarPersonaFisicaByEstado(contribuyenteFisica:ContribuyenteFisica,estado:boolean):Observable<ContribuyenteFisica>{
+    return this.httpClient.put<ContribuyenteFisica>(`${environment.baseUrl}/api/contribuyenteFisica/eliminar/${contribuyenteFisica.rfc_contribuyente}/estado/${estado}`,contribuyenteFisica,{headers:this.agregarAuthorizationHeader()});
+  }
+
   eliminarContribuyenteFisica(id: string): Observable<Object> {
     return this.httpClient.delete(
       `${environment.baseUrl}/api/contribuyenteFisica/${id}`,
