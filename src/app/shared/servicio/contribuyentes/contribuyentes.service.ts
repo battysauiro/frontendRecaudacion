@@ -152,6 +152,28 @@ export class ContribuyentesService {
   crearContribuyenteMoral(contribuyenteMoral:ContribuyenteMoral):Observable<ContribuyenteMoral>{
     return this.httpClient.post<ContribuyenteMoral>(`${environment.baseUrl}/api/contribuyenteMoral`,contribuyenteMoral,{headers:this.agregarAuthorizationHeader()}).pipe(
       catchError(e=>{
+        if(e.status==301){
+          swal({
+            title: 'Contribuyente Moral dado de baja',
+            text: `¿Desea darlo de alta de nuevo?`,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, dar de alta!',
+            cancelButtonText: 'No, cancelar'
+          }).then((result) => {
+            if (result.value) {
+              //this.empleadoService.eliminarEmpleado
+              this.eliminarPersonaMoralByEstado(contribuyenteMoral,false).subscribe(response=>{
+                this.router.navigate(['/contribuyentesMoral/page/0']);
+                swal(
+                  'Contribuyente Fisico dado de alta!',
+                  ``,
+                  'success'
+                )
+              });
+            }
+          })
+        }
         if(e.status==302){
           this.alertService.error('LA PERSONA MORAL YA EXISTE', this.options);
         }

@@ -338,7 +338,6 @@ export class ContribuyentesComponent implements OnInit {
   public createMoral():void{
     this.contribuyentesService.crearContribuyenteMoral(this.contribuyenteMoral).subscribe(
       response=> {this.contribuyenteMoral=response;
-                  console.log(response);
                   this.obtenerContribuyentesM(this.pagina);
                   swal('Contribuyente Moral Agregado',`contribuyente ${this.contribuyenteMoral.razon_social} creado con éxito`,'success');
                 }
