@@ -61,9 +61,11 @@ export class CobrarContribucionPasoDosComponent implements OnInit {
         cancelButtonText: 'continuar cobrando'
       }).then((result) => {
         if (result.value) {
+          this.facturasService.factura=null;
           this.irPasoUno();
         }else{
           this.irPasoUno();
+          this.facturasService.factura.items=[];// si continua cobrando solo poner los datos del contribuyente pero sin la contribucion que pago
         }
       })
       //this.alertService.success('Se ha creado la linea de pago', this.options);

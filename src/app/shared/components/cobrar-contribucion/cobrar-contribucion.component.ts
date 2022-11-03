@@ -103,7 +103,22 @@ export class CobrarContribucionComponent implements OnInit {
     public router:Router) { }
 
   ngOnInit(): void {
-    this.factura.items=[];
+    if(this.facturasService.factura!=undefined){
+      console.log("estos datos lleva la factura de servicio ",this.facturasService.factura);
+      this.contribuyente=this.facturasService.factura.contribuyenteFisica;
+      this.contribuyenteMoral=this.facturasService.factura.contribuyenteMoral;
+      this.rfcContribuyente=this.facturasService.factura.contribuyente_id;
+      this.nombreContribuyente=this.facturasService.factura.nombre_contribuyente;
+      this.direccionContribuyente=this.facturasService.factura.direccion_contribuyente;
+      this.factura=this.facturasService.factura;
+      this.costo=this.facturasService.factura.costo;
+      this.total=this.facturasService.factura.costo;
+      this.opcionSeleccionado=this.facturasService.factura.descuento;
+    }
+    else{
+      this.factura.items=[];
+    }
+
     if (this.checked) {
       this.filtroContribuyente as Observable<ContribuyenteFisica[]>;
       this.filtroContribuyente = this.autoCompleteContribuyente.valueChanges.pipe(
@@ -125,7 +140,6 @@ export class CobrarContribucionComponent implements OnInit {
       map(value => typeof value === 'string' ? value : value.codigo_contribucion),
       mergeMap(value => value ? this._filterContribucion(value) : []),
     );
-    console.log("esto es lo que tieneeeeeeeeeeeeeeeeeeeee la contribucion ")
   }
 
   public _filterContribuyenteFisica(value: string): Observable<ContribuyenteFisica[]> {
@@ -201,6 +215,8 @@ export class CobrarContribucionComponent implements OnInit {
     if (tipo) {
       this.contribuyente = event.option.value as ContribuyenteFisica;
       this.contribuyenteFisica = this.contribuyente;
+      this.factura.contribuyenteFisica=this.contribuyenteFisica;
+      this.facturasService.factura=this.factura;
       this.rfcContribuyente = this.contribuyenteFisica.rfc_contribuyente;
       this.nombreContribuyente = this.contribuyenteFisica.nombre + " " + this.contribuyenteFisica.apellido_p + " " + this.contribuyenteFisica.apellido_m;
       let numero = '';
@@ -214,6 +230,7 @@ export class CobrarContribucionComponent implements OnInit {
     } else {
       this.contribuyente = event.option.value as ContribuyenteMoral;
       this.contribuyenteMoral = this.contribuyente;
+      this.facturasService.factura.contribuyenteMoral=this.contribuyenteMoral;
       this.rfcContribuyente = this.contribuyenteMoral.rfc_contribuyente;
       this.nombreContribuyente = this.contribuyenteMoral.razon_social;
       let numero = '';
@@ -335,6 +352,7 @@ export class CobrarContribucionComponent implements OnInit {
         this.factura.contribuyente_id=this.contribuyente.rfc_contribuyente;
         let nuevaContribucion = new ItemFactura();
         //nuevaContribucion.precio = this.costo;
+
         nuevaContribucion.cantidad = 1;
         nuevaContribucion.contribucion = contribucion;
         nuevaContribucion.idContribucion = contribucion.codigo_contribucion;
@@ -408,6 +426,7 @@ export class CobrarContribucionComponent implements OnInit {
       this.total=this.costo*this.uma;
     }
     else{
+      this.facturasService.factura.costo=this.costo;
       this.total=this.costo;
     }
   }
