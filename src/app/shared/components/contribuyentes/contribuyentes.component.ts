@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/usuario-login/auth.service';
 import { ContribuyenteFisica } from '../../modelo/contribuyentes/contribuyente-fisica';
 import { ContribuyenteMoral } from '../../modelo/contribuyentes/contribuyente-moral';
@@ -42,29 +42,31 @@ export class ContribuyentesComponent implements OnInit {
   constructor(
     public contribuyentesService: ContribuyentesService,
     public authService: AuthService,
-    public activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute,
+    public router: Router
   ) {}
 
   ngOnInit(): void {
-    if (this.banderaTipo) {
-      this.activatedRoute.paramMap.subscribe((params) => {
-        let page: number = +params.get('page');
-        if (!page) {
-          page = 0;
-        }
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let page: number = +params.get('page');
+      let tipo: number = +params.get('tipo');//contiene el tipo de contribuyente (moral=1,fisica=0)
+      if (!page) {
+        page = 0;
+      }
+      if (tipo===0){
+        this.banderaTipo=true;
+        this.tipoPersona = 'Fisica';
         this.pagina = page;
         this.obtenerContribuyentesFisicas(page);
-      });
-    } else {
-      this.activatedRoute.paramMap.subscribe((params) => {
-        let page: number = +params.get('page');
-        if (!page) {
-          page = 0;
-        }
+      }
+      if(tipo===1){
+        this.banderaTipo=false;
+        this.tipoPersona = 'Moral';
         this.pagina = page;
         this.obtenerContribuyentesM(page);
-      });
-    }
+      }
+    });
+
     this.notificarCambiosFisica.subscribe(contribuyente=>{
       this.contribuyentesFisicas=this.contribuyentesFisicas.map(contribuyenteOriginal=>{
         if(contribuyente.rfc_contribuyente==contribuyenteOriginal.rfc_contribuyente){
@@ -254,7 +256,8 @@ export class ContribuyentesComponent implements OnInit {
         this.contribuyenteFisica = response;
         this.limpiarModal();
         //this.irContribuyentes(estado); aqui debe de ir el observador para que se actulice la vista
-        this.notificarCambiosFisica.emit(this.contribuyenteFisica);
+        //this.notificarCambiosFisica.emit(this.contribuyenteFisica);
+        this.obtenerContribuyentesFisicas(0);
         swal(
           'La persona fisica se ha agregado correctamente',
           `contribuyente ${this.contribuyenteFisica.curp} creado con éxito`,
@@ -337,8 +340,11 @@ export class ContribuyentesComponent implements OnInit {
 
   public createMoral():void{
     this.contribuyentesService.crearContribuyenteMoral(this.contribuyenteMoral).subscribe(
-      response=> {this.contribuyenteMoral=response;
-                  this.obtenerContribuyentesM(this.pagina);
+      (response)=> {this.contribuyenteMoral=response;
+                  this.limpiarModal();
+                  //this.notificarCambiosMoral.emit(this.contribuyenteMoral);
+                  this.router.navigate(['/contribuyentesMoral/page/0/1']);
+                  //this.obtenerContribuyentesM(0);
                   swal('Contribuyente Moral Agregado',`contribuyente ${this.contribuyenteMoral.razon_social} creado con éxito`,'success');
                 }
     );
@@ -347,6 +353,7 @@ export class ContribuyentesComponent implements OnInit {
 
   public actualizarPersonaMoral():void{
     this.contribuyentesService.actualizarPersonaMoral(this.contribuyenteMoral).subscribe(contribuyenteM=>{
+      this.limpiarModal();
       this.notificarCambiosMoral.emit(this.contribuyenteMoral);
       swal('El contribuyente moral se ha actualizado con exito',`Contribuyente Moral ${contribuyenteM.razon_social} actualizado con éxito`,'success');
     });

@@ -164,7 +164,7 @@ export class ContribuyentesService {
             if (result.value) {
               //this.empleadoService.eliminarEmpleado
               this.eliminarPersonaMoralByEstado(contribuyenteMoral,false).subscribe(response=>{
-                this.router.navigate(['/contribuyentesMoral/page/0']);
+                this.router.navigate(['/contribuyentesMoral/page/0/1']);
                 swal(
                   'Contribuyente Fisico dado de alta!',
                   ``,
