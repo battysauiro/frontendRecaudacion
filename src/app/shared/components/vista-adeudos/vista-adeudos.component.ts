@@ -47,6 +47,7 @@ export class VistaAdeudosComponent implements OnInit {
   tipoConsulta=true;
   value="true";
   valor="true";
+  valor2="false";
   codigo="";
   selectEstado=true;
   modal : NgbModalRef;
@@ -107,6 +108,7 @@ export class VistaAdeudosComponent implements OnInit {
     this.facturasProximas=[];
     this.selectEstado=true;
     this.codigo="";
+    this.value='true';
   }
 
   public cerrar(){
@@ -115,7 +117,8 @@ export class VistaAdeudosComponent implements OnInit {
     this.codigo="";
     this.mostrar=true;
     this.tipoConsulta=true;
-    this.value='true';
+    //this.onChange();
+
     this.modal.close();
   }
 
