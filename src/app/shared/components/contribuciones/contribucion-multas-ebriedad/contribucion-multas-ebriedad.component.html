@@ -27,7 +27,7 @@
     </div>
     <div class="col-auto">
       <button type="button" class="btn boton-principal" [routerLink]="['/formulario-contribucion',5]"
-      *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
+      *ngIf="authService.hasRole(['ROLE_ADMINSYSTEMAS'])">
       Agregar contribución</button>
       <!--<a class="ms-auto links" [routerLink]="['/formulario-contribucion',5]">Agregar Multa ebriedad</a>-->
     </div>
@@ -62,10 +62,10 @@
             <th>CANTIDAD DE ALCOHOL</th>
             <th
               class="text-center"
-              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])">
+              *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
               <i class="fas fa-pencil-alt"></i>
             </th>
-            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
+            <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMINSYSTEMAS'])">
               <i class="fas fa-trash-alt"></i>
             </th>
           </tr>
@@ -81,7 +81,7 @@
             <td>{{ contribucion.cantidad_alcohol}} </td>
             <td
               *ngIf="
-                authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])">
+                authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
               <button
                 type="button"
                 name="editar"
@@ -92,7 +92,7 @@
                 <i class="fas fa-pencil-alt"></i>
               </button>
             </td>
-            <td *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
+            <td *ngIf="authService.hasRole(['ROLE_ADMINSYSTEMAS'])">
               <button
                 type="button"
                 name="eliminar"
