@@ -46,6 +46,11 @@ export class ContribuyentesService {
     return this.httpClient.get<boolean>(environment.baseUrl+'/api/contribuyente/codigo/'+rfc+'/'+codigoIngresado);
   }
 
+  //obtenemos el codigo del contribuyente
+  obtenerCodigo(rfc:string):Observable<string>{
+    return this.httpClient.get<string>(environment.baseUrl+'/api/contribuyente/codigo/'+rfc,{headers:this.agregarAuthorizationHeader()});
+  }
+
   /**--------------- CRUD CONTRIBUYENTES FISICAS----------- */
   //obtiene los contribuyentes Fisicas
   ObtenerListaContribuentes(pageNo: number): Observable<any> {

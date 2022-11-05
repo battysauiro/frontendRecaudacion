@@ -7,6 +7,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import swal from 'sweetalert2';
+import { ContribuyentesService } from '../../servicio/contribuyentes/contribuyentes.service';
 
 @Component({
   selector: 'app-cobrar-contribucion-paso-dos',
@@ -19,10 +20,12 @@ export class CobrarContribucionPasoDosComponent implements OnInit {
   pipe = new DatePipe('en-US');
   todayWithPipe = null;
   totalConDescuento:number;
+  codigo="";
 
   constructor(
     public router:Router,
-    public facturasService: LineaCapturaService
+    public facturasService: LineaCapturaService,
+    public contribuyenteService:ContribuyentesService
     ) { }
 
   ngOnInit(): void {
@@ -47,6 +50,12 @@ export class CobrarContribucionPasoDosComponent implements OnInit {
   }
 
   generarFactura():void{
+    this.contribuyenteService.obtenerCodigo(this.factura.contribuyente_id).subscribe(
+      response=> {
+        this.codigo=response;
+      }
+
+    );
     this.facturasService.createFactura(this.factura).subscribe(factura=>{
       this.factura.usuario_id=factura.usuario_id;
       this.factura.folio=factura.folio;
@@ -130,7 +139,7 @@ export class CobrarContribucionPasoDosComponent implements OnInit {
                     body: [
                       [{border:[false, false, false, false], text:'Codigo de acceso', bold: true, alignment:'center', fontSize:9}],
                       //[{border:[false, false, false,false], image:'',width: 138, height: 100,}],
-                      [{border:[false, false, false, false], text:'si lo que vas a poner es texto sustitur lo que esta dentro de las comillas,pero si es imagen comentar esta linea y descomentar la linea de arriba, en el atributo image dentro de las comillas poner el codigo de base64 y en heights quitar 140 y poner auto', fontSize:7}],
+                      [{border:[false, false, false, false], text:this.codigo, bold: true, alignment:'center',fontSize:7}],
                       [{border:[false, false, false, false], text:'Escanee este codigo para consultar su información de pagos o adeudos', alignment:'justify', fontSize:7}],
                     ]
                   },
@@ -157,7 +166,7 @@ export class CobrarContribucionPasoDosComponent implements OnInit {
                         [{border:[false, false, false, false], text: 'Datos de la contribución', bold: true, fontSize: 14, colSpan: 2, style: 'tableHeader', fillColor: '#740432', color: 'white'},{}],
                         [{border:[false, false, false, true], text: 'Codigo', bold: true, fontSize: 12},{border:[false, false, false, true], text:'Concepto', bold: true, fontSize: 12}],
                         [{border:[false, false, false, true], text: this.factura.items[0].contribucion.codigo_contribucion},{border:[false, false, false, true], text: this.factura.items[0].contribucion.concepto_contribucion}],
-            
+
                         [{border:[false, false, false, false], text: 'Total $ '+this.factura.total, colSpan: 2, bold: true, alignment: 'right', fillColor: '#740432', color: 'white'},'\n'],
                       ]
                     }
