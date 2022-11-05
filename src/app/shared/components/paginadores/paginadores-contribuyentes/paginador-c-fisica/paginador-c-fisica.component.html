@@ -2,13 +2,13 @@
   <li class="page-item" *ngIf="paginador.numeroPagina > 0">
     <a
       class="page-link"
-      [routerLink]="['/contribuyentes/page', paginador.numeroPagina - 1]"
+      [routerLink]="['/contribuyentes/page', paginador.numeroPagina - 1,0]"
       >&laquo;</a
     >
   </li>
 
   <li [ngClass]="paginador.primera ? 'disabled page-item' : 'page-item'">
-    <a class="page-link" [routerLink]="['/contribuyentes/page', 0]">Primera</a>
+    <a class="page-link" [routerLink]="['/contribuyentes/page', 0,0]">Primera</a>
   </li>
 
   <li
@@ -22,7 +22,7 @@
     <a
       *ngIf="pagina - 1 != paginador.numeroPagina"
       class="page-link"
-      [routerLink]="['/contribuyentes/page', pagina - 1]"
+      [routerLink]="['/contribuyentes/page', pagina - 1,0]"
       >{{ pagina }}</a
     >
   </li>
@@ -30,7 +30,7 @@
   <li [ngClass]="paginador.ultima ? 'disabled page-item' : 'page-item'">
     <a
       class="page-link"
-      [routerLink]="['/contribuyentes/page', paginador.totalPaginas - 1]"
+      [routerLink]="['/contribuyentes/page', paginador.totalPaginas - 1,0]"
       >Ultima</a
     >
   </li>
@@ -41,7 +41,7 @@
   >
     <a
       class="page-link"
-      [routerLink]="['/contribuyentes/page', paginador.numeroPagina + 1]"
+      [routerLink]="['/contribuyentes/page', paginador.numeroPagina + 1,0]"
       >&raquo;</a
     >
   </li>

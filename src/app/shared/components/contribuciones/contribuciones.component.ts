@@ -19,6 +19,7 @@ import { ContribucionMultasEbriedadService } from '../../servicio/contribuciones
 import { ContribucionMultasVehicularService } from '../../servicio/contribuciones/contribucion-multas-vehicular.service';
 import { ContribucionMultasService } from '../../servicio/contribuciones/contribucion-multas.service';
 import { ContribucionOtrosProductosService } from '../../servicio/contribuciones/contribucion-otros-productos.service';
+import { LineaCapturaService } from '../../servicio/lineas-captura/linea-captura.service';
 
 interface ContribucionInter {
   value: number;
@@ -96,9 +97,11 @@ export class ContribucionesComponent implements OnInit {
     public contribucionMultasService:ContribucionMultasService,
     public contribucionMVehicularService:ContribucionMultasVehicularService,
     public contribucionMEbriedadService:ContribucionMultasEbriedadService,
-    public contribucionOtrosProductosService:ContribucionOtrosProductosService) { }
+    public contribucionOtrosProductosService:ContribucionOtrosProductosService,
+    public facturasService: LineaCapturaService) { }
 
   ngOnInit(): void {
+    this.facturasService.factura=undefined;
       this.activatedRoute.paramMap.subscribe(params=>{
         let page:number=+params.get('page');
         if(!page){

@@ -15,7 +15,9 @@
       />
     </div>
     <div>
-      <button type="button"  class="btn boton-principal" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])"
+
+      <button type="button"  class="btn boton-principal" *ngIf="authService.hasRole(['ROLE_ADMIN','ROLE_USER','ROLE_ADMINSYSTEMAS'])"
+
       routerLink="/empleados/formulario-empleados"
       data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Empleado</button>
     </div>
@@ -33,6 +35,7 @@
           <tr>
             <th>CURP</th>
             <th>NOMBRE</th>
+
             <th class="text-center" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])">
               <i class="fas fa-address-card"></i>
             </th>

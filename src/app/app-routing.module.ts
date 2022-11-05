@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { GuardContribuyenteExisteGuard } from './guards/guard-contribuyente-existe.guard';
 import { CobrarContribucionPasoDosComponent } from './shared/components/cobrar-contribucion-paso-dos/cobrar-contribucion-paso-dos.component';
 import { CobrarContribucionComponent } from './shared/components/cobrar-contribucion/cobrar-contribucion.component';
 import { ContribucionDerechoGComponent } from './shared/components/contribuciones/contribucion-derecho-g/contribucion-derecho-g.component';
@@ -30,8 +31,8 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'inicio',component:InicioComponent,canActivate:[AuthGuard]},
   {path:'contribuyentes',component:ContribuyentesComponent,canActivate:[AuthGuard]},
-  {path:'contribuyentes/page/:page',component:ContribuyentesComponent,canActivate:[AuthGuard]},
-  {path:'contribuyentesMoral/page/:page',component:ContribuyentesComponent,canActivate:[AuthGuard]},
+  {path:'contribuyentes/page/:page/:tipo',component:ContribuyentesComponent,canActivate:[AuthGuard]},
+  {path:'contribuyentesMoral/page/:page/:tipo',component:ContribuyentesComponent,canActivate:[AuthGuard]},
   {path:'contribuciones',component:ContribucionesComponent,canActivate:[AuthGuard]},
   {path:'contribuciones/page/:page',component:ContribucionesComponent,canActivate:[AuthGuard]},
   {path:'impuestos',component:ContribucionImpuestoComponent,canActivate:[AuthGuard]},

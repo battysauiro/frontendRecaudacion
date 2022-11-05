@@ -90,6 +90,10 @@ export class UsuarioService {
     return this.httpClient.put<Usuario>(`${environment.baseUrl}/api/usuario/${usuario.email}`,usuario,{headers:this.agregarAuthorizationHeader()});
   }
 
+  eliminarUsuarioByEstado(usuario:Usuario,estado:boolean):Observable<Usuario>{
+    return this.httpClient.put<Usuario>(`${environment.baseUrl}/api/usuario/eliminar/${usuario.email}/estado/${estado}`,usuario,{headers:this.agregarAuthorizationHeader()});
+  }
+
   actualizarDatosUsuario(usuario:Usuario):Observable<Usuario>{
     return this.httpClient.put<Usuario>(`${environment.baseUrl}/api/usuario/actualizarDatos/${usuario.email}`,usuario,{headers:this.agregarAuthorizationHeader()});
   }

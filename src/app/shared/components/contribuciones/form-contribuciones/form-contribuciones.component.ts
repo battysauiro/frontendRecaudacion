@@ -339,25 +339,28 @@ export class FormContribucionesComponent implements OnInit {
     );
   }
 
-  compararPago(o1:TipoPago,o2:TipoPago){
-    if(o1===undefined && o2===undefined){
-      return true;
+  compararPago(o1:number,o2:number){
+    if (o1===null || o2===null)
+    {
+      return false;
     }
-    return o1===null || o2===null || o1===undefined || o2===undefined? false:o1.id_pago===o2.id_pago;
+      return o1===o2;
   }
 
-  compararDescripcion(o1:Catalogo,o2:Catalogo){
-    if(o1===undefined && o2===undefined){
-      return true;
+  compararDescripcion(o1:number,o2:number){
+    if (o1===null || o2===null)
+    {
+      return false;
     }
-    return o1===null || o2===null || o1===undefined || o2===undefined? false:o1.id_catalogo===o2.id_catalogo;
+      return o1===o2;
   }
 
-  compararPeriodicidad(o1:Periodicidad,o2:Periodicidad){
-    if(o1===undefined && o2===undefined){
-      return true;
+  compararPeriodicidad(o1:number,o2:number){
+    if (o1===null || o2===null)
+    {
+      return false;
     }
-    return o1===null || o2===null || o1===undefined || o2===undefined? false:o1.id_periodicidad===o2.id_periodicidad;
+      return o1===o2;
   }
 
   //reenvio de rutas
@@ -389,39 +392,44 @@ export class FormContribucionesComponent implements OnInit {
     this.router.navigate(['/otrosProductos']);
   }
   //comparadores de las contribuciones
-  compararTImpuesto(o1:Catalogo,o2:Catalogo){
-    if(o1===undefined && o2===undefined){
-      return true;
+  compararTImpuesto(o1:number,o2:number){
+    if (o1===null || o2===null)
+    {
+      return false;
     }
-    return o1===null || o2===null || o1===undefined || o2===undefined? false:o1.id_catalogo===o2.id_catalogo;
+      return o1===o2;
   }
 
-  compararTDerecho(o1:Catalogo,o2:Catalogo){
-    if(o1===undefined && o2===undefined){
-      return true;
+  compararTDerecho(o1:number,o2:number){
+    if (o1===null || o2===null)
+    {
+      return false;
     }
-    return o1===null || o2===null || o1===undefined || o2===undefined? false:o1.id_catalogo===o2.id_catalogo;
+      return o1===o2;
   }
 
-  compararTAprovechamiento(o1:Catalogo,o2:Catalogo){
-    if(o1===undefined && o2===undefined){
-      return true;
+  compararTAprovechamiento(o1:number,o2:number){
+    if (o1===null || o2===null)
+    {
+      return false;
     }
-    return o1===null || o2===null || o1===undefined || o2===undefined? false:o1.id_catalogo===o2.id_catalogo;
+      return o1===o2;
   }
 
-  compararTVehiculo(o1:TipoVehiculo,o2:TipoVehiculo){
-    if(o1===undefined && o2===undefined){
-      return true;
+  compararTVehiculo(o1:number,o2:number){
+    if (o1===null || o2===null)
+    {
+      return false;
     }
-    return o1===null || o2===null || o1===undefined || o2===undefined? false:o1.id_tipo_vehiculo===o2.id_tipo_vehiculo;
+      return o1===o2;
   }
 
-  compararTOtrosP(o1:Catalogo,o2:Catalogo){
-    if(o1===undefined && o2===undefined){
-      return true;
+  compararTOtrosP(o1:number,o2:number){
+    if (o1===null || o2===null)
+    {
+      return false;
     }
-    return o1===null || o2===null || o1===undefined || o2===undefined? false:o1.id_catalogo===o2.id_catalogo;
+      return o1===o2;
   }
 
   //validacion para los campos de cada contribucion

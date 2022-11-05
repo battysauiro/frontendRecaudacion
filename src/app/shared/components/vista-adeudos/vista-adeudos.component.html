@@ -6,7 +6,7 @@
           <form #lineaCaptura="ngForm">
             <div class="row g-3">
               <div class="col-sm-5">
-                <mat-form-field  appearance="outline">
+                <mat-form-field  appearance="outline" >
                   <mat-label>Buscar Contribuyente</mat-label>
                   <input type="text"
                          placeholder="Ingrese su RFC"
@@ -16,7 +16,7 @@
                          [matAutocomplete]="auto">
                          <mat-icon matSuffix>search</mat-icon>
                   <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarNombreContribuyente" (optionSelected)="seleccionarContribuyente($event)">
-                    <mat-option *ngFor="let contribuyente of filtroContribuyente | async" [value]="contribuyente">
+                    <mat-option (click)="open(content)" data-bs-target="#exampleModal" data-bs-whatever="@mdo" *ngFor="let contribuyente of filtroContribuyente | async" [value]="contribuyente">
                       {{contribuyente.rfc_contribuyente}} {{contribuyente.nombreContribuyente}}
                     </mat-option>
                   </mat-autocomplete>
@@ -71,15 +71,15 @@
             </ng-template>
             <div class="mt-3">
               <div class="mt-3">
-                <select [(ngModel)]="value" (change)="onChange()" name="consulta" class="form-select">
-                  <option selected value='true'>Consultar contribuciones pagadas</option>
-                  <option value='false'>Consultar proximos pagos de contribuciones</option>
+                <select [disabled]="selectEstado" [(ngModel)]="value" (change)="onChange()" name="consulta" class="form-select">
+                  <option  value="true">Consultar contribuciones pagadas</option>
+                  <option value="false">Consultar proximos pagos de contribuciones</option>
                 </select>
               </div>
             </div>
-            <div class="row g-2 mt-3" *ngIf="this.facturasPagadas">
-            <table class="table table-sm" *ngIf="this.facturasPagadas.length>0 || this.facturasProximas.length>0">
-              <thead>
+            <div class="row g-2 mt-3 table-wrapper-adeudos" *ngIf="this.tipoConsulta && this.facturasPagadas else proximas">
+            <table class="table table-bordered" *ngIf="this.facturasPagadas.length>0 else facPagadasvacias">
+              <thead class="cabecera">
                 <tr>
                   <th class="texto">Fecha</th>
                   <th class="texto">Datos de la Contribucion</th>
@@ -87,21 +87,54 @@
                 </tr>
               </thead>
               <tbody class="texto">
-                <tr *ngFor="let factura of facturas">
+                <tr *ngFor="let factura of facturasPagadas">
                     <td class="texto">{{factura.fecha_solicitud}}</td>
                     <td>{{factura.contribucion}}</td>
                     <td>{{factura.total}}</td>
                 </tr>
               </tbody>
             </table>
+            <ng-template #facPagadasvacias>
+              <div class="text-center texto" *ngIf="!selectEstado">
+                <h1>Todavia no tiene contribuciones pagadas</h1>
+              </div>
+            </ng-template >
           </div>
+          <ng-template #proximas>
+            <div class="row g-2 mt-3 table-wrapper-adeudos" *ngIf="this.facturasProximas">
+              <table class="table table-bordered" *ngIf="this.facturasProximas.length>0 else facProximasvacias">
+                <thead class="cabecera">
+                  <tr>
+                    <th class="texto">Fecha</th>
+                    <th class="texto">Datos de la Contribucion</th>
+                    <th class="texto">Total</th>
+                  </tr>
+                </thead>
+                <tbody class="texto">
+                  <tr *ngFor="let factura of facturasProximas">
+                      <td class="texto">{{factura.fecha_solicitud}}</td>
+                      <td>{{factura.contribucion}}</td>
+                      <td>{{factura.total}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <ng-template #facProximasvacias>
+                <div class="text-center texto" *ngIf="!selectEstado">
+                  <h1>Todavia no tiene contribuciones Proximas a pagar</h1>
+                </div>
+              </ng-template >
+            </div>
+          </ng-template>
             <div class="form-group row">
               <div class="col-sm-2">
 
               </div>
-              <div class="col-sm-12">
-                <div class="mx-auto" *ngIf="this.facturasPagadas">
+              <div class="row" *ngIf="this.facturasPagadas">
+                <div class="col-auto" >
                   <a *ngIf="this.facturasPagadas.length>0 || this.facturasProximas.length>0" type="button" class="btn btn-danger" href='{{base}}/api/reportes/informacionPagos/exportarPDF/{{this.contribuyente.nombreContribuyente}}/{{this.contribuyente.rfc_contribuyente}}/{{this.contribuyente.direccion}}/{{tipoConsulta}}'>Descargar PDF</a>
+                </div>
+                <div class="col-auto">
+                  <button  class="btn btn-secondary" *ngIf="!selectEstado" (click)="salir()">Salir</button>
                 </div>
               </div>
             </div>
@@ -110,3 +143,33 @@
         </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class=" text-center mt-3">
+          <h1 class="" id="exampleModalLabel">Ingrese su codigo</h1>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Codigo:</label>
+              <input type="text" class="form-control" name="codigo" id="recipient-name" [(ngModel)]="codigo">
+              <div class="invalid-relleno" *ngIf="!mostrar">
+                  El codigo es invalido
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary close" aria-label="Close" (click)="cerrar()" >Cancelar </button>
+          <button type="button" (click)="verificarAutorizacion()" class="btn btn-primary">Verificar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+

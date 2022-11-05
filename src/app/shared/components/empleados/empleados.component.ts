@@ -11,6 +11,7 @@ import { RolesService } from '../../servicio/roles/roles.service';
 import { UsuarioService } from '../../servicio/usuarios/usuario.service';
 import { Municipio } from '../../modelo/municipios/municipio';
 import { FormControl } from '@angular/forms';
+import { LineaCapturaService } from '../../servicio/lineas-captura/linea-captura.service';
 
 @Component({
   selector: 'app-empleados',
@@ -41,10 +42,11 @@ export class EmpleadosComponent implements OnInit {
     public authService:AuthService,
     public rolesService:RolesService,
     public usuarioService:UsuarioService,
-    public router:Router) { }
+    public router:Router,
+    public facturasService: LineaCapturaService) { }
 
   ngOnInit(): void {
-    console.log("holaaaaaaaaaaaaa")
+    this.facturasService.factura=undefined;
     this.obtenerListaRoles();
     this.activatedRoute.paramMap.subscribe(params=>{
       let page:number=+params.get('page');
@@ -77,7 +79,8 @@ export class EmpleadosComponent implements OnInit {
       cancelButtonText: 'No, cancelar'
     }).then((result) => {
       if (result.value) {
-        this.empleadoService.eliminarEmpleado(empleado.curp).subscribe(response=>{
+        //this.empleadoService.eliminarEmpleado
+        this.empleadoService.eliminarEmpleadoByEstado(empleado,true).subscribe(response=>{
         this.obtenerEmpleadosByMunicipio(this.pagina);
           swal(
             'Empleado Eliminado!',
@@ -164,7 +167,7 @@ obtenerListaRoles(){
   );
   }
   compararRoles(o1:number,o2:number){
-    if (o1==null || o2==null)
+    if (o1===null || o2===null)
     {
       return false;
     }

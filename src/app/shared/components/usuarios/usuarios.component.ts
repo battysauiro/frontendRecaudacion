@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/usuario-login/auth.service';
 import { Usuario } from '../../modelo/usuarios/usuario';
 import { UsuarioService } from '../../servicio/usuarios/usuario.service';
 import swal from 'sweetalert2';
+import { LineaCapturaService } from '../../servicio/lineas-captura/linea-captura.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -20,9 +21,11 @@ export class UsuariosComponent implements OnInit {
   constructor(public usuarioService:UsuarioService,
     public activatedRoute:ActivatedRoute,
     public authService:AuthService,
-    public router:Router) { }
+    public router:Router,
+    public facturasService: LineaCapturaService) { }
 
   ngOnInit(): void {
+    this.facturasService.factura=undefined;
     //this.municipioClave=this.authService._usuario.id_municipio;
     this.activatedRoute.paramMap.subscribe(params=>{
       let page:number=+params.get('page');
@@ -54,7 +57,7 @@ export class UsuariosComponent implements OnInit {
       cancelButtonText: 'No, cancelar'
     }).then((result) => {
       if (result.value) {
-        this.usuarioService.eliminarUsuario(usuario.email).subscribe(response=>{
+        this.usuarioService.eliminarUsuarioByEstado(usuario,true).subscribe(response=>{
         this.obtenerUsuarios(this.pagina);
           swal(
             'Usuario Eliminado!',
