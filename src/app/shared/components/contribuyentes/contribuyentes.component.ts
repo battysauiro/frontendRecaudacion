@@ -7,7 +7,7 @@ import { ContribuyentesService } from '../../servicio/contribuyentes/contribuyen
 import swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { formatDate } from '@angular/common';
-
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-contribuyentes',
   templateUrl: './contribuyentes.component.html',
@@ -38,12 +38,14 @@ export class ContribuyentesComponent implements OnInit {
   colonia: string;
   cp: string;
   razonSocial: string;
+  modal : NgbModalRef;
   banderaActualizar:boolean=false;
   constructor(
     public contribuyentesService: ContribuyentesService,
     public authService: AuthService,
     public activatedRoute: ActivatedRoute,
-    public router: Router
+    public router: Router,
+
   ) {}
 
   ngOnInit(): void {

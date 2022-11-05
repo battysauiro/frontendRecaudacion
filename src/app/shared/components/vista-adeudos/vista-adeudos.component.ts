@@ -11,6 +11,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
  class fila{
@@ -45,10 +46,15 @@ export class VistaAdeudosComponent implements OnInit {
   base=environment.baseUrl;
   tipoConsulta=true;
   value="true";
+  codigo="";
+  selectEstado=true;
+  modal : NgbModalRef;
+  mostrar:boolean=true;
   proximas:boolean=false;
   constructor(
     public contribuyenteService:ContribuyentesService,
-    public router:Router
+    public router:Router,
+    public modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -58,6 +64,12 @@ export class VistaAdeudosComponent implements OnInit {
       map(value => typeof value === 'string' ? value : value.rfc_contribuyente),
       mergeMap(value => value ? this._filterContribuyente(value) : []),
     );
+  }
+
+  open(content) {
+    this.modal = this.modalService.open(content, { centered: true, backdropClass: 'light-blue-backdrop' })
+    this.modal.result.then((e) => {
+    });
   }
 
   public _filterContribuyente(value: string): Observable<Contribuyente[]> {
@@ -72,12 +84,52 @@ export class VistaAdeudosComponent implements OnInit {
   seleccionarContribuyente(event: MatAutocompleteSelectedEvent): void {
 
       this.contribuyente = event.option.value as Contribuyente;
-      this.facturas=this.contribuyente.contribucionesPagadas;
+      event.option.focus();
+      event.option.deselect();
+      /**this.facturas=this.contribuyente.contribucionesPagadas;
       this.facturasPagadas=this.contribuyente.contribucionesPagadas;
       this.facturasProximas=this.contribuyente.contribucionesProximas;
       this.autoCompleteContribuyente.setValue('');
       event.option.focus();
-      event.option.deselect();
+      event.option.deselect();*/
+
+  }
+
+  public mostrarlo(){
+    console.log(this.mostrar," esto ees verificar");
+  }
+
+  public cerrar(){
+    this.contribuyente=new Contribuyente();
+    this.autoCompleteContribuyente.setValue('');
+    this.codigo="";
+    this.mostrar=true;
+    this.modal.close();
+  }
+
+  public verificarAutorizacion(){
+    let dato:boolean=false;
+    this.contribuyenteService.isAutorizado(this.contribuyente.rfc_contribuyente,this.codigo).subscribe(
+      response=> {
+        //this.mostrar=response;
+        if(response){
+          //this.mostrar=false;
+          this.selectEstado=false;
+          this.facturas=this.contribuyente.contribucionesPagadas;
+          this.facturasPagadas=this.contribuyente.contribucionesPagadas;
+          this.facturasProximas=this.contribuyente.contribucionesProximas;
+          this.autoCompleteContribuyente.setValue('');
+          this.autoCompleteContribuyente.disable();
+          //this.cerrar();
+          this.modal.close();
+        }
+        else{
+          this.mostrar=false;
+          console.log("no autorizado");
+        }
+      }
+
+    );
 
   }
 

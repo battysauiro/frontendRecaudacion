@@ -13,6 +13,7 @@ import { SharedModule } from './shared/shared.module';
 import { LoginComponent } from './usuario-login/login/login.component';
 import { ModalContribuyenteComponent } from './modales/modal-contribuyente/modal-contribuyente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

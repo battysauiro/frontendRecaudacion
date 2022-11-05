@@ -41,6 +41,10 @@ export class ContribuyentesService {
   filtrarContribuyentes(term:string,estadoPago:boolean):Observable<Contribuyente[]>{
     return this.httpClient.get<Contribuyente[]>(environment.baseUrl+'/api/contribuyente/filtrar/term/'+term);
   }
+  //verificamos que el contribuyente ingrese el codigo correcto
+  isAutorizado(rfc:string,codigoIngresado:string):Observable<boolean>{
+    return this.httpClient.get<boolean>(environment.baseUrl+'/api/contribuyente/codigo/'+rfc+'/'+codigoIngresado);
+  }
 
   /**--------------- CRUD CONTRIBUYENTES FISICAS----------- */
   //obtiene los contribuyentes Fisicas
