@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { GuardContribuyenteExisteGuard } from './guards/guard-contribuyente-existe.guard';
 import { CobrarContribucionPasoDosComponent } from './shared/components/cobrar-contribucion-paso-dos/cobrar-contribucion-paso-dos.component';
 import { CobrarContribucionComponent } from './shared/components/cobrar-contribucion/cobrar-contribucion.component';
 import { ContribucionDerechoGComponent } from './shared/components/contribuciones/contribucion-derecho-g/contribucion-derecho-g.component';
@@ -29,10 +30,10 @@ const routes: Routes = [
   {path:'',redirectTo:'/login',pathMatch:'full'},
   {path:'login',component:LoginComponent},
   {path:'inicio',component:InicioComponent,canActivate:[AuthGuard]},
-  {path:'contribuyentes',component:ContribuyentesComponent,canActivate:[AuthGuard]},
+  {path:'contribuyentes',component:ContribuyentesComponent,canActivate:[AuthGuard,GuardContribuyenteExisteGuard]},
   {path:'contribuyentes/page/:page/:tipo',component:ContribuyentesComponent,canActivate:[AuthGuard]},
   {path:'contribuyentesMoral/page/:page/:tipo',component:ContribuyentesComponent,canActivate:[AuthGuard]},
-  {path:'contribuciones',component:ContribucionesComponent,canActivate:[AuthGuard]},
+  {path:'contribuciones',component:ContribucionesComponent,canActivate:[AuthGuard,GuardContribuyenteExisteGuard]},
   {path:'contribuciones/page/:page',component:ContribucionesComponent,canActivate:[AuthGuard]},
   {path:'impuestos',component:ContribucionImpuestoComponent,canActivate:[AuthGuard]},
   {path:'impuestos/page/:page',component:ContribucionImpuestoComponent,canActivate:[AuthGuard]},
@@ -51,11 +52,11 @@ const routes: Routes = [
   {path:'formulario-contribucion/:tipo/:id',component:FormContribucionesComponent,canActivate:[AuthGuard]},
   {path:'formulario-contribucion',component:FormContribucionesComponent,canActivate:[AuthGuard]},
   {path:'formulario-contribucion/:tipoSeleccion',component:FormContribucionesComponent,canActivate:[AuthGuard]},
-  {path:'empleados',component:EmpleadosComponent,canActivate:[AuthGuard]},
+  {path:'empleados',component:EmpleadosComponent,canActivate:[AuthGuard,GuardContribuyenteExisteGuard]},
   {path:'empleados/page/:page',component:EmpleadosComponent,canActivate:[AuthGuard]},
   {path:'empleados/formulario-empleados',component:FormEmpleadosComponent,canActivate:[AuthGuard]},
   {path:'empleados/formulario-empleados/:id',component:FormEmpleadosComponent,canActivate:[AuthGuard]},
-  {path:'usuario',component:UsuariosComponent,canActivate:[AuthGuard]},
+  {path:'usuario',component:UsuariosComponent,canActivate:[AuthGuard,GuardContribuyenteExisteGuard]},
   {path:'usuario/page/:page',component:UsuariosComponent,canActivate:[AuthGuard]},
   {path:'usuario/formUsuario',component:FormUsuarioComponent,canActivate:[AuthGuard]},
   {path:'usuario/formUsuario/:id',component:FormUsuarioComponent,canActivate:[AuthGuard]},
@@ -64,8 +65,8 @@ const routes: Routes = [
   {path:'vista-adeudos',component:VistaAdeudosComponent},
   {path:'sendEmail',component:SendEmailComponent},
   {path:'changePassword/:tokenPassword',component:RecuperarPasswordComponent},
-  {path:'reportes',component:ReportesComponent,canActivate:[AuthGuard]},
-  {path:'reportes-contribuyentes',component:ReportesContribuyentesComponent,canActivate:[AuthGuard]}
+  {path:'reportes',component:ReportesComponent,canActivate:[AuthGuard,GuardContribuyenteExisteGuard]},
+  {path:'reportes-contribuyentes',component:ReportesContribuyentesComponent,canActivate:[AuthGuard,GuardContribuyenteExisteGuard]}
 ];
 
 @NgModule({
