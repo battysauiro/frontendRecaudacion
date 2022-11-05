@@ -8,6 +8,7 @@ import swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { formatDate } from '@angular/common';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { LineaCapturaService } from '../../servicio/lineas-captura/linea-captura.service';
 @Component({
   selector: 'app-contribuyentes',
   templateUrl: './contribuyentes.component.html',
@@ -45,10 +46,11 @@ export class ContribuyentesComponent implements OnInit {
     public authService: AuthService,
     public activatedRoute: ActivatedRoute,
     public router: Router,
-
+    public facturasService: LineaCapturaService
   ) {}
 
   ngOnInit(): void {
+    this.facturasService.factura=undefined;
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page');
       let tipo: number = +params.get('tipo');//contiene el tipo de contribuyente (moral=1,fisica=0)

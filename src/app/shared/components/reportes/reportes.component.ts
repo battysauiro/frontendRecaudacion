@@ -27,6 +27,7 @@ export class ReportesComponent implements OnInit {
   constructor(public facturasService: LineaCapturaService) { }
 
   ngOnInit(): void {
+    this.facturasService.factura=undefined;
     this.flitroContribuciones = this.autoCompleteContribucion.valueChanges.pipe(
       map(value => typeof value === 'string' ? value : value.codigo_contribucion),
       mergeMap(value => value ? this._filterContribucion(value) : []),

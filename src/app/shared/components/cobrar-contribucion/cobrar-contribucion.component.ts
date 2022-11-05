@@ -105,7 +105,13 @@ export class CobrarContribucionComponent implements OnInit {
   ngOnInit(): void {
     if(this.facturasService.factura!=undefined){
       console.log("estos datos lleva la factura de servicio ",this.facturasService.factura);
-      this.contribuyente=this.facturasService.factura.contribuyenteFisica;
+      this.checked=this.facturasService.factura.tipo_contribuyente;
+      if(this.checked){
+        this.contribuyente=this.facturasService.factura.contribuyenteFisica;
+      }
+      else{
+        this.contribuyente=this.facturasService.factura.contribuyenteMoral;
+      }
       this.contribuyenteMoral=this.facturasService.factura.contribuyenteMoral;
       this.rfcContribuyente=this.facturasService.factura.contribuyente_id;
       this.nombreContribuyente=this.facturasService.factura.nombre_contribuyente;
@@ -213,6 +219,7 @@ export class CobrarContribucionComponent implements OnInit {
   seleccionarContribuyente(event: MatAutocompleteSelectedEvent, tipo: Boolean): void {
 
     if (tipo) {
+      this.factura.tipo_contribuyente=true;
       this.contribuyente = event.option.value as ContribuyenteFisica;
       this.contribuyenteFisica = this.contribuyente;
       this.factura.contribuyenteFisica=this.contribuyenteFisica;
@@ -228,9 +235,11 @@ export class CobrarContribucionComponent implements OnInit {
       event.option.focus();
       event.option.deselect();
     } else {
+      this.factura.tipo_contribuyente=false;
       this.contribuyente = event.option.value as ContribuyenteMoral;
       this.contribuyenteMoral = this.contribuyente;
-      this.facturasService.factura.contribuyenteMoral=this.contribuyenteMoral;
+      this.factura.contribuyenteMoral=this.contribuyenteMoral;
+      this.facturasService.factura=this.factura;
       this.rfcContribuyente = this.contribuyenteMoral.rfc_contribuyente;
       this.nombreContribuyente = this.contribuyenteMoral.razon_social;
       let numero = '';
@@ -245,6 +254,7 @@ export class CobrarContribucionComponent implements OnInit {
 
     this.factura.nombre_contribuyente=this.nombreContribuyente;
     this.factura.direccion_contribuyente=this.direccionContribuyente;
+
   }
 
   seleccionarContribucion(event: MatAutocompleteSelectedEvent): void {
@@ -256,7 +266,7 @@ export class CobrarContribucionComponent implements OnInit {
     this.uma=1;
     this.mensaje="";
 //añadir la lista de pagos pendientes que se agrego en el servicio de linea captura
-    this.facturasService.pagado(this.contribuyente.rfc_contribuyente,contribucion.codigo_contribucion).subscribe(pago=>{
+    this.facturasService.pagado(this.rfcContribuyente,contribucion.codigo_contribucion).subscribe(pago=>{
       if(!pago){
         if(contribucion.nivelContribucion===1){
           this.cImpuestoService.ObtenerCImpuesto(contribucion.codigo_contribucion).subscribe(contribucion=>{this.costo=contribucion.cantidad;

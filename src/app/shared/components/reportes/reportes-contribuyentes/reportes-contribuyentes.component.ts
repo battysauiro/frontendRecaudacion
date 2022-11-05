@@ -27,6 +27,7 @@ export class ReportesContribuyentesComponent implements OnInit {
   constructor(public facturasService: LineaCapturaService) { }
 
   ngOnInit(): void {
+    this.facturasService.factura=undefined;
     this.estado=true;
     if (this.estado) {
       this.filtroContribuyente as Observable<ContribuyenteFisica[]>;

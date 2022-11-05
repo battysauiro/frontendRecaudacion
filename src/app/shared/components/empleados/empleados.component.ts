@@ -11,6 +11,7 @@ import { RolesService } from '../../servicio/roles/roles.service';
 import { UsuarioService } from '../../servicio/usuarios/usuario.service';
 import { Municipio } from '../../modelo/municipios/municipio';
 import { FormControl } from '@angular/forms';
+import { LineaCapturaService } from '../../servicio/lineas-captura/linea-captura.service';
 
 @Component({
   selector: 'app-empleados',
@@ -41,9 +42,11 @@ export class EmpleadosComponent implements OnInit {
     public authService:AuthService,
     public rolesService:RolesService,
     public usuarioService:UsuarioService,
-    public router:Router) { }
+    public router:Router,
+    public facturasService: LineaCapturaService) { }
 
   ngOnInit(): void {
+    this.facturasService.factura=undefined;
     this.obtenerListaRoles();
     this.activatedRoute.paramMap.subscribe(params=>{
       let page:number=+params.get('page');

@@ -66,6 +66,8 @@ export class CobrarContribucionPasoDosComponent implements OnInit {
         }else{
           this.irPasoUno();
           this.facturasService.factura.items=[];// si continua cobrando solo poner los datos del contribuyente pero sin la contribucion que pago
+          this.facturasService.factura.costo=0;
+          this.facturasService.factura.descuento=0;
         }
       })
       //this.alertService.success('Se ha creado la linea de pago', this.options);
