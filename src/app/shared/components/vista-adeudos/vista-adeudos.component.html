@@ -77,8 +77,8 @@
                 </select>
               </div>
             </div>
-            <div class="row g-2 mt-3 table-wrapper-adeudos" *ngIf="this.facturasPagadas">
-            <table class="table table-bordered" *ngIf="this.facturasPagadas.length>0 || this.facturasProximas.length>0">
+            <div class="row g-2 mt-3 table-wrapper-adeudos" *ngIf="this.tipoConsulta && this.facturasPagadas else proximas">
+            <table class="table table-bordered" *ngIf="this.facturasPagadas.length>0 else facPagadasvacias">
               <thead class="cabecera">
                 <tr>
                   <th class="texto">Fecha</th>
@@ -87,14 +87,44 @@
                 </tr>
               </thead>
               <tbody class="texto">
-                <tr *ngFor="let factura of facturas">
+                <tr *ngFor="let factura of facturasPagadas">
                     <td class="texto">{{factura.fecha_solicitud}}</td>
                     <td>{{factura.contribucion}}</td>
                     <td>{{factura.total}}</td>
                 </tr>
               </tbody>
             </table>
+            <ng-template #facPagadasvacias>
+              <div class="text-center" *ngIf="!selectEstado">
+                <h1>Todavia no tiene contribuciones pagadas</h1>
+              </div>
+            </ng-template >
           </div>
+          <ng-template #proximas>
+            <div class="row g-2 mt-3 table-wrapper-adeudos" *ngIf="this.facturasProximas">
+              <table class="table table-bordered" *ngIf="this.facturasProximas.length>0 else facProximasvacias">
+                <thead class="cabecera">
+                  <tr>
+                    <th class="texto">Fecha</th>
+                    <th class="texto">Datos de la Contribucion</th>
+                    <th class="texto">Total</th>
+                  </tr>
+                </thead>
+                <tbody class="texto">
+                  <tr *ngFor="let factura of facturasProximas">
+                      <td class="texto">{{factura.fecha_solicitud}}</td>
+                      <td>{{factura.contribucion}}</td>
+                      <td>{{factura.total}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <ng-template #facProximasvacias>
+                <div class="text-center" *ngIf="!selectEstado">
+                  <h1>Todavia no tiene contribuciones Proximas a pagar</h1>
+                </div>
+              </ng-template >
+            </div>
+          </ng-template>
             <div class="form-group row">
               <div class="col-sm-2">
 

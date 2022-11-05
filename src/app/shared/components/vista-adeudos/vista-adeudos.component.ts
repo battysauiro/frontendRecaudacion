@@ -46,6 +46,7 @@ export class VistaAdeudosComponent implements OnInit {
   base=environment.baseUrl;
   tipoConsulta=true;
   value="true";
+  valor="true";
   codigo="";
   selectEstado=true;
   modal : NgbModalRef;
@@ -113,6 +114,8 @@ export class VistaAdeudosComponent implements OnInit {
     this.autoCompleteContribuyente.setValue('');
     this.codigo="";
     this.mostrar=true;
+    this.tipoConsulta=true;
+    this.value='true';
     this.modal.close();
   }
 
@@ -150,11 +153,11 @@ export class VistaAdeudosComponent implements OnInit {
 
   onChange(){
     if(this.value==='true'){
-      this.facturas=this.facturasPagadas;
+      //this.facturas=this.facturasPagadas;
       this.tipoConsulta=true;
     }
     if(this.value==='false'){
-      this.facturas=this.facturasProximas;
+      //this.facturas=this.facturasProximas;
       this.tipoConsulta=false;
     }
     }
