@@ -99,6 +99,15 @@ export class VistaAdeudosComponent implements OnInit {
     console.log(this.mostrar," esto ees verificar");
   }
 
+  salir(){
+    this.autoCompleteContribuyente.enable();
+    this.contribuyente=new Contribuyente();
+    this.facturasPagadas=[];
+    this.facturasProximas=[];
+    this.selectEstado=true;
+    this.codigo="";
+  }
+
   public cerrar(){
     this.contribuyente=new Contribuyente();
     this.autoCompleteContribuyente.setValue('');

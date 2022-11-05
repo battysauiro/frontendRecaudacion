@@ -35,3 +35,18 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+
+.table-wrapper-adeudos {
+  width: 100%;
+  height: 260px; /* Altura de ejemplo */
+  overflow: auto;
+}
+
+.table-wrapper-adeudos table thead {
+  position: -webkit-sticky; /* Safari... */
+  background-color: darkred;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
