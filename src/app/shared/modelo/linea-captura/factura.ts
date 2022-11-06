@@ -17,6 +17,7 @@ export class Factura {
     nombre_contribuyente:string;
     direccion_contribuyente:string;
     tipo_contribuyente:boolean;
+    tipo_moneda:string;
     contribuyenteFisica :ContribuyenteFisica;
     contribuyenteMoral :ContribuyenteMoral;
 }

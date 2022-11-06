@@ -119,8 +119,16 @@ export class CobrarContribucionComponent implements OnInit {
       this.direccionContribuyente=this.facturasService.factura.direccion_contribuyente;
       this.factura=this.facturasService.factura;
       this.costo=this.facturasService.factura.costo;
-      this.total=this.facturasService.factura.costo;
+      //this.total=this.facturasService.factura.costo;
       this.opcionSeleccionado=this.facturasService.factura.descuento;
+      this.tipoMoneda=this.facturasService.factura.tipo_moneda;
+      if(this.tipoMoneda==="$"){
+        this.total=this.facturasService.factura.costo;
+
+      }
+      else{
+        this.total=this.facturasService.factura.costo*96.22;
+      }
     }
     else{
       this.factura.items=[];
@@ -264,6 +272,7 @@ export class CobrarContribucionComponent implements OnInit {
     let contribucion = event.option.value as Contribucion;
     this.contribucionAux= contribucion;
     this.tipoMoneda="$";
+    this.factura.tipo_moneda=this.tipoMoneda;
     this.uma=1;
     this.mensaje="";
 //añadir la lista de pagos pendientes que se agrego en el servicio de linea captura
@@ -273,6 +282,7 @@ export class CobrarContribucionComponent implements OnInit {
           this.cImpuestoService.ObtenerCImpuesto(contribucion.codigo_contribucion).subscribe(contribucion=>{this.costo=contribucion.cantidad;
             this.actualizarTotal();
             this.tipoMoneda="$";
+            this.factura.tipo_moneda=this.tipoMoneda;
           });
         }
 
@@ -280,6 +290,7 @@ export class CobrarContribucionComponent implements OnInit {
           this.cDerechoGService.obtenerCDerechoG(contribucion.codigo_contribucion).subscribe(contribucion=>{this.costo=contribucion.cantidad;
             if(contribucion.id_tipo_pago==1){
               this.tipoMoneda="UMA";
+              this.factura.tipo_moneda=this.tipoMoneda;
               this.uma=96.22;
             }
             this.actualizarTotal();
@@ -309,6 +320,7 @@ export class CobrarContribucionComponent implements OnInit {
 
             if(contribucion.id_tipo_pago==1){
               this.tipoMoneda="UMA";
+              this.factura.tipo_moneda=this.tipoMoneda;
               this.uma=96.22;
             }
             this.esLicencia=true;
@@ -321,6 +333,7 @@ export class CobrarContribucionComponent implements OnInit {
           this.cAMultaService.ObtenerCMulta(contribucion.codigo_contribucion).subscribe(contribucion=>{this.costo=contribucion.cantidad;
             if(contribucion.id_tipo_pago==1){
               this.tipoMoneda="UMA";
+              this.factura.tipo_moneda=this.tipoMoneda;
               this.uma=96.22;
             }
             this.actualizarTotal();
@@ -333,6 +346,7 @@ export class CobrarContribucionComponent implements OnInit {
             this.actualizarTotal();
             //this.total=this.costo*96.22;
             this.tipoMoneda="UMA";
+            this.factura.tipo_moneda=this.tipoMoneda;
             this.mensaje="Sugerencias: El uma minimo a cobrar es "+contribucion.uma_min+" y el maximo es "+contribucion.uma_max;
           });
         }
@@ -341,6 +355,7 @@ export class CobrarContribucionComponent implements OnInit {
           this.cAMVehicularService.obtenerCMvehicular(contribucion.codigo_contribucion).subscribe(contribucion=>{this.costo=contribucion.uma_min;
             if(contribucion.id_tipo_pago==1){
               this.tipoMoneda="UMA";
+              this.factura.tipo_moneda=this.tipoMoneda;
               this.mensaje="Sugerencias: El uma minimo a cobrar es "+contribucion.uma_min+" y el maximo es "+contribucion.uma_max;
               this.uma=96.22;
             }
@@ -352,6 +367,7 @@ export class CobrarContribucionComponent implements OnInit {
           this.cOtrosProductosService.obtenerCOtrosProductos(contribucion.codigo_contribucion).subscribe(contribucion=>{this.costo=contribucion.cantidad;
             if(contribucion.id_tipo_pago==1){
               this.tipoMoneda="UMA";
+              this.factura.tipo_moneda=this.tipoMoneda;
               this.uma=96.22;
             }
             this.actualizarTotal();
@@ -439,6 +455,7 @@ export class CobrarContribucionComponent implements OnInit {
 
   actualizarTotal(){
     if(this.uma===96.22){
+      this.facturasService.factura.costo=this.costo;
       this.total=this.costo*this.uma;
     }
     else{
