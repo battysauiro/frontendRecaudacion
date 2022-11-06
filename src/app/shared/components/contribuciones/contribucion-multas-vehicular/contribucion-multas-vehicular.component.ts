@@ -92,18 +92,18 @@ export class ContribucionMultasVehicularComponent implements OnInit {
 
   eliminarContribucionMVehicular(contribucion:ContribucionMVehicular){
     swal({
-      title: 'Estas seguro?',
+      title: '¿Estas seguro?',
       text: `¿Seguro que desea eliminar la contribucion  ${contribucion.codigo_contribucion}?!`,
       type: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Si, eliminar!',
+      confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'No, cancelar'
     }).then((result) => {
       if (result.value) {
         this.contribucionMVehicularService.eliminarCMvehicular(contribucion.codigo_contribucion).subscribe(response=>{
         this.obtenerContribucionesMVehicular(this.pagina);
           swal(
-            'Contribucion Eliminada!',
+            'Contribucion Eliminada',
             `Contribucion ${contribucion.codigo_contribucion} eliminada con éxito`,
             'success'
           )

@@ -92,18 +92,18 @@ export class ContribucionMultasEbriedadComponent implements OnInit {
 
   eliminarContribucionMEbriedad(contribucion:ContribucionMEbriedad){
     swal({
-      title: 'Estas seguro?',
+      title: '¿Estas seguro?',
       text: `¿Seguro que desea eliminar la contribucion  ${contribucion.codigo_contribucion}?!`,
       type: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Si, eliminar!',
+      confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'No, cancelar'
     }).then((result) => {
       if (result.value) {
         this.contribucionMEbriedadService.eliminarCMebriedad(contribucion.codigo_contribucion).subscribe(response=>{
         this.obtenerContribucionesMEbriedad(this.pagina);
           swal(
-            'Contribucion Eliminada!',
+            'Contribucion Eliminada',
             `Contribucion ${contribucion.codigo_contribucion} eliminada con éxito`,
             'success'
           )
