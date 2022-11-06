@@ -92,18 +92,18 @@ export class ContribucionMultasComponent implements OnInit {
 
   eliminarContribucionMultas(contribucion:ContribucionMulta){
     swal({
-      title: 'Estas seguro?',
+      title: '¿Estas seguro?',
       text: `¿Seguro que desea eliminar la contribucion  ${contribucion.codigo_contribucion}?!`,
       type: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Si, eliminar!',
+      confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'No, cancelar'
     }).then((result) => {
       if (result.value) {
         this.contribucionMultasService.eliminarCMulta(contribucion.codigo_contribucion).subscribe(response=>{
         this.obtenerContribucionesMultas(this.pagina);
           swal(
-            'Contribucion Eliminada!',
+            'Contribucion Eliminada',
             `Contribucion ${contribucion.codigo_contribucion} eliminada con éxito`,
             'success'
           )

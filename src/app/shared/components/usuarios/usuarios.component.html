@@ -27,13 +27,13 @@
   <table class="table table-bordered table-striped tabla-estilo" >
     <thead class="cabecera text-white">
       <tr >
-          <th>Curp Empleado</th>
-          <th>Correo</th>
-          <th>estado</th>
-          <th>Rol</th>
+          <th>CURP</th>
+          <th>CORRREO</th>
+          <th>ESTADO</th>
+          <th>ROL</th>
           <th *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_ADMINSYSTEMAS'])"><i class="fas fa-pencil-alt"></i></th>
           <th *ngIf="authService.hasRole(['ROLE_ADMINSYSTEMAS'])"><i class="fas fa-trash-alt"></i></th>
-          <th >Desactivar</th>
+          <th >DESACYIVAR</th>
       </tr>
     </thead>
     <tbody>
