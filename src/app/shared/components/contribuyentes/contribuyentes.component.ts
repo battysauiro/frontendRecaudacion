@@ -310,11 +310,11 @@ export class ContribuyentesComponent implements OnInit {
 
   eliminarContribuyente(contribuyenteF: ContribuyenteFisica) {
     swal({
-      title: 'Estas seguro?',
+      title: '¿Estas seguro?',
       text: `¿Seguro que desea eliminar al contribuyente  ${contribuyenteF.nombre} ${contribuyenteF.apellido_p} ${contribuyenteF.apellido_m}?!`,
       type: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Si, eliminar!',
+      confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'No, cancelar',
     }).then((result) => {
       if (result.value) {
@@ -323,7 +323,7 @@ export class ContribuyentesComponent implements OnInit {
           .subscribe((response) => {
             this.obtenerContribuyentesFisicas(this.pagina);
             swal(
-              'Contribuyente Eliminado!',
+              'Contribuyente Eliminado',
               `Contribuyente ${contribuyenteF.nombre} ${contribuyenteF.apellido_p} ${contribuyenteF.apellido_m} eliminado con éxito`,
               'success'
             );
@@ -365,11 +365,11 @@ export class ContribuyentesComponent implements OnInit {
 
   eliminarContribuyenteM(contribuyenteM: ContribuyenteMoral) {
     swal({
-      title: 'Estas seguro?',
+      title: '¿Estas seguro?',
       text: `¿Seguro que desea eliminar al contribuyente con razón social: ${contribuyenteM.rfc_contribuyente}?!`,
       type: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Si, eliminar!',
+      confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'No, cancelar',
     }).then((result) => {
       if (result.value) {
@@ -378,7 +378,7 @@ export class ContribuyentesComponent implements OnInit {
           .subscribe((response) => {
             this.obtenerContribuyentesM(this.pagina);
             swal(
-              'Contribuyente Eliminado!',
+              'Contribuyente Eliminado',
               `Contribuyente ${contribuyenteM.razon_social}  eliminado con éxito`,
               'success'
             );

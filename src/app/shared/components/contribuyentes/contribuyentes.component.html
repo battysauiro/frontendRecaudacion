@@ -240,7 +240,7 @@
           </div>
           </div>
           <div class="col-md-4" *ngIf="banderaTipo">
-            <label for="validationCustomUsernamee" class="form-label">fecha de nacimiento</label>
+            <label for="validationCustomUsernamee" class="form-label">Fecha de nacimiento</label>
             <div class="input-group has-validation">
               <input type="date" [ngClass]="fechav.invalid && (fechav.dirty || fechav.touched)?'invalid-contorno':'form-controll'" id="validationCustomUsernamee"  name="fechaNacimientos" [(ngModel)]="fechaNacimiento"  required #fechav="ngModel">
               <div class="invalid-relleno" *ngIf="fechav.invalid && (fechav.dirty || fechav.touched)">
