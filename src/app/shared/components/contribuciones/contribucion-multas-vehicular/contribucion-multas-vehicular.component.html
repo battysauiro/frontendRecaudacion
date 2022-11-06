@@ -58,7 +58,7 @@
             <!--<th>TIPO</th>-->
             <th>PAGO</th>
             <th>VEHICULO</th>
-            <th>DETALLES</th>
+            <!--<th>DETALLES</th>-->
             <th
               class="text-center"
               *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
@@ -77,13 +77,13 @@
             <td>{{ contribucion.tipo_pago}} </td>
             <td>{{ contribucion.svehiculo}} </td>
             <td>
-              <button
+             <!-- <button
                 type="button"
                 name="detalles"
                 class="btn btn-primary btn-sm"
               >detalles
               </button>
-            </td>
+            </td>-->
             <td
               *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_ADMINSYSTEMAS'])">
               <button
