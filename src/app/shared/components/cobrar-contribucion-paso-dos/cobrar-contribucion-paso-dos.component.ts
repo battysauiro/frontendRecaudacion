@@ -62,12 +62,12 @@ export class CobrarContribucionPasoDosComponent implements OnInit {
       this.factura.fecha=factura.fecha;
       this.createPDF();
       swal({
-        title: 'Finalizar tramite?',
-        text: `¿Desea terminar el tramite o realizar otro cobro?!`,
+        title: 'Finalizar tramite',
+        text: `¿Desea terminar el tramite o realizar otro cobro?`,
         type: 'question',
         showCancelButton: true,
-        confirmButtonText: 'Terminar tramite!',
-        cancelButtonText: 'continuar cobrando'
+        confirmButtonText: 'Terminar tramite',
+        cancelButtonText: 'Continuar cobrando'
       }).then((result) => {
         if (result.value) {
           this.facturasService.factura=null;
