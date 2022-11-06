@@ -71,11 +71,11 @@ export class EmpleadosComponent implements OnInit {
 
   eliminarEmpleado(empleado:Empleado){
     swal({
-      title: 'Estas seguro?',
+      title: '¿Estas seguro?',
       text: `¿Seguro que desea eliminar al empleado  ${empleado.nombre} ${empleado.apellido_p} ${empleado.apellido_m}?!`,
       type: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Si, eliminar!',
+      confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'No, cancelar'
     }).then((result) => {
       if (result.value) {
@@ -83,7 +83,7 @@ export class EmpleadosComponent implements OnInit {
         this.empleadoService.eliminarEmpleadoByEstado(empleado,true).subscribe(response=>{
         this.obtenerEmpleadosByMunicipio(this.pagina);
           swal(
-            'Empleado Eliminado!',
+            'Empleado Eliminado',
             `Empleado ${empleado.nombre} ${empleado.apellido_p} ${empleado.apellido_m} eliminado con éxito`,
             'success'
           )

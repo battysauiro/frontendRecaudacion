@@ -49,18 +49,18 @@ export class UsuariosComponent implements OnInit {
 
   eliminarUsuario(usuario:Usuario){
     swal({
-      title: 'Estas seguro?',
+      title: '¿Estas seguro?',
       text: `¿Seguro que desea eliminar al Usuario  ${usuario.email}?!`,
       type: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Si, eliminar!',
+      confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'No, cancelar'
     }).then((result) => {
       if (result.value) {
         this.usuarioService.eliminarUsuarioByEstado(usuario,true).subscribe(response=>{
         this.obtenerUsuarios(this.pagina);
           swal(
-            'Usuario Eliminado!',
+            'Usuario Eliminado',
             `Usuario ${usuario.email}  eliminado con éxito`,
             'success'
           )

@@ -62,12 +62,12 @@ export class CobrarContribucionPasoDosComponent implements OnInit {
       this.factura.fecha=factura.fecha;
       this.createPDF();
       swal({
-        title: 'Finalizar tramite?',
-        text: `¿Desea terminar el tramite o realizar otro cobro?!`,
+        title: 'Finalizar tramite',
+        text: `¿Desea terminar el tramite o realizar otro cobro?`,
         type: 'question',
         showCancelButton: true,
-        confirmButtonText: 'Terminar tramite!',
-        cancelButtonText: 'continuar cobrando'
+        confirmButtonText: 'Terminar tramite',
+        cancelButtonText: 'Continuar cobrando'
       }).then((result) => {
         if (result.value) {
           this.facturasService.factura=null;
@@ -135,12 +135,12 @@ export class CobrarContribucionPasoDosComponent implements OnInit {
                   {
                   table:{
                     widths: [140],
-                    heights: ['auto',140,'auto'],
+                    heights: ['auto',110,'auto'],
                     body: [
-                      [{border:[false, false, false, false], text:'Codigo de acceso', bold: true, alignment:'center', fontSize:9}],
+                      [{border:[false, false, false, false], text:'Codigo de acceso', bold: true, alignment:'center', fontSize:10}],
                       //[{border:[false, false, false,false], image:'',width: 138, height: 100,}],
-                      [{border:[false, false, false, false], text:this.codigo, bold: true, alignment:'center',fontSize:7}],
-                      [{border:[false, false, false, false], text:'Escanee este codigo para consultar su información de pagos o adeudos', alignment:'justify', fontSize:7}],
+                      [{border:[false, false, false, false], text:this.codigo, bold: true, alignment:'center',fontSize:9}],
+                      [{border:[false, false, false, false], text:'Ingrese este codigo para consultar su información de pagos o adeudos', alignment:'justify', fontSize:7}],
                     ]
                   },
                 }
