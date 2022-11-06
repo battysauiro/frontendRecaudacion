@@ -164,7 +164,7 @@
 
         </div>
         <div class="col-3 ">
-          <div class="alert alert-danger" *ngIf="costoM.invalid && (costoM.dirty || costoM.touched)">
+          <div class="alert alert-danger" *ngIf="costoM.invalid && !eliminado && (costoM.dirty || costoM.touched)">
             El costo debe ser mayor a 0
           </div>
         </div>

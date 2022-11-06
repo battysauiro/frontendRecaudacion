@@ -54,6 +54,7 @@ export class CobrarContribucionComponent implements OnInit {
   esLicencia=false;
   opcionSeleccionado=0;
   itemFacturaAux= new ItemFactura();
+  eliminado=false;
   options = {
     autoClose: true,
     keepAfterRouteChange: true
@@ -258,7 +259,7 @@ export class CobrarContribucionComponent implements OnInit {
   }
 
   seleccionarContribucion(event: MatAutocompleteSelectedEvent): void {
-
+    this.eliminado=false;
     this.esLicencia=false;
     let contribucion = event.option.value as Contribucion;
     this.contribucionAux= contribucion;
@@ -426,6 +427,11 @@ export class CobrarContribucionComponent implements OnInit {
 
   eliminar(){
     this.esLicencia=false;
+    this.costo=0;
+    this.tipoMoneda="";
+    this.eliminado=true;
+    this.opcionSeleccionado=0;
+    this.mensaje="";
     this.factura.items=[];
   }
 
